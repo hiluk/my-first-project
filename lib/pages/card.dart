@@ -13,10 +13,6 @@ class SmartphonePage extends StatelessWidget {
         ),
       ),
       centerTitle: true,
-      leading: IconButton(
-        onPressed: () {},
-        icon: const Icon(Icons.keyboard_arrow_left),
-      ),
       actions: [
         IconButton(
           onPressed: () {},

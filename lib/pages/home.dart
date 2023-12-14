@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:technical_dz/methods/smartphones_model.dart';
+import 'package:technical_dz/pages/basket.dart';
 import 'package:technical_dz/pages/card.dart';
+import 'package:technical_dz/pages/favorites.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,10 +27,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       centerTitle: true,
-      leading: IconButton(
-        onPressed: () {},
-        icon: const Icon(Icons.keyboard_arrow_left),
-      ),
       actions: [
         IconButton(
           onPressed: () {
@@ -39,11 +37,23 @@ class _HomePageState extends State<HomePage> {
           icon: _getScreenStyleIcon(),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const BasketPage(),
+              ),
+            );
+          },
           icon: const Icon(Icons.shopping_cart),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const FavoritesPage(),
+              ),
+            );
+          },
           icon: const Icon(Icons.favorite),
         ),
       ],
@@ -98,7 +108,10 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           return InkWell(
             borderRadius: BorderRadius.circular(20),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SmartphonePage()));
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -192,8 +205,8 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SmartphonePage()));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SmartphonePage()));
             },
             child: Container(
               padding: const EdgeInsets.only(right: 5),

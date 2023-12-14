@@ -56,31 +56,7 @@ class _HomePageState extends State<HomePage> {
       appBar: appBar(),
       body: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            height: 70,
-            decoration: const BoxDecoration(color: Colors.white),
-            child: TextField(
-              textAlignVertical: TextAlignVertical.center,
-              decoration: InputDecoration(
-                icon: const Icon(Icons.search),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: const BorderSide(
-                    color: Colors.black,
-                    width: 2.0,
-                  ),
-                ),
-              ),
-              onChanged: filterCards,
-              controller: searchController,
-            ),
-          ),
+          _searchField(),
           _buildScreen(),
         ],
       ),
@@ -110,6 +86,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildGridView() {
     return Expanded(
       child: GridView.builder(
+        shrinkWrap: true,
         padding: const EdgeInsetsDirectional.all(20),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 1,
@@ -303,5 +280,38 @@ class _HomePageState extends State<HomePage> {
   void _getSmartphones() {
     smartphones = SmartphoneModel.getSmartphoneModel();
     filteredSmartphones = SmartphoneModel.getSmartphoneModel();
+  }
+
+  Container _searchField() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      height: 70,
+      decoration: const BoxDecoration(color: Colors.white),
+      child: TextField(
+        textAlignVertical: TextAlignVertical.center,
+        decoration: InputDecoration(
+          hintText: 'Введите название смартфона',
+          suffixIcon: IconButton(
+            onPressed: () {
+              filterCards(searchController.text);
+            },
+            icon: const Icon(Icons.search),
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 4, horizontal: 7),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(
+              color: Colors.black,
+              width: 2.0,
+            ),
+          ),
+        ),
+        controller: searchController,
+      ),
+    );
   }
 }

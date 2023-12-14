@@ -9,8 +9,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final searchController = TextEditingController();
   bool isGrid = true;
   List<SmartphoneModel> smartphones = [];
+  List<SmartphoneModel> filteredSmartphones = [];
 
   AppBar appBar() {
     return AppBar(
@@ -54,10 +56,44 @@ class _HomePageState extends State<HomePage> {
       appBar: appBar(),
       body: Column(
         children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            height: 70,
+            decoration: const BoxDecoration(color: Colors.white),
+            child: TextField(
+              textAlignVertical: TextAlignVertical.center,
+              decoration: InputDecoration(
+                icon: const Icon(Icons.search),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                  borderSide: const BorderSide(
+                    color: Colors.black,
+                    width: 2.0,
+                  ),
+                ),
+              ),
+              onChanged: filterCards,
+              controller: searchController,
+            ),
+          ),
           _buildScreen(),
         ],
       ),
     );
+  }
+
+  void filterCards(String value) {
+    setState(() {
+      smartphones = smartphones
+          .where((smartphones) =>
+              smartphones.name.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
   }
 
   @override
@@ -167,7 +203,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildListView() {
     return Expanded(
       child: ListView.separated(
-        padding: EdgeInsets.only(top: 1),
+        padding: const EdgeInsets.only(top: 1),
         separatorBuilder: (context, index) => const SizedBox(height: 1),
         itemCount: smartphones.length,
         itemBuilder: (context, index) {

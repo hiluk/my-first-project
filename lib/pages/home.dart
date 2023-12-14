@@ -27,15 +27,15 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       centerTitle: true,
+      leading: IconButton(
+        onPressed: () {
+          setState(() {
+            isGrid = !isGrid;
+          });
+        },
+        icon: _getScreenStyleIcon(),
+      ),
       actions: [
-        IconButton(
-          onPressed: () {
-            setState(() {
-              isGrid = !isGrid;
-            });
-          },
-          icon: _getScreenStyleIcon(),
-        ),
         IconButton(
           onPressed: () {
             Navigator.of(context).push(

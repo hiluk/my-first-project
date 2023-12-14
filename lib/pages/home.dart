@@ -16,6 +16,8 @@ class _HomePageState extends State<HomePage> {
   bool isGrid = true;
   List<SmartphoneModel> smartphones = [];
   List<SmartphoneModel> filteredSmartphones = [];
+  List<SmartphoneModel> favoriteSmartphones = [];
+  List<SmartphoneModel> basketSmartphones = [];
 
   AppBar appBar() {
     return AppBar(
@@ -177,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.favorite),
+                        icon: const Icon(Icons.favorite_outline),
                         iconSize: 40,
                       ),
                       IconButton(

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:technical_dz/methods/smartphones_model.dart';
 
 class SmartphonePage extends StatelessWidget {
-  final SmartphoneModel smartphone;
-  const SmartphonePage({required this.smartphone});
+  const SmartphonePage({super.key});
 
   AppBar appBar() {
     return AppBar(

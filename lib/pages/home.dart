@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:technical_dz/methods/smartphones_model.dart';
+import 'package:technical_dz/pages/card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -190,7 +191,10 @@ class _HomePageState extends State<HomePage> {
         itemCount: filteredSmartphones.length,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => SmartphonePage()));
+            },
             child: Container(
               padding: const EdgeInsets.only(right: 5),
               height: 100,

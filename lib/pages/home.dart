@@ -89,10 +89,15 @@ class _HomePageState extends State<HomePage> {
 
   void filterCards(String value) {
     setState(() {
-      smartphones = smartphones
-          .where((smartphones) =>
-              smartphones.name.toLowerCase().contains(value.toLowerCase()))
-          .toList();
+      if (value.isEmpty) {
+        filteredSmartphones.clear();
+        filteredSmartphones.addAll(smartphones);
+      } else {
+        filteredSmartphones = smartphones
+            .where((smartphones) =>
+                smartphones.name.toLowerCase().contains(value.toLowerCase()))
+            .toList();
+      }
     });
   }
 
@@ -111,7 +116,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 20,
         ),
-        itemCount: smartphones.length,
+        itemCount: filteredSmartphones.length,
         itemBuilder: (context, index) {
           return InkWell(
             borderRadius: BorderRadius.circular(20),
@@ -132,13 +137,13 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox(
                       width: 100,
                       height: 100,
-                      child: Image.asset(smartphones[index].imagePath),
+                      child: Image.asset(filteredSmartphones[index].imagePath),
                     ),
                   ),
                   Text(
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    smartphones[index].name,
+                    filteredSmartphones[index].name,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
@@ -149,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '${smartphones[index].memory} | ${smartphones[index].processor} | ${smartphones[index].color}',
+                        '${filteredSmartphones[index].memory} | ${filteredSmartphones[index].processor} | ${filteredSmartphones[index].color}',
                         style: const TextStyle(
                           color: Colors.grey,
                         ),
@@ -160,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Expanded(
                       child: Text(
-                        smartphones[index].description,
+                        filteredSmartphones[index].description,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         style: const TextStyle(
@@ -170,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                    smartphones[index].price,
+                    filteredSmartphones[index].price,
                     style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 30,
@@ -205,7 +210,7 @@ class _HomePageState extends State<HomePage> {
       child: ListView.separated(
         padding: const EdgeInsets.only(top: 1),
         separatorBuilder: (context, index) => const SizedBox(height: 1),
-        itemCount: smartphones.length,
+        itemCount: filteredSmartphones.length,
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {},
@@ -221,7 +226,8 @@ class _HomePageState extends State<HomePage> {
                       child: SizedBox(
                         width: 100,
                         height: 100,
-                        child: Image.asset(smartphones[index].imagePath),
+                        child:
+                            Image.asset(filteredSmartphones[index].imagePath),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -231,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            smartphones[index].name,
+                            filteredSmartphones[index].name,
                             style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
@@ -241,7 +247,7 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             children: [
                               Text(
-                                '${smartphones[index].memory} | ${smartphones[index].processor}',
+                                '${filteredSmartphones[index].memory} | ${filteredSmartphones[index].processor}',
                                 style: const TextStyle(
                                   color: Colors.grey,
                                 ),
@@ -250,7 +256,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Expanded(
                             child: Text(
-                              smartphones[index].description,
+                              filteredSmartphones[index].description,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: const TextStyle(
@@ -259,7 +265,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Text(
-                            smartphones[index].price,
+                            filteredSmartphones[index].price,
                             style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 22,
@@ -296,5 +302,6 @@ class _HomePageState extends State<HomePage> {
 
   void _getSmartphones() {
     smartphones = SmartphoneModel.getSmartphoneModel();
+    filteredSmartphones = SmartphoneModel.getSmartphoneModel();
   }
 }

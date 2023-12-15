@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:technical_dz/methods/smartphones_model.dart';
 import 'package:technical_dz/pages/basket.dart';
-import 'package:technical_dz/pages/card.dart';
 import 'package:technical_dz/pages/favorites.dart';
 
 class HomePage extends StatefulWidget {
@@ -110,10 +109,7 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           return InkWell(
             borderRadius: BorderRadius.circular(20),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SmartphonePage()));
-            },
+            onTap: () => _onSmartphoneTap(index),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -206,10 +202,7 @@ class _HomePageState extends State<HomePage> {
         itemCount: filteredSmartphones.length,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SmartphonePage()));
-            },
+            onTap: () => _onSmartphoneTap(index),
             child: Container(
               padding: const EdgeInsets.only(right: 5),
               height: 100,
@@ -299,6 +292,14 @@ class _HomePageState extends State<HomePage> {
   void _getSmartphones() {
     smartphones = SmartphoneModel.getSmartphoneModel();
     filteredSmartphones = SmartphoneModel.getSmartphoneModel();
+  }
+
+  void _onSmartphoneTap(int index) {
+    final id = smartphones[index].id;
+    Navigator.of(context).pushNamed(
+      '/smartphone',
+      arguments: id,
+    );
   }
 
   Container _searchField() {

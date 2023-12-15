@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
-class SmartphonePage extends StatelessWidget {
-  const SmartphonePage({super.key});
+class SmartphonePage extends StatefulWidget {
+  final int smartphoneId;
+  const SmartphonePage({required this.smartphoneId});
 
+  @override
+  State<SmartphonePage> createState() => _SmartphonePageState();
+}
+
+class _SmartphonePageState extends State<SmartphonePage> {
   AppBar appBar() {
     return AppBar(
       title: const Text(

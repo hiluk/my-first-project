@@ -43,7 +43,7 @@ class SmartphoneModel {
         memory: '128 ГБ',
         processor: 'MediaTek Helio G88',
         price: '12 790 ₽',
-        imagePath: 'asset/img/redmi.png',
+        imagePath: 'asset/img/redmi.jpg',
         id: 2,
         description:
             'Вся линейка Xiaomi Redmi Note 12 оснащена большим, привлекательным AMOLED-дисплеем. Идеальный черный цвет и яркая цветопередача оживает прямо на глазах.',
@@ -57,10 +57,10 @@ class SmartphoneModel {
           memory: '128 ГБ',
           processor: 'Unisoc Tiger T612',
           price: '12 490 ₽',
-          imagePath: 'asset/img/realme.png',
+          imagePath: 'asset/img/realme.jpeg',
           id: 3,
           description:
-              'Realme C53Высокая скорость. Высокая четкость. Захватывающий дизайн. Чемпион в своем классе.'),
+              'Realme C53. Высокая скорость. Высокая четкость. Захватывающий дизайн. Чемпион в своем классе.'),
     );
 
     smartphones.add(

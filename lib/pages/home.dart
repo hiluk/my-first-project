@@ -115,15 +115,10 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 130,
+                  SizedBox(
                     width: 100,
-                    color: Colors.white,
-                    child: SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Image.asset(filteredSmartphones[index].imagePath),
-                    ),
+                    height: 100,
+                    child: Image.asset(filteredSmartphones[index].imagePath),
                   ),
                   Text(
                     overflow: TextOverflow.ellipsis,

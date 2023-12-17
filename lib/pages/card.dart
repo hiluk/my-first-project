@@ -137,7 +137,7 @@ class _SmartphonePageState extends State<SmartphonePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Icon(
-                              Icons.favorite,
+                              Icons.favorite_outline,
                               size: 30,
                             ),
                             Text(

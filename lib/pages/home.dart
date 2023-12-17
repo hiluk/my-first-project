@@ -299,6 +299,7 @@ class _HomePageState extends State<HomePage> {
       height: 70,
       decoration: const BoxDecoration(color: Colors.white),
       child: TextField(
+        onChanged: filterCards,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           hintText: 'Введите название смартфона',

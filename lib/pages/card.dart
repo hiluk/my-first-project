@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:technical_dz/methods/smartphones_model.dart';
 
 class SmartphonePage extends StatefulWidget {
-  final int smartphoneId;
-  const SmartphonePage({required this.smartphoneId});
+  final SmartphoneModel smartphoneDetail;
+  const SmartphonePage({Key? key, required this.smartphoneDetail})
+      : super(key: key);
 
   @override
   State<SmartphonePage> createState() => _SmartphonePageState();
@@ -11,9 +13,9 @@ class SmartphonePage extends StatefulWidget {
 class _SmartphonePageState extends State<SmartphonePage> {
   AppBar appBar() {
     return AppBar(
-      title: const Text(
-        'Карточка',
-        style: TextStyle(
+      title: Text(
+        widget.smartphoneDetail.name,
+        style: const TextStyle(
           color: Colors.black,
           fontSize: 18,
         ),
@@ -37,7 +39,7 @@ class _SmartphonePageState extends State<SmartphonePage> {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: appBar(),
-      body: const Column(
+      body: Column(
         children: [],
       ),
     );

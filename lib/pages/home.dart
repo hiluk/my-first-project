@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:technical_dz/methods/smartphones_model.dart';
-import 'package:technical_dz/pages/basket.dart';
-import 'package:technical_dz/pages/favorites.dart';
+import 'package:technical_dz/pages/card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,23 +37,11 @@ class _HomePageState extends State<HomePage> {
       ),
       actions: [
         IconButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const BasketPage(),
-              ),
-            );
-          },
+          onPressed: () {},
           icon: const Icon(Icons.shopping_cart),
         ),
         IconButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const FavoritesPage(),
-              ),
-            );
-          },
+          onPressed: () {},
           icon: const Icon(Icons.favorite),
         ),
       ],
@@ -63,6 +50,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // final args = ModalRoute.of(context)!.settings.arguments as SmartphoneModel;
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: appBar(),
@@ -109,7 +97,15 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           return InkWell(
             borderRadius: BorderRadius.circular(20),
-            onTap: () => _onSmartphoneTap(index),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return SmartphonePage(smartphoneDetail: smartphones[index]);
+                  },
+                ),
+              );
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -202,7 +198,15 @@ class _HomePageState extends State<HomePage> {
         itemCount: filteredSmartphones.length,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () => _onSmartphoneTap(index),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return SmartphonePage(smartphoneDetail: smartphones[index]);
+                  },
+                ),
+              );
+            },
             child: Container(
               padding: const EdgeInsets.only(right: 5),
               height: 100,
@@ -292,14 +296,6 @@ class _HomePageState extends State<HomePage> {
   void _getSmartphones() {
     smartphones = SmartphoneModel.getSmartphoneModel();
     filteredSmartphones = SmartphoneModel.getSmartphoneModel();
-  }
-
-  void _onSmartphoneTap(int index) {
-    final id = smartphones[index].id;
-    Navigator.of(context).pushNamed(
-      '/smartphone',
-      arguments: id,
-    );
   }
 
   Container _searchField() {

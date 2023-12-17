@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final searchController = TextEditingController();
-  bool isGrid = true;
+  bool isGrid = false;
   List<SmartphoneModel> smartphones = [];
   List<SmartphoneModel> filteredSmartphones = [];
   List<SmartphoneModel> favoriteSmartphones = [];

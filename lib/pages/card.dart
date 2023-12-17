@@ -98,7 +98,7 @@ class _SmartphonePageState extends State<SmartphonePage> {
                       onTap: () {},
                       child: Container(
                         height: 70,
-                        width: 180,
+                        width: 170,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Colors.black,
@@ -125,7 +125,7 @@ class _SmartphonePageState extends State<SmartphonePage> {
                       onTap: () {},
                       child: Container(
                         height: 70,
-                        width: 180,
+                        width: 170,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Colors.black,

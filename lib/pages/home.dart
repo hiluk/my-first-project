@@ -34,10 +34,12 @@ class _HomePageState extends State<HomePage>
         IconButton(
           onPressed: () {},
           icon: const Icon(Icons.shopping_cart),
+          color: Colors.black,
         ),
         IconButton(
           onPressed: () {},
           icon: const Icon(Icons.favorite),
+          color: Colors.black,
         ),
       ],
     );

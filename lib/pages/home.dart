@@ -9,8 +9,10 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   final searchController = TextEditingController();
+  late AnimationController _animationController;
   bool isGrid = false;
   List<SmartphoneModel> smartphones = [];
   List<SmartphoneModel> filteredSmartphones = [];
@@ -27,14 +29,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       centerTitle: true,
-      leading: IconButton(
-        onPressed: () {
-          setState(() {
-            isGrid = !isGrid;
-          });
-        },
-        icon: _getScreenStyleIcon(),
-      ),
+      leading: viewIconTapped(),
       actions: [
         IconButton(
           onPressed: () {},
@@ -81,6 +76,30 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _getSmartphones();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+  }
+
+  IconButton viewIconTapped() {
+    return IconButton(
+      onPressed: () {
+        if (isGrid == false) {
+          setState(() {
+            _animationController.forward();
+            isGrid = !isGrid;
+          });
+        } else {
+          setState(() {
+            _animationController.reverse();
+            isGrid = !isGrid;
+          });
+        }
+      },
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.list_view,
+        progress: _animationController,
+      ),
+    );
   }
 
   Widget _buildGridView() {

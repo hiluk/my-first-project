@@ -316,7 +316,7 @@ class _HomePageState extends State<HomePage>
         onChanged: filterCards,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
-          hintText: 'Введите название смартфона',
+          hintText: 'Поиск',
           hintStyle: const TextStyle(fontSize: 14),
           suffixIcon: IconButton(
             onPressed: () {

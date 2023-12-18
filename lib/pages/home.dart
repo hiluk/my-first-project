@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final searchController = TextEditingController();
   late AnimationController _animationController;
-  bool isGrid = false;
+  bool isGrid = true;
   List<SmartphoneModel> smartphones = [];
   List<SmartphoneModel> filteredSmartphones = [];
   List<SmartphoneModel> favoriteSmartphones = [];
@@ -83,15 +83,15 @@ class _HomePageState extends State<HomePage>
   IconButton viewIconTapped() {
     return IconButton(
       onPressed: () {
-        if (isGrid == false) {
+        if (isGrid == true) {
           setState(() {
             _animationController.forward();
-            isGrid = !isGrid;
+            isGrid = false;
           });
         } else {
           setState(() {
             _animationController.reverse();
-            isGrid = !isGrid;
+            isGrid = true;
           });
         }
       },

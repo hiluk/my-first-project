@@ -38,124 +38,260 @@ class _SmartphonePageState extends State<SmartphonePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
-      appBar: appBar(),
-      body: ColoredBox(
-        color: Colors.white,
-        child: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15.0, right: 15),
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: 400,
-                  child: Image.asset(widget.smartphoneDetail.imagePath),
+      body: CustomScrollView(
+        physics: ClampingScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 400,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                widget.smartphoneDetail.name,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
                 ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 60,
-                  child: Text(
-                    widget.smartphoneDetail.name,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
+              ),
+              background: Padding(
+                padding: const EdgeInsets.all(70.0),
+                child: Image.asset(widget.smartphoneDetail.imagePath),
+              ),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.shopping_cart),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.favorite),
+              ),
+            ],
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
                   ),
-                ),
-                Text(
-                  widget.smartphoneDetail.description,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Цвет: ${widget.smartphoneDetail.color}',
-                    ),
-                    Text(
-                      'Процессор: ${widget.smartphoneDetail.processor}',
-                    ),
-                    Text(
-                      'Кол-во памяти: ${widget.smartphoneDetail.memory}',
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  'Цена: ${widget.smartphoneDetail.price}',
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 70,
-                        width: 170,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.smartphoneDetail.description,
+                          style: const TextStyle(
+                            fontSize: 16,
                           ),
-                          borderRadius: BorderRadius.circular(24),
                         ),
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        const SizedBox(height: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(
-                              Icons.shopping_cart_checkout,
-                              size: 30,
+                            Text(
+                              'Цвет: ${widget.smartphoneDetail.color}',
                             ),
                             Text(
-                              'В корзину',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 70,
-                        width: 170,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.favorite_outline,
-                              size: 30,
+                              'Процессор: ${widget.smartphoneDetail.processor}',
                             ),
                             Text(
-                              'В избранное',
-                              style: TextStyle(fontSize: 16),
+                              'Кол-во памяти: ${widget.smartphoneDetail.memory}',
                             ),
+                            const SizedBox(height: 20),
+                            Text(
+                              'Цена: ${widget.smartphoneDetail.price}',
+                              style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  onTap: () {},
+                                  child: Container(
+                                    height: 70,
+                                    width: 170,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(24),
+                                    ),
+                                    child: const Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          Icons.shopping_cart_checkout,
+                                          size: 30,
+                                        ),
+                                        Text(
+                                          'В корзину',
+                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: Container(
+                                    height: 70,
+                                    width: 170,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(24),
+                                    ),
+                                    child: const Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          Icons.favorite_outline,
+                                          size: 30,
+                                        ),
+                                        Text(
+                                          'В избранное',
+                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
                           ],
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-                const SizedBox(height: 20),
               ],
             ),
-          ),
-        ),
+          )
+        ],
       ),
+      // appBar: appBar(),
+      // body: ColoredBox(
+      //   color: Colors.white,
+      //   child: Expanded(
+      //     child: Padding(
+      //       padding: const EdgeInsets.only(left: 15.0, right: 15),
+      //       child: ListView(
+      //         children: [
+      //           SizedBox(
+      //             height: 400,
+      //             child: Image.asset(widget.smartphoneDetail.imagePath),
+      //           ),
+      //           const SizedBox(height: 10),
+      //           SizedBox(
+      //             height: 60,
+      //             child: Text(
+      //               widget.smartphoneDetail.name,
+      //               style: const TextStyle(
+      //                 fontSize: 24,
+      //                 fontWeight: FontWeight.w700,
+      //               ),
+      //             ),
+      //           ),
+      //           Text(
+      //             widget.smartphoneDetail.description,
+      //             style: const TextStyle(
+      //               fontSize: 16,
+      //             ),
+      //           ),
+      //           const SizedBox(height: 20),
+      //           Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             children: [
+      //               Text(
+      //                 'Цвет: ${widget.smartphoneDetail.color}',
+      //               ),
+      //               Text(
+      //                 'Процессор: ${widget.smartphoneDetail.processor}',
+      //               ),
+      //               Text(
+      //                 'Кол-во памяти: ${widget.smartphoneDetail.memory}',
+      //               ),
+      //             ],
+      //           ),
+      //
+      //           const SizedBox(height: 20),
+      //           Row(
+      //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //             children: [
+      //               InkWell(
+      //                 onTap: () {},
+      //                 child: Container(
+      //                   height: 70,
+      //                   width: 170,
+      //                   decoration: BoxDecoration(
+      //                     border: Border.all(
+      //                       color: Colors.black,
+      //                       width: 2,
+      //                     ),
+      //                     borderRadius: BorderRadius.circular(24),
+      //                   ),
+      //                   child: const Column(
+      //                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //                     children: [
+      //                       Icon(
+      //                         Icons.shopping_cart_checkout,
+      //                         size: 30,
+      //                       ),
+      //                       Text(
+      //                         'В корзину',
+      //                         style: TextStyle(fontSize: 16),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ),
+      //               ),
+      //               InkWell(
+      //                 onTap: () {},
+      //                 child: Container(
+      //                   height: 70,
+      //                   width: 170,
+      //                   decoration: BoxDecoration(
+      //                     border: Border.all(
+      //                       color: Colors.black,
+      //                       width: 2,
+      //                     ),
+      //                     borderRadius: BorderRadius.circular(24),
+      //                   ),
+      //                   child: const Column(
+      //                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //                     children: [
+      //                       Icon(
+      //                         Icons.favorite_outline,
+      //                         size: 30,
+      //                       ),
+      //                       Text(
+      //                         'В избранное',
+      //                         style: TextStyle(fontSize: 16),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ),
+      //               ),
+      //             ],
+      //           ),
+      //           const SizedBox(height: 20),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

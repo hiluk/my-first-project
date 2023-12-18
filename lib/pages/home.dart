@@ -99,6 +99,7 @@ class _HomePageState extends State<HomePage>
       },
       icon: AnimatedIcon(
         icon: AnimatedIcons.list_view,
+        color: Colors.black,
         progress: _animationController,
       ),
     );
@@ -301,14 +302,6 @@ class _HomePageState extends State<HomePage>
     }
   }
 
-  Widget _getScreenStyleIcon() {
-    if (isGrid == true) {
-      return const Icon(Icons.list);
-    } else {
-      return const Icon(Icons.grid_view);
-    }
-  }
-
   void _getSmartphones() {
     smartphones = SmartphoneModel.getSmartphoneModel();
     filteredSmartphones = SmartphoneModel.getSmartphoneModel();
@@ -324,6 +317,7 @@ class _HomePageState extends State<HomePage>
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           hintText: 'Введите название смартфона',
+          hintStyle: const TextStyle(fontSize: 14),
           suffixIcon: IconButton(
             onPressed: () {
               filterCards(searchController.text);
@@ -331,12 +325,13 @@ class _HomePageState extends State<HomePage>
             icon: const Icon(Icons.search),
           ),
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 4, horizontal: 7),
+              const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(24),
           ),
+          focusColor: Colors.black,
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(24),
             borderSide: const BorderSide(
               color: Colors.black,
               width: 2.0,

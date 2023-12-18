@@ -93,7 +93,7 @@ class SmartphoneModel {
 
     smartphones.add(
       SmartphoneModel(
-        name: 'Samsung Galaxy S23 Ultra',
+        name: 'Samsung Galaxy S23',
         color: 'Серый',
         memory: '128 ГБ',
         processor: 'Qualcomm Snapdragon',

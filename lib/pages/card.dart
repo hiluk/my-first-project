@@ -45,11 +45,15 @@ class _SmartphonePageState extends State<SmartphonePage> {
             pinned: true,
             expandedHeight: 400,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                widget.smartphoneDetail.name,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
+              title: Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  widget.smartphoneDetail.name,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
               background: Padding(

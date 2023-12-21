@@ -16,7 +16,7 @@ class _SmartphonePageState extends State<SmartphonePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
             pinned: true,
@@ -38,18 +38,6 @@ class _SmartphonePageState extends State<SmartphonePage> {
                 child: Image.asset(widget.smartphoneDetail.imagePath),
               ),
             ),
-            actions: [
-              IconButton(
-                color: Colors.black,
-                onPressed: () {},
-                icon: const Icon(Icons.shopping_cart),
-              ),
-              IconButton(
-                color: Colors.black,
-                onPressed: () {},
-                icon: const Icon(Icons.favorite),
-              ),
-            ],
           ),
           SliverList(
             delegate: SliverChildListDelegate(
@@ -153,8 +141,8 @@ class _SmartphonePageState extends State<SmartphonePage> {
                   });
                 },
                 icon: widget.smartphoneDetail.isSmartphoneFavorite
-                    ? Icon(Icons.favorite)
-                    : Icon(Icons.favorite_outline))
+                    ? const Icon(Icons.favorite)
+                    : const Icon(Icons.favorite_outline))
           ],
         ),
       ),

@@ -230,8 +230,8 @@ class _HomePageState extends State<HomePage>
                           }
                         },
                         icon: filteredSmartphones[index].isSmartphoneFavorite
-                            ? Icon(Icons.favorite)
-                            : Icon(Icons.favorite_outline),
+                            ? const Icon(Icons.favorite)
+                            : const Icon(Icons.favorite_outline),
                         iconSize: 40,
                       ),
                       IconButton(
@@ -252,8 +252,8 @@ class _HomePageState extends State<HomePage>
                           }
                         },
                         icon: filteredSmartphones[index].inBasket
-                            ? Icon(Icons.remove_shopping_cart_outlined)
-                            : Icon(Icons.shopping_cart_outlined),
+                            ? const Icon(Icons.remove_shopping_cart_outlined)
+                            : const Icon(Icons.shopping_cart_outlined),
                         iconSize: 40,
                       ),
                     ],
@@ -279,6 +279,7 @@ class _HomePageState extends State<HomePage>
               motion: const ScrollMotion(),
               children: [
                 SlidableAction(
+                  foregroundColor: Colors.black,
                   autoClose: false,
                   onPressed: (context) {
                     if (filteredSmartphones[index].inBasket == false) {
@@ -298,9 +299,10 @@ class _HomePageState extends State<HomePage>
                   icon: filteredSmartphones[index].inBasket
                       ? Icons.remove_shopping_cart_outlined
                       : Icons.shopping_cart_outlined,
-                  backgroundColor: Colors.lightGreen.withOpacity(0.7),
+                  backgroundColor: Colors.deepPurpleAccent.withOpacity(0.7),
                 ),
                 SlidableAction(
+                  foregroundColor: Colors.black,
                   autoClose: false,
                   onPressed: (context) {
                     if (filteredSmartphones[index].isSmartphoneFavorite ==

@@ -21,18 +21,6 @@ class _FavoritePageState extends State<FavoritePage> {
         ),
       ),
       centerTitle: true,
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.shopping_cart),
-          color: Colors.black,
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.favorite),
-          color: Colors.black,
-        ),
-      ],
     );
   }
 

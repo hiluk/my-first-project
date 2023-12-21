@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:technical_dz/methods/smartphones_model.dart';
+import 'package:technical_dz/pages/basket.dart';
 import 'package:technical_dz/pages/card.dart';
+import 'package:technical_dz/pages/favorites.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,12 +34,32 @@ class _HomePageState extends State<HomePage>
       leading: viewIconTapped(),
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return BasketPage(
+                    basketSmartphones: basketSmartphones,
+                  );
+                },
+              ),
+            );
+          },
           icon: const Icon(Icons.shopping_cart),
           color: Colors.black,
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return FavoritePage(
+                    favoriteSmartphones: favoriteSmartphones,
+                  );
+                },
+              ),
+            );
+          },
           icon: const Icon(Icons.favorite),
           color: Colors.black,
         ),
@@ -47,7 +69,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    // final args = ModalRoute.of(context)!.settings.arguments as SmartphoneModel;
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: appBar(),
@@ -187,13 +208,53 @@ class _HomePageState extends State<HomePage>
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.favorite_outline),
+                        onPressed: () {
+                          if (filteredSmartphones[index].isSmartphoneFavorite ==
+                              false) {
+                            setState(
+                              () {
+                                filteredSmartphones[index]
+                                    .isSmartphoneFavorite = true;
+                                favoriteSmartphones
+                                    .add(filteredSmartphones[index]);
+                              },
+                            );
+                          } else {
+                            setState(
+                              () {
+                                filteredSmartphones[index]
+                                    .isSmartphoneFavorite = false;
+                                favoriteSmartphones
+                                    .remove(filteredSmartphones[index]);
+                              },
+                            );
+                          }
+                        },
+                        icon: filteredSmartphones[index].isSmartphoneFavorite
+                            ? Icon(Icons.favorite)
+                            : Icon(Icons.favorite_outline),
                         iconSize: 40,
                       ),
                       IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.add_shopping_cart),
+                        onPressed: () {
+                          if (filteredSmartphones[index].inBasket == false) {
+                            setState(() {
+                              filteredSmartphones[index].inBasket = true;
+                              basketSmartphones.add(filteredSmartphones[index]);
+                            });
+                          } else {
+                            setState(
+                              () {
+                                filteredSmartphones[index].inBasket = false;
+                                basketSmartphones
+                                    .remove(filteredSmartphones[index]);
+                              },
+                            );
+                          }
+                        },
+                        icon: filteredSmartphones[index].inBasket
+                            ? Icon(Icons.shopping_cart_outlined)
+                            : Icon(Icons.add_shopping_cart_outlined),
                         iconSize: 40,
                       ),
                     ],

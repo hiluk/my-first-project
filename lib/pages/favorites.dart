@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:technical_dz/methods/smartphones_model.dart';
 
-class FavoritesPage extends StatelessWidget {
-  const FavoritesPage({super.key});
+class FavoritePage extends StatefulWidget {
+  final List<SmartphoneModel> favoriteSmartphones;
+  const FavoritePage({Key? key, required this.favoriteSmartphones})
+      : super(key: key);
 
+  @override
+  State<FavoritePage> createState() => _FavoritePageState();
+}
+
+class _FavoritePageState extends State<FavoritePage> {
   AppBar appBar() {
     return AppBar(
       title: const Text(
@@ -17,10 +25,12 @@ class FavoritesPage extends StatelessWidget {
         IconButton(
           onPressed: () {},
           icon: const Icon(Icons.shopping_cart),
+          color: Colors.black,
         ),
         IconButton(
           onPressed: () {},
           icon: const Icon(Icons.favorite),
+          color: Colors.black,
         ),
       ],
     );
@@ -31,8 +41,89 @@ class FavoritesPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: appBar(),
-      body: const Column(
-        children: [],
+      body: Column(
+        children: [
+          _buildListView(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildListView() {
+    return Expanded(
+      child: ListView.separated(
+        padding: const EdgeInsets.only(top: 1),
+        separatorBuilder: (context, index) => const SizedBox(height: 1),
+        itemCount: widget.favoriteSmartphones.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {},
+            child: Container(
+              padding: const EdgeInsets.only(right: 5),
+              height: 100,
+              color: Colors.white,
+              child: Flexible(
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: Image.asset(
+                            widget.favoriteSmartphones[index].imagePath),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.favoriteSmartphones[index].name,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '${widget.favoriteSmartphones[index].memory} | ${widget.favoriteSmartphones[index].processor}',
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              )
+                            ],
+                          ),
+                          Expanded(
+                            child: Text(
+                              widget.favoriteSmartphones[index].description,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            widget.favoriteSmartphones[index].price,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 22,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

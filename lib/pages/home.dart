@@ -211,14 +211,12 @@ class _HomePageState extends State<HomePage>
                         onPressed: () {
                           if (filteredSmartphones[index].isSmartphoneFavorite ==
                               false) {
-                            setState(
-                              () {
-                                filteredSmartphones[index]
-                                    .isSmartphoneFavorite = true;
-                                favoriteSmartphones
-                                    .add(filteredSmartphones[index]);
-                              },
-                            );
+                            setState(() {
+                              filteredSmartphones[index].isSmartphoneFavorite =
+                                  true;
+                              favoriteSmartphones
+                                  .add(filteredSmartphones[index]);
+                            });
                           } else {
                             setState(
                               () {
@@ -253,8 +251,8 @@ class _HomePageState extends State<HomePage>
                           }
                         },
                         icon: filteredSmartphones[index].inBasket
-                            ? Icon(Icons.shopping_cart_outlined)
-                            : Icon(Icons.add_shopping_cart_outlined),
+                            ? Icon(Icons.remove_shopping_cart_outlined)
+                            : Icon(Icons.shopping_cart_outlined),
                         iconSize: 40,
                       ),
                     ],

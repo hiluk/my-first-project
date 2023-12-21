@@ -109,7 +109,11 @@ class _SmartphonePageState extends State<SmartphonePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
-              onTap: () {},
+              borderRadius: BorderRadius.circular(24),
+              onTap: () {
+                widget.smartphoneDetail.isSmartphoneFavorite =
+                    !widget.smartphoneDetail.isSmartphoneFavorite;
+              },
               child: Container(
                 height: 70,
                 width: 280,
@@ -139,14 +143,18 @@ class _SmartphonePageState extends State<SmartphonePage> {
               ),
             ),
             IconButton(
-              style: const ButtonStyle(
-                  iconSize: MaterialStatePropertyAll(50),
-                  iconColor: MaterialStatePropertyAll(Colors.black)),
-              onPressed: () {},
-              icon: const Icon(
-                Icons.favorite_outline,
-              ),
-            )
+                style: const ButtonStyle(
+                    iconSize: MaterialStatePropertyAll(50),
+                    iconColor: MaterialStatePropertyAll(Colors.black)),
+                onPressed: () {
+                  setState(() {
+                    widget.smartphoneDetail.isSmartphoneFavorite =
+                        !widget.smartphoneDetail.isSmartphoneFavorite;
+                  });
+                },
+                icon: widget.smartphoneDetail.isSmartphoneFavorite
+                    ? Icon(Icons.favorite)
+                    : Icon(Icons.favorite_outline))
           ],
         ),
       ),

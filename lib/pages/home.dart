@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:technical_dz/methods/smartphones_model.dart';
 import 'package:technical_dz/pages/basket.dart';
 import 'package:technical_dz/pages/card.dart';
@@ -273,77 +274,132 @@ class _HomePageState extends State<HomePage>
         separatorBuilder: (context, index) => const SizedBox(height: 1),
         itemCount: filteredSmartphones.length,
         itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return SmartphonePage(smartphoneDetail: smartphones[index]);
+          return Slidable(
+            endActionPane: ActionPane(
+              motion: const ScrollMotion(),
+              children: [
+                SlidableAction(
+                  autoClose: false,
+                  onPressed: (context) {
+                    if (filteredSmartphones[index].inBasket == false) {
+                      setState(() {
+                        filteredSmartphones[index].inBasket = true;
+                        basketSmartphones.add(filteredSmartphones[index]);
+                      });
+                    } else {
+                      setState(
+                        () {
+                          filteredSmartphones[index].inBasket = false;
+                          basketSmartphones.remove(filteredSmartphones[index]);
+                        },
+                      );
+                    }
                   },
+                  icon: filteredSmartphones[index].inBasket
+                      ? Icons.remove_shopping_cart_outlined
+                      : Icons.shopping_cart_outlined,
+                  backgroundColor: Colors.lightGreen.withOpacity(0.7),
                 ),
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.only(right: 5),
-              height: 100,
-              color: Colors.white,
-              child: Flexible(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 100,
-                        height: 100,
-                        child:
-                            Image.asset(filteredSmartphones[index].imagePath),
+                SlidableAction(
+                  autoClose: false,
+                  onPressed: (context) {
+                    if (filteredSmartphones[index].isSmartphoneFavorite ==
+                        false) {
+                      setState(() {
+                        filteredSmartphones[index].isSmartphoneFavorite = true;
+                        favoriteSmartphones.add(filteredSmartphones[index]);
+                      });
+                    } else {
+                      setState(
+                        () {
+                          filteredSmartphones[index].isSmartphoneFavorite =
+                              false;
+                          favoriteSmartphones
+                              .remove(filteredSmartphones[index]);
+                        },
+                      );
+                    }
+                  },
+                  icon: filteredSmartphones[index].isSmartphoneFavorite
+                      ? Icons.favorite
+                      : Icons.favorite_outline,
+                  backgroundColor: Colors.yellow.withOpacity(0.7),
+                ),
+              ],
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return SmartphonePage(
+                          smartphoneDetail: smartphones[index]);
+                    },
+                  ),
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.only(right: 5),
+                height: 100,
+                color: Colors.white,
+                child: Flexible(
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 100,
+                          height: 100,
+                          child:
+                              Image.asset(filteredSmartphones[index].imagePath),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            filteredSmartphones[index].name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: Colors.black,
+                      const SizedBox(width: 10),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              filteredSmartphones[index].name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                '${filteredSmartphones[index].memory} | ${filteredSmartphones[index].processor}',
+                            Row(
+                              children: [
+                                Text(
+                                  '${filteredSmartphones[index].memory} | ${filteredSmartphones[index].processor}',
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Expanded(
+                              child: Text(
+                                filteredSmartphones[index].description,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                                 style: const TextStyle(
                                   color: Colors.grey,
                                 ),
-                              )
-                            ],
-                          ),
-                          Expanded(
-                            child: Text(
-                              filteredSmartphones[index].description,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: const TextStyle(
-                                color: Colors.grey,
                               ),
                             ),
-                          ),
-                          Text(
-                            filteredSmartphones[index].price,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 22,
+                            Text(
+                              filteredSmartphones[index].price,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 22,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -71,12 +71,30 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.grey.shade300,
       appBar: appBar(),
       body: Column(
         children: [
           _searchField(),
           _buildScreen(),
+          SizedBox(height: 1),
+          Container(
+            color: Colors.white,
+            height: 30,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0, top: 2),
+              child: Text(
+                'Количество смартфонов: ${filteredSmartphones.length}',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -271,7 +289,9 @@ class _HomePageState extends State<HomePage>
     return Expanded(
       child: ListView.separated(
         padding: const EdgeInsets.only(top: 1),
-        separatorBuilder: (context, index) => const SizedBox(height: 1),
+        separatorBuilder: (context, index) => Container(
+          height: 1,
+        ),
         itemCount: filteredSmartphones.length,
         itemBuilder: (context, index) {
           return Slidable(
@@ -428,7 +448,9 @@ class _HomePageState extends State<HomePage>
     return Container(
       padding: const EdgeInsets.all(10),
       height: 70,
-      decoration: const BoxDecoration(color: Colors.white),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
       child: TextField(
         onChanged: filterCards,
         textAlignVertical: TextAlignVertical.center,

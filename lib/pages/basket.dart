@@ -29,12 +29,56 @@ class _BasketPageState extends State<BasketPage> {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: appBar(),
+      bottomSheet: SizedBox(
+        height: 100,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                  'Кол-во смартфонов: ${widget.basketSmartphones.length} | Cумма:'),
+              InkWell(
+                borderRadius: BorderRadius.circular(24),
+                onTap: () {},
+                child: Container(
+                    height: 40,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Оформить покупку',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: Column(
         children: [
           _buildListView(),
         ],
       ),
     );
+  }
+
+  Widget sumOfBasket() {
+    int sum = 0;
+    widget.basketSmartphones.forEach((price) {
+      sum.toInt() += price;
+    });
   }
 
   Widget _buildListView() {

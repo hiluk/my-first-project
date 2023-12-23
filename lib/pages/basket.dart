@@ -74,13 +74,6 @@ class _BasketPageState extends State<BasketPage> {
     );
   }
 
-  Widget sumOfBasket() {
-    int sum = 0;
-    widget.basketSmartphones.forEach((price) {
-      sum.toInt() += price;
-    });
-  }
-
   Widget _buildListView() {
     return Expanded(
       child: ListView.separated(

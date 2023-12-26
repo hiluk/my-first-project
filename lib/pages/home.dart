@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage>
         children: [
           _searchField(),
           _buildScreen(),
-          const SizedBox(height: 1),
+          SizedBox(height: 1),
           Container(
             color: Colors.white,
             height: 30,
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage>
               child: Text(
                 'Количество смартфонов: ${filteredSmartphones.length}',
                 textAlign: TextAlign.left,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -452,11 +452,10 @@ class _HomePageState extends State<HomePage>
         color: Colors.white,
       ),
       child: TextField(
+        onChanged: filterCards,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
-          labelText: 'Поиск',
-          labelStyle: const TextStyle(color: Colors.black, fontSize: 14),
-          errorStyle: const TextStyle(fontSize: 14),
+          hintText: 'Поиск',
           hintStyle: const TextStyle(fontSize: 14),
           suffixIcon: IconButton(
             onPressed: () {

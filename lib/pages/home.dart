@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage>
   final searchController = TextEditingController();
   bool _validate = false;
   late AnimationController _animationController;
-  bool isGrid = true;
+  bool isGrid = false;
   List<SmartphoneModel> smartphones = [];
   List<SmartphoneModel> filteredSmartphones = [];
   List<SmartphoneModel> favoriteSmartphones = [];
@@ -441,19 +441,17 @@ class _HomePageState extends State<HomePage>
         cursorColor: Colors.black,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
+          labelText: 'Поиск',
+          labelStyle: TextStyle(fontSize: 14),
           errorText: _validate ? 'Введите название смартфона' : null,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24),
           ),
-          hintText: 'Поиск',
-          hintStyle: const TextStyle(fontSize: 14),
           suffixIcon: IconButton(
             onPressed: () {
-              setState(() {
-                searchController.text.isEmpty
-                    ? _validate = true
-                    : _validate = false;
-              });
+              searchController.text.isEmpty
+                  ? _validate = true
+                  : _validate = false;
               filterCards(searchController.text);
             },
             icon: const Icon(Icons.search),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:technical_dz/methods/smartphones_model.dart';
+import 'package:technical_dz/models/smartphones_model.dart';
 
 class FavoritePage extends StatefulWidget {
   final List<SmartphoneModel> favoriteSmartphones;
@@ -31,7 +31,7 @@ class _FavoritePageState extends State<FavoritePage> {
       appBar: appBar(),
       body: Column(
         children: [
-          _buildListView(),
+          _buildScreen(),
         ],
       ),
     );
@@ -114,5 +114,24 @@ class _FavoritePageState extends State<FavoritePage> {
         },
       ),
     );
+  }
+
+  Widget _buildScreen() {
+    if (widget.favoriteSmartphones.isEmpty) {
+      return const Expanded(
+        child: Center(
+          child: Text(
+            'Избраннное пусто',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 17,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      );
+    } else {
+      return _buildListView();
+    }
   }
 }

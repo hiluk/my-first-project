@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:technical_dz/methods/smartphones_model.dart';
+import 'package:technical_dz/models/smartphones_model.dart';
 
 class BasketPage extends StatefulWidget {
   final List<SmartphoneModel> basketSmartphones;
@@ -42,15 +42,7 @@ class _BasketPageState extends State<BasketPage> {
               InkWell(
                 borderRadius: BorderRadius.circular(24),
                 onTap: () {
-                  AlertDialog alert = const AlertDialog(
-                    title: Text(
-                      'Покупка успешна',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  );
+                  AlertDialog alert = _getAlertMessage();
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -84,7 +76,7 @@ class _BasketPageState extends State<BasketPage> {
       ),
       body: Column(
         children: [
-          _buildListView(),
+          _buildScreen(),
         ],
       ),
     );
@@ -167,5 +159,50 @@ class _BasketPageState extends State<BasketPage> {
         },
       ),
     );
+  }
+
+  Widget _buildScreen() {
+    if (widget.basketSmartphones.isEmpty) {
+      return const Expanded(
+        child: Center(
+          child: Text(
+            'Корзина пустая',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 17,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      );
+    } else {
+      return _buildListView();
+    }
+  }
+
+  AlertDialog _getAlertMessage() {
+    if (widget.basketSmartphones.isEmpty) {
+      AlertDialog alert = const AlertDialog(
+        title: Text(
+          'Добавьте что нибудь в корзину',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+          ),
+        ),
+      );
+      return alert;
+    } else {
+      AlertDialog alert = const AlertDialog(
+        title: Text(
+          'Покупка успешна',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+          ),
+        ),
+      );
+      return alert;
+    }
   }
 }

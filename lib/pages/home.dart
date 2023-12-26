@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:technical_dz/methods/smartphones_model.dart';
+import 'package:technical_dz/models/smartphones_model.dart';
 import 'package:technical_dz/pages/basket.dart';
 import 'package:technical_dz/pages/card.dart';
 import 'package:technical_dz/pages/favorites.dart';

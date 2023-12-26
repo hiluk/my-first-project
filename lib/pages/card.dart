@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:technical_dz/methods/smartphones_model.dart';
+import 'package:technical_dz/models/smartphones_model.dart';
 
 class SmartphonePage extends StatefulWidget {
   final SmartphoneModel smartphoneDetail;

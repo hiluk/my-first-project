@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:technical_dz/models/smartphones_model.dart';
 
 class BasketPage extends StatefulWidget {
@@ -11,6 +12,7 @@ class BasketPage extends StatefulWidget {
 }
 
 class _BasketPageState extends State<BasketPage> {
+  final formatter = intl.NumberFormat.decimalPattern();
   AppBar appBar() {
     return AppBar(
       title: const Text(
@@ -38,7 +40,7 @@ class _BasketPageState extends State<BasketPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                  'Кол-во смартфонов: ${widget.basketSmartphones.length} | Cумма:'),
+                  'Кол-во смартфонов: ${widget.basketSmartphones.length} | Cумма: ${_getSum()}'),
               InkWell(
                 borderRadius: BorderRadius.circular(24),
                 onTap: () {
@@ -142,7 +144,7 @@ class _BasketPageState extends State<BasketPage> {
                             ),
                           ),
                           Text(
-                            '${widget.basketSmartphones[index].price.toString()} ₽',
+                            '${formatter.format(widget.basketSmartphones[index].price)} ₽',
                             style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 22,
@@ -160,17 +162,6 @@ class _BasketPageState extends State<BasketPage> {
       ),
     );
   }
-
-  // int _getSum() {
-  //   int sum = 0;
-  //   if (widget.basketSmartphones.isEmpty) {
-  //     sum = 0;
-  //   } else {
-  //     for () {
-
-  //     }
-  //   }
-  // }
 
   Widget _buildScreen() {
     if (widget.basketSmartphones.isEmpty) {
@@ -215,5 +206,19 @@ class _BasketPageState extends State<BasketPage> {
       );
       return alert;
     }
+  }
+
+  String _getSum() {
+    int sum = 0;
+
+    if (widget.basketSmartphones.isEmpty) {
+      return formatter.format(sum);
+    } else {
+      for (int i = 0; i < widget.basketSmartphones.length; i++) {
+        sum += widget.basketSmartphones[i].price;
+      }
+    }
+
+    return formatter.format(sum);
   }
 }

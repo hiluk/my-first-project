@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:technical_dz/models/smartphones_model.dart';
 import 'package:technical_dz/pages/basket.dart';
 import 'package:technical_dz/pages/card.dart';
@@ -15,12 +16,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final searchController = TextEditingController();
+  bool _validate = false;
   late AnimationController _animationController;
   bool isGrid = true;
   List<SmartphoneModel> smartphones = [];
   List<SmartphoneModel> filteredSmartphones = [];
   List<SmartphoneModel> favoriteSmartphones = [];
   List<SmartphoneModel> basketSmartphones = [];
+  final formatter = intl.NumberFormat.decimalPattern();
 
   AppBar appBar() {
     return AppBar(
@@ -217,7 +220,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                   Text(
-                    '${filteredSmartphones[index].price.toString()} ₽',
+                    '${formatter.format(filteredSmartphones[index].price)} ₽',
                     style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 30,
@@ -411,7 +414,7 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             Text(
-                              '${filteredSmartphones[index].price} ₽',
+                              '${formatter.format(filteredSmartphones[index].price)} ₽',
                               style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 22,
@@ -447,18 +450,25 @@ class _HomePageState extends State<HomePage>
   Container _searchField() {
     return Container(
       padding: const EdgeInsets.all(10),
-      height: 70,
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
       child: TextField(
-        onChanged: filterCards,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
+          errorText: _validate ? 'Поле не может быть пустым' : null,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
           hintText: 'Поиск',
           hintStyle: const TextStyle(fontSize: 14),
           suffixIcon: IconButton(
             onPressed: () {
+              setState(() {
+                searchController.text.isEmpty
+                    ? _validate = true
+                    : _validate = false;
+              });
               filterCards(searchController.text);
             },
             icon: const Icon(Icons.search),

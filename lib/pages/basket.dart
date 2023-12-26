@@ -41,7 +41,23 @@ class _BasketPageState extends State<BasketPage> {
                   'Кол-во смартфонов: ${widget.basketSmartphones.length} | Cумма:'),
               InkWell(
                 borderRadius: BorderRadius.circular(24),
-                onTap: () {},
+                onTap: () {
+                  AlertDialog alert = const AlertDialog(
+                    title: Text(
+                      'Покупка успешна',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
+                },
                 child: Container(
                     height: 40,
                     width: double.infinity,
@@ -72,13 +88,6 @@ class _BasketPageState extends State<BasketPage> {
         ],
       ),
     );
-  }
-
-  Widget sumOfBasket() {
-    int sum = 0;
-    widget.basketSmartphones.forEach((price) {
-      sum.toInt() += price;
-    });
   }
 
   Widget _buildListView() {

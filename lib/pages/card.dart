@@ -42,10 +42,7 @@ class _SmartphonePageState extends State<SmartphonePage> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                  ),
+                Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(

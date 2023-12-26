@@ -54,13 +54,31 @@ class _BasketPageState extends State<BasketPage> {
             InkWell(
               borderRadius: BorderRadius.circular(24),
               onTap: () {
-                AlertDialog alert = _getAlertMessage();
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return alert;
-                  },
-                );
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SizedBox(
+                        height: 100,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                _getAlertMessage(),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+                // AlertDialog alert = _getAlertMessage();
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) {
+                //     return alert;
+                //   },
+                // );
               },
               child: Container(
                   height: 40,
@@ -186,30 +204,15 @@ class _BasketPageState extends State<BasketPage> {
     }
   }
 
-  AlertDialog _getAlertMessage() {
+  String _getAlertMessage() {
+    String text = '';
     if (widget.basketSmartphones.isEmpty) {
-      AlertDialog alert = const AlertDialog(
-        title: Text(
-          'Добавьте что-нибудь в корзину',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 14,
-          ),
-        ),
-      );
-      return alert;
+      text = 'Добавьте что нибудь в корзину';
     } else {
-      AlertDialog alert = const AlertDialog(
-        title: Text(
-          'Покупка успешна',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 14,
-          ),
-        ),
-      );
-      return alert;
+      text = 'Покупка прошла успешно';
     }
+
+    return text;
   }
 
   String _getSum() {

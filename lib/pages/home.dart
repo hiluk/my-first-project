@@ -438,11 +438,16 @@ class _HomePageState extends State<HomePage>
         color: Colors.white,
       ),
       child: TextField(
+        onEditingComplete: () {
+          setState(() {
+            _validate = false;
+          });
+        },
         cursorColor: Colors.black,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           labelText: 'Поиск',
-          labelStyle: TextStyle(fontSize: 14),
+          labelStyle: const TextStyle(fontSize: 14),
           errorText: _validate ? 'Введите название смартфона' : null,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24),

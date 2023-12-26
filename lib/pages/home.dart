@@ -217,7 +217,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                   Text(
-                    filteredSmartphones[index].price,
+                    '${filteredSmartphones[index].price.toString()} ₽',
                     style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 30,
@@ -411,7 +411,7 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             Text(
-                              filteredSmartphones[index].price,
+                              '${filteredSmartphones[index].price} ₽',
                               style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 22,

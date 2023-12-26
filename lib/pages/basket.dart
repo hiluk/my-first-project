@@ -142,7 +142,7 @@ class _BasketPageState extends State<BasketPage> {
                             ),
                           ),
                           Text(
-                            widget.basketSmartphones[index].price,
+                            '${widget.basketSmartphones[index].price.toString()} ₽',
                             style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 22,
@@ -160,6 +160,17 @@ class _BasketPageState extends State<BasketPage> {
       ),
     );
   }
+
+  // int _getSum() {
+  //   int sum = 0;
+  //   if (widget.basketSmartphones.isEmpty) {
+  //     sum = 0;
+  //   } else {
+  //     for () {
+
+  //     }
+  //   }
+  // }
 
   Widget _buildScreen() {
     if (widget.basketSmartphones.isEmpty) {

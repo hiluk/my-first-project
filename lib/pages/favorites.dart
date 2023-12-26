@@ -97,7 +97,7 @@ class _FavoritePageState extends State<FavoritePage> {
                             ),
                           ),
                           Text(
-                            widget.favoriteSmartphones[index].price,
+                            '${widget.favoriteSmartphones[index].price.toString()} ₽',
                             style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 22,

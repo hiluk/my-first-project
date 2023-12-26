@@ -3,7 +3,7 @@ class SmartphoneModel {
   String color;
   String memory;
   String processor;
-  String price;
+  int price;
   String imagePath;
   String description;
   bool isSmartphoneFavorite;
@@ -32,7 +32,7 @@ class SmartphoneModel {
         color: 'Белый',
         memory: '512 ГБ',
         processor: 'A17 Pro',
-        price: '184 990 ₽',
+        price: 184990,
         imagePath: 'asset/img/iphone.png',
         id: 1,
         isSmartphoneFavorite: false,
@@ -48,7 +48,7 @@ class SmartphoneModel {
         color: 'Черный',
         memory: '128 ГБ',
         processor: 'MediaTek Helio G88',
-        price: '12 790 ₽',
+        price: 12790,
         imagePath: 'asset/img/redmi.jpg',
         id: 2,
         isSmartphoneFavorite: false,
@@ -64,7 +64,7 @@ class SmartphoneModel {
           color: 'Золотистый',
           memory: '128 ГБ',
           processor: 'Unisoc Tiger T612',
-          price: '12 490 ₽',
+          price: 12490,
           imagePath: 'asset/img/realme.jpeg',
           id: 3,
           isSmartphoneFavorite: false,
@@ -79,7 +79,7 @@ class SmartphoneModel {
         color: 'Черный',
         memory: '256 ГБ',
         processor: 'A15 Bionic',
-        price: '83 990 ₽',
+        price: 83990,
         imagePath: 'asset/img/iphone_13.png',
         id: 4,
         isSmartphoneFavorite: false,
@@ -95,7 +95,7 @@ class SmartphoneModel {
         color: 'Серый',
         memory: '128 ГБ',
         processor: 'Apple M2',
-        price: '122 990 ₽',
+        price: 122990,
         imagePath: 'asset/img/ipad_11.png',
         id: 5,
         isSmartphoneFavorite: false,
@@ -111,7 +111,7 @@ class SmartphoneModel {
         color: 'Серый',
         memory: '128 ГБ',
         processor: 'Qualcomm Snapdragon',
-        price: '89 990 ₽',
+        price: 89990,
         imagePath: 'asset/img/galaxy.png',
         id: 6,
         isSmartphoneFavorite: false,
@@ -127,7 +127,7 @@ class SmartphoneModel {
         color: 'Голубой',
         memory: '128 ГБ',
         processor: 'Qualcomm Snapdragon',
-        price: '32 990 ₽',
+        price: 32990,
         imagePath: 'asset/img/xiaomi.jpeg',
         id: 7,
         isSmartphoneFavorite: false,

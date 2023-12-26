@@ -80,24 +80,8 @@ class _HomePageState extends State<HomePage>
         children: [
           _searchField(),
           _buildScreen(),
-          SizedBox(height: 1),
-          Container(
-            color: Colors.white,
-            height: 30,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 2),
-              child: Text(
-                'Количество смартфонов: ${filteredSmartphones.length}',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
+          const SizedBox(height: 1),
+          _smartphonesCount(),
         ],
       ),
     );
@@ -454,9 +438,10 @@ class _HomePageState extends State<HomePage>
         color: Colors.white,
       ),
       child: TextField(
+        cursorColor: Colors.black,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
-          errorText: _validate ? 'Поле не может быть пустым' : null,
+          errorText: _validate ? 'Введите название смартфона' : null,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24),
           ),
@@ -488,6 +473,26 @@ class _HomePageState extends State<HomePage>
           ),
         ),
         controller: searchController,
+      ),
+    );
+  }
+
+  Container _smartphonesCount() {
+    return Container(
+      color: Colors.white,
+      height: 30,
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8.0, top: 2),
+        child: Text(
+          'Количество смартфонов: ${filteredSmartphones.length}',
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
     );
   }

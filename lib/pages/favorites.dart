@@ -32,6 +32,8 @@ class _FavoritePageState extends State<FavoritePage> {
       body: Column(
         children: [
           _buildScreen(),
+          const SizedBox(height: 1),
+          _smartphonesCount(),
         ],
       ),
     );
@@ -133,5 +135,25 @@ class _FavoritePageState extends State<FavoritePage> {
     } else {
       return _buildListView();
     }
+  }
+
+  Container _smartphonesCount() {
+    return Container(
+      color: Colors.white,
+      height: 30,
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8.0, top: 2),
+        child: Text(
+          'Количество смартфонов: ${widget.favoriteSmartphones.length}',
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+    );
   }
 }

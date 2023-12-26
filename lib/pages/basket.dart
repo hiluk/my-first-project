@@ -31,55 +31,59 @@ class _BasketPageState extends State<BasketPage> {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: appBar(),
-      bottomSheet: SizedBox(
-        height: 100,
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                  'Кол-во смартфонов: ${widget.basketSmartphones.length} | Cумма: ${_getSum()}'),
-              InkWell(
-                borderRadius: BorderRadius.circular(24),
-                onTap: () {
-                  AlertDialog alert = _getAlertMessage();
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return alert;
-                    },
-                  );
-                },
-                child: Container(
-                    height: 40,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Оформить покупку',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    )),
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomSheet: _bottomSheet(context),
       body: Column(
         children: [
           _buildScreen(),
         ],
+      ),
+    );
+  }
+
+  SizedBox _bottomSheet(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+                'Кол-во смартфонов: ${widget.basketSmartphones.length} | Cумма: ${_getSum()}'),
+            InkWell(
+              borderRadius: BorderRadius.circular(24),
+              onTap: () {
+                AlertDialog alert = _getAlertMessage();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return alert;
+                  },
+                );
+              },
+              child: Container(
+                  height: 40,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(),
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Оформить покупку',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -186,7 +190,7 @@ class _BasketPageState extends State<BasketPage> {
     if (widget.basketSmartphones.isEmpty) {
       AlertDialog alert = const AlertDialog(
         title: Text(
-          'Добавьте что нибудь в корзину',
+          'Добавьте что-нибудь в корзину',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 14,

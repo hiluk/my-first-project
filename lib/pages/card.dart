@@ -90,62 +90,62 @@ class _SmartphonePageState extends State<SmartphonePage> {
           )
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        height: 100,
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            InkWell(
-              borderRadius: BorderRadius.circular(24),
-              onTap: () {
-                widget.smartphoneDetail.isSmartphoneFavorite =
-                    !widget.smartphoneDetail.isSmartphoneFavorite;
-              },
-              child: Container(
-                height: 70,
-                width: 280,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 4,
-                  ),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.shopping_cart_checkout,
-                      size: 30,
-                    ),
-                    Text(
-                      'В корзину',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            IconButton(
-                style: const ButtonStyle(
-                    iconSize: MaterialStatePropertyAll(50),
-                    iconColor: MaterialStatePropertyAll(Colors.black)),
-                onPressed: () {
-                  setState(() {
-                    widget.smartphoneDetail.isSmartphoneFavorite =
-                        !widget.smartphoneDetail.isSmartphoneFavorite;
-                  });
-                },
-                icon: widget.smartphoneDetail.isSmartphoneFavorite
-                    ? const Icon(Icons.favorite)
-                    : const Icon(Icons.favorite_outline))
-          ],
-        ),
-      ),
+      // bottomNavigationBar: BottomAppBar(
+      //   height: 100,
+      //   color: Colors.white,
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //     children: [
+      //       InkWell(
+      //         borderRadius: BorderRadius.circular(24),
+      //         onTap: () {
+      //           widget.smartphoneDetail.isSmartphoneFavorite =
+      //               !widget.smartphoneDetail.isSmartphoneFavorite;
+      //         },
+      //         child: Container(
+      //           height: 70,
+      //           width: 280,
+      //           decoration: BoxDecoration(
+      //             border: Border.all(
+      //               color: Colors.black,
+      //               width: 4,
+      //             ),
+      //             borderRadius: BorderRadius.circular(24),
+      //           ),
+      //           child: const Column(
+      //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //             children: [
+      //               Icon(
+      //                 Icons.shopping_cart_checkout,
+      //                 size: 30,
+      //               ),
+      //               Text(
+      //                 'В корзину',
+      //                 style: TextStyle(
+      //                   fontSize: 16,
+      //                   fontWeight: FontWeight.w700,
+      //                 ),
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //       ),
+      //       IconButton(
+      //           style: const ButtonStyle(
+      //               iconSize: MaterialStatePropertyAll(50),
+      //               iconColor: MaterialStatePropertyAll(Colors.black)),
+      //           onPressed: () {
+      //             setState(() {
+      //               widget.smartphoneDetail.isSmartphoneFavorite =
+      //                   !widget.smartphoneDetail.isSmartphoneFavorite;
+      //             });
+      //           },
+      //           icon: widget.smartphoneDetail.isSmartphoneFavorite
+      //               ? const Icon(Icons.favorite)
+      //               : const Icon(Icons.favorite_outline))
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

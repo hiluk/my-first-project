@@ -19,12 +19,110 @@ class _HomePageState extends State<HomePage>
   bool _validate = false;
   late AnimationController _animationController;
   bool isGrid = false;
-  List<SmartphoneModel> smartphones = [];
-  List<SmartphoneModel> filteredSmartphones = [];
-  List<SmartphoneModel> favoriteSmartphones = [];
-  List<SmartphoneModel> basketSmartphones = [];
+  List<SmartphoneModel> smartphones = [
+    SmartphoneModel(
+      name: 'Apple iPhone 15 Pro',
+      color: 'Белый',
+      memory: '512 ГБ',
+      processor: 'A17 Pro',
+      price: 184990,
+      imagePath: 'asset/img/iphone.png',
+      id: 1,
+      isSmartphoneFavorite: false,
+      inBasket: false,
+      description:
+          'Аппаратной основой Apple iPhone 15 Pro Max стал 3-нанометровый чипсет A17 Pro с 6-ядерным GPU и поддержкой трассировки лучей. Чип выдает высочайшую производительность в играх. Также имеется 16-ядерный Neural Engine, который обрабатывает 35 миллионов операций в секунду. Корпус смартфона изготовлен из титана 5-го класса (такой, например, используется в космическом ровере NASA). Титан прочнее, легче и долговечнее, чем алюминий и сталь. У iPhone 15 Pro Max нет физического переключателя для перехода в бесшумный режим. На его месте расположена программируемая кнопка, которая реагирует на силу нажатия. С ее помощью можно, например, включить камеру или фонарик. У iPhone 15 Pro Max 6,7-дюймовый OLED-экран с разрешением 2796 × 1290 пикселей, кадровой частотой 120 Гц и пиковой яркостью 2000 нит. Основная камера состоит из трех сенсоров. Главный на 48 Мп. Пользователь может выбрать фокусное расстояние — 24, 28 или 35 мм. Также у смартфона ширик и телевик с 5-кратным приближением без потери качества на 12 Мп. iPhone 15 Pro Max получил порты USB-C с поддержкой USB 3 и скоростью передачи данных до 10 Гбит/с. Операционная система — iOS 17.',
+    ),
+    SmartphoneModel(
+      name: 'Redmi 12',
+      color: 'Черный',
+      memory: '128 ГБ',
+      processor: 'MediaTek Helio G88',
+      price: 12790,
+      imagePath: 'asset/img/redmi.jpg',
+      id: 2,
+      isSmartphoneFavorite: false,
+      inBasket: false,
+      description:
+          'Смартфон Xiaomi Redmi 12C с 8-ядерным процессором MediaTek Helio G85 удивляет производительностью даже искушенных пользователей – он позволяет редактировать видео и проходить тяжеловесные игры. Для хранения информации и ПО у него есть 128 ГБ встроенной памяти. Иммерсивный IPS-экран диагональю 6.71 дюйма транслирует изображение с четкостью 1650x720 пикс. Это означает, что фото, которые вы сделали на 50-мегапиксельную камеру с ИИ, будет легко редактировать. Для удобного общения по видеомессенджерам у смартфона есть фронтальный модуль на 5 Мп.',
+    ),
+    SmartphoneModel(
+        name: 'Realme C53',
+        color: 'Золотистый',
+        memory: '128 ГБ',
+        processor: 'Unisoc Tiger T612',
+        price: 12490,
+        imagePath: 'asset/img/realme.jpeg',
+        id: 3,
+        isSmartphoneFavorite: false,
+        inBasket: false,
+        description:
+            'Смартфон realme C53 128 ГБ изготовлен в тонком пластиковом корпусе 7.49 мм черного цвета. Благодаря обтекаемым граням и отзывчивой сенсорной панели им удобно пользоваться. Матрица диагональю 6.74" с технологией IPS передает четкую картинку с яркими и насыщенными оттенками. Процессор Unisoc Tiger T612 в паре с 6 ГБ оперативной памяти обеспечивает скорость и производительность аппаратной системы. Внутреннюю память 128 ГБ можно увеличить картой microSD емкостью до 2048 ГБ. На тыловой панели размещена сдвоенная камера 50+0.08 Мп для создания детализированных фотографий и видео. Фронтальная камера с разрешением 8 Мп предназначена для селфи и звонков по видеосвязи. В смартфоне установлен аккумулятор емкостью 5000 мА*ч, который гарантирует до 951 часов автономной работы в режиме ожидания. Для ускоренного восстановления энергоресурса реализована технология SuperVOOC с выходной мощностью 33 Вт.'),
+    SmartphoneModel(
+      name: 'Apple iPhone 13',
+      color: 'Черный',
+      memory: '256 ГБ',
+      processor: 'A15 Bionic',
+      price: 83990,
+      imagePath: 'asset/img/iphone_13.png',
+      id: 4,
+      isSmartphoneFavorite: false,
+      inBasket: false,
+      description:
+          'Дисплей Super Retina XDR 6,1 дюйма. Режим «Киноэффект» автоматически переводит фокус между объектами при съёмке видео и создаёт красивый эффект размытия',
+    ),
+    SmartphoneModel(
+      name: 'Apple iPad Pro 11',
+      color: 'Серый',
+      memory: '128 ГБ',
+      processor: 'Apple M2',
+      price: 122990,
+      imagePath: 'asset/img/ipad_11.png',
+      id: 5,
+      isSmartphoneFavorite: false,
+      inBasket: false,
+      description:
+          'Планшет Apple iPad Pro 11 2022 — модель с рубленными гранями и закругленными углами, выполнена в корпусе из алюминия.Объем встроенной памяти равен 128 Гб. 11-дюймовый экран типа Liquid Retina отображает изображение с реалистичной цветопередачей. Разрешение 1668х2388 пикселей дает возможность наслаждаться детализированной графикой. Предусмотрена поддержка Apple Pencil (2 gen.). Планшет оснащен динамиками, выдающими чистое звучание в широком диапазоне частот.',
+    ),
+    SmartphoneModel(
+      name: 'Samsung Galaxy S23',
+      color: 'Серый',
+      memory: '128 ГБ',
+      processor: 'Qualcomm Snapdragon',
+      price: 89990,
+      imagePath: 'asset/img/galaxy.png',
+      id: 6,
+      isSmartphoneFavorite: false,
+      inBasket: false,
+      description:
+          'Новый флагман Samsung Galaxy S23 Ultra — смартфон, у которого есть все шансы стать легендой. В нем гармонично сочетаются стильный дизайн, материалы премиум-класса, топовая «начинка», камера профессионального уровня. Встроенный стилус S-Pen сделает новинку желанной покупкой для дизайнеров, художников и всех, кто любит использовать возможности смартфона на полную.',
+    ),
+    SmartphoneModel(
+      name: 'Xiaomi 13 Lite',
+      color: 'Голубой',
+      memory: '128 ГБ',
+      processor: 'Qualcomm Snapdragon',
+      price: 32990,
+      imagePath: 'asset/img/xiaomi.jpeg',
+      id: 7,
+      isSmartphoneFavorite: false,
+      inBasket: false,
+      description:
+          'Xiaomi 13 Lite имеет все шансы стать лучшим в категории доступных флагманов в 2023 году. Стильная новинка обладает тонким и элегантным корпусом, предложенным в многообразии цветов. Xiaomi 13 Lite определенно создан для тех, кто ценит дизайн и считает смартфон продолжением своего стиля.',
+    ),
+  ];
   final formatter = intl.NumberFormat.decimalPattern();
-
+  List<SmartphoneModel> get basketSmartphones =>
+      smartphones.where((element) => element.inBasket).toList();
+  List<SmartphoneModel> get favoriteSmartphones =>
+      smartphones.where((element) => element.isSmartphoneFavorite).toList();
+  List<SmartphoneModel> get filterSmartphones => searchController.text.isEmpty
+      ? smartphones
+      : smartphones
+          .where((element) => element.name
+              .toLowerCase()
+              .contains(searchController.text.toLowerCase()))
+          .toList();
   AppBar appBar() {
     return AppBar(
       title: const Text(
@@ -59,6 +157,11 @@ class _HomePageState extends State<HomePage>
                 builder: (BuildContext context) {
                   return FavoritePage(
                     favoriteSmartphones: favoriteSmartphones,
+                    onChanged: (result) {
+                      // setState(() {
+                      //   favoriteSmartphones = result;
+                      // });
+                    },
                   );
                 },
               ),
@@ -87,24 +190,9 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  void filterCards(String value) {
-    setState(() {
-      if (value.isEmpty) {
-        filteredSmartphones.clear();
-        filteredSmartphones.addAll(smartphones);
-      } else {
-        filteredSmartphones = smartphones
-            .where((smartphones) =>
-                smartphones.name.toLowerCase().contains(value.toLowerCase()))
-            .toList();
-      }
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    _getSmartphones();
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
   }
@@ -142,15 +230,17 @@ class _HomePageState extends State<HomePage>
           crossAxisSpacing: 10,
           mainAxisSpacing: 20,
         ),
-        itemCount: filteredSmartphones.length,
+        itemCount: filterSmartphones.length,
         itemBuilder: (context, index) {
           return InkWell(
+            key: ValueKey(filterSmartphones[index].id),
             borderRadius: BorderRadius.circular(20),
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return SmartphonePage(smartphoneDetail: smartphones[index]);
+                    return SmartphonePage(
+                        smartphoneDetail: filterSmartphones[index]);
                   },
                 ),
               );
@@ -167,12 +257,12 @@ class _HomePageState extends State<HomePage>
                   SizedBox(
                     width: 100,
                     height: 100,
-                    child: Image.asset(filteredSmartphones[index].imagePath),
+                    child: Image.asset(filterSmartphones[index].imagePath),
                   ),
                   Text(
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    filteredSmartphones[index].name,
+                    filterSmartphones[index].name,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
@@ -183,7 +273,7 @@ class _HomePageState extends State<HomePage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '${filteredSmartphones[index].memory} | ${filteredSmartphones[index].processor} | ${filteredSmartphones[index].color}',
+                        '${filterSmartphones[index].memory} | ${filterSmartphones[index].processor} | ${filterSmartphones[index].color}',
                         style: const TextStyle(
                           color: Colors.grey,
                         ),
@@ -194,7 +284,7 @@ class _HomePageState extends State<HomePage>
                     padding: const EdgeInsets.all(8.0),
                     child: Expanded(
                       child: Text(
-                        filteredSmartphones[index].description,
+                        filterSmartphones[index].description,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         style: const TextStyle(
@@ -204,7 +294,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                   Text(
-                    '${formatter.format(filteredSmartphones[index].price)} ₽',
+                    '${formatter.format(filterSmartphones[index].price)} ₽',
                     style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 30,
@@ -215,48 +305,34 @@ class _HomePageState extends State<HomePage>
                     children: [
                       IconButton(
                         onPressed: () {
-                          if (filteredSmartphones[index].isSmartphoneFavorite ==
-                              false) {
-                            setState(() {
-                              filteredSmartphones[index].isSmartphoneFavorite =
-                                  true;
-                              favoriteSmartphones
-                                  .add(filteredSmartphones[index]);
-                            });
-                          } else {
-                            setState(
-                              () {
-                                filteredSmartphones[index]
-                                    .isSmartphoneFavorite = false;
-                                favoriteSmartphones
-                                    .remove(filteredSmartphones[index]);
-                              },
-                            );
-                          }
+                          setState(() {
+                            if (smartphones[index].isSmartphoneFavorite) {
+                              smartphones[index] = smartphones[index]
+                                  .copyWith(isSmartphoneFavorite: false);
+                            } else {
+                              smartphones[index] = smartphones[index]
+                                  .copyWith(isSmartphoneFavorite: true);
+                            }
+                          });
                         },
-                        icon: filteredSmartphones[index].isSmartphoneFavorite
+                        icon: filterSmartphones[index].isSmartphoneFavorite
                             ? const Icon(Icons.favorite)
                             : const Icon(Icons.favorite_outline),
                         iconSize: 40,
                       ),
                       IconButton(
                         onPressed: () {
-                          if (filteredSmartphones[index].inBasket == false) {
-                            setState(() {
-                              filteredSmartphones[index].inBasket = true;
-                              basketSmartphones.add(filteredSmartphones[index]);
-                            });
-                          } else {
-                            setState(
-                              () {
-                                filteredSmartphones[index].inBasket = false;
-                                basketSmartphones
-                                    .remove(filteredSmartphones[index]);
-                              },
-                            );
-                          }
+                          setState(() {
+                            if (smartphones[index].inBasket) {
+                              smartphones[index] =
+                                  smartphones[index].copyWith(inBasket: false);
+                            } else {
+                              smartphones[index] =
+                                  smartphones[index].copyWith(inBasket: true);
+                            }
+                          });
                         },
-                        icon: filteredSmartphones[index].inBasket
+                        icon: filterSmartphones[index].inBasket
                             ? const Icon(Icons.remove_shopping_cart_outlined)
                             : const Icon(Icons.shopping_cart_outlined),
                         iconSize: 40,
@@ -279,7 +355,7 @@ class _HomePageState extends State<HomePage>
         separatorBuilder: (context, index) => Container(
           height: 1,
         ),
-        itemCount: filteredSmartphones.length,
+        itemCount: filterSmartphones.length,
         itemBuilder: (context, index) {
           return Slidable(
             endActionPane: ActionPane(
@@ -289,21 +365,17 @@ class _HomePageState extends State<HomePage>
                   foregroundColor: Colors.black,
                   autoClose: false,
                   onPressed: (context) {
-                    if (filteredSmartphones[index].inBasket == false) {
-                      setState(() {
-                        filteredSmartphones[index].inBasket = true;
-                        basketSmartphones.add(filteredSmartphones[index]);
-                      });
-                    } else {
-                      setState(
-                        () {
-                          filteredSmartphones[index].inBasket = false;
-                          basketSmartphones.remove(filteredSmartphones[index]);
-                        },
-                      );
-                    }
+                    setState(() {
+                      if (smartphones[index].inBasket) {
+                        smartphones[index] =
+                            smartphones[index].copyWith(inBasket: false);
+                      } else {
+                        smartphones[index] =
+                            smartphones[index].copyWith(inBasket: true);
+                      }
+                    });
                   },
-                  icon: filteredSmartphones[index].inBasket
+                  icon: filterSmartphones[index].inBasket
                       ? Icons.remove_shopping_cart_outlined
                       : Icons.shopping_cart_outlined,
                   backgroundColor: Colors.deepPurpleAccent.withOpacity(0.7),
@@ -312,24 +384,17 @@ class _HomePageState extends State<HomePage>
                   foregroundColor: Colors.black,
                   autoClose: false,
                   onPressed: (context) {
-                    if (filteredSmartphones[index].isSmartphoneFavorite ==
-                        false) {
-                      setState(() {
-                        filteredSmartphones[index].isSmartphoneFavorite = true;
-                        favoriteSmartphones.add(filteredSmartphones[index]);
-                      });
-                    } else {
-                      setState(
-                        () {
-                          filteredSmartphones[index].isSmartphoneFavorite =
-                              false;
-                          favoriteSmartphones
-                              .remove(filteredSmartphones[index]);
-                        },
-                      );
-                    }
+                    setState(() {
+                      if (smartphones[index].isSmartphoneFavorite) {
+                        smartphones[index] = smartphones[index]
+                            .copyWith(isSmartphoneFavorite: false);
+                      } else {
+                        smartphones[index] = smartphones[index]
+                            .copyWith(isSmartphoneFavorite: true);
+                      }
+                    });
                   },
-                  icon: filteredSmartphones[index].isSmartphoneFavorite
+                  icon: filterSmartphones[index].isSmartphoneFavorite
                       ? Icons.favorite
                       : Icons.favorite_outline,
                   backgroundColor: Colors.yellow.withOpacity(0.7),
@@ -342,7 +407,7 @@ class _HomePageState extends State<HomePage>
                   MaterialPageRoute(
                     builder: (BuildContext context) {
                       return SmartphonePage(
-                          smartphoneDetail: smartphones[index]);
+                          smartphoneDetail: filterSmartphones[index]);
                     },
                   ),
                 );
@@ -360,7 +425,7 @@ class _HomePageState extends State<HomePage>
                           width: 100,
                           height: 100,
                           child:
-                              Image.asset(filteredSmartphones[index].imagePath),
+                              Image.asset(filterSmartphones[index].imagePath),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -370,7 +435,7 @@ class _HomePageState extends State<HomePage>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              filteredSmartphones[index].name,
+                              filterSmartphones[index].name,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18,
@@ -380,7 +445,7 @@ class _HomePageState extends State<HomePage>
                             Row(
                               children: [
                                 Text(
-                                  '${filteredSmartphones[index].memory} | ${filteredSmartphones[index].processor}',
+                                  '${filterSmartphones[index].memory} | ${filterSmartphones[index].processor}',
                                   style: const TextStyle(
                                     color: Colors.grey,
                                   ),
@@ -389,7 +454,7 @@ class _HomePageState extends State<HomePage>
                             ),
                             Expanded(
                               child: Text(
-                                filteredSmartphones[index].description,
+                                filterSmartphones[index].description,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: const TextStyle(
@@ -398,7 +463,7 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             Text(
-                              '${formatter.format(filteredSmartphones[index].price)} ₽',
+                              '${formatter.format(filterSmartphones[index].price)} ₽',
                               style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 22,
@@ -426,11 +491,6 @@ class _HomePageState extends State<HomePage>
     }
   }
 
-  void _getSmartphones() {
-    smartphones = SmartphoneModel.getSmartphoneModel();
-    filteredSmartphones = SmartphoneModel.getSmartphoneModel();
-  }
-
   Container _searchField() {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -454,10 +514,12 @@ class _HomePageState extends State<HomePage>
           ),
           suffixIcon: IconButton(
             onPressed: () {
-              searchController.text.isEmpty
-                  ? _validate = true
-                  : _validate = false;
-              filterCards(searchController.text);
+              setState(() {
+                searchController.text.isEmpty
+                    ? _validate = true
+                    : _validate = false;
+                filterSmartphones;
+              });
             },
             icon: const Icon(Icons.search),
           ),
@@ -488,7 +550,7 @@ class _HomePageState extends State<HomePage>
       child: Padding(
         padding: const EdgeInsets.only(left: 8.0, top: 2),
         child: Text(
-          'Количество смартфонов: ${filteredSmartphones.length}',
+          'Количество смартфонов: ${filterSmartphones.length}',
           textAlign: TextAlign.left,
           style: TextStyle(
             color: Colors.black,

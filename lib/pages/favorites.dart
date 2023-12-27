@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
 
 class FavoritePage extends StatefulWidget {
+  final void Function(List<SmartphoneModel> smartphones) onChanged;
   final List<SmartphoneModel> favoriteSmartphones;
-  const FavoritePage({Key? key, required this.favoriteSmartphones})
-      : super(key: key);
+  const FavoritePage({
+    Key? key,
+    required this.favoriteSmartphones,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   State<FavoritePage> createState() => _FavoritePageState();
 }
 
 class _FavoritePageState extends State<FavoritePage> {
+  List<SmartphoneModel> smartphones = [];
   AppBar appBar() {
     return AppBar(
       title: const Text(
@@ -39,12 +44,19 @@ class _FavoritePageState extends State<FavoritePage> {
     );
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    smartphones = widget.favoriteSmartphones;
+  }
+
   Widget _buildListView() {
     return Expanded(
       child: ListView.separated(
         padding: const EdgeInsets.only(top: 1),
         separatorBuilder: (context, index) => const SizedBox(height: 1),
-        itemCount: widget.favoriteSmartphones.length,
+        itemCount: smartphones.length,
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {},
@@ -60,8 +72,7 @@ class _FavoritePageState extends State<FavoritePage> {
                       child: SizedBox(
                         width: 100,
                         height: 100,
-                        child: Image.asset(
-                            widget.favoriteSmartphones[index].imagePath),
+                        child: Image.asset(smartphones[index].imagePath),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -71,7 +82,7 @@ class _FavoritePageState extends State<FavoritePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            widget.favoriteSmartphones[index].name,
+                            smartphones[index].name,
                             style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
@@ -81,7 +92,7 @@ class _FavoritePageState extends State<FavoritePage> {
                           Row(
                             children: [
                               Text(
-                                '${widget.favoriteSmartphones[index].memory} | ${widget.favoriteSmartphones[index].processor}',
+                                '${smartphones[index].memory} | ${smartphones[index].processor}',
                                 style: const TextStyle(
                                   color: Colors.grey,
                                 ),
@@ -90,7 +101,7 @@ class _FavoritePageState extends State<FavoritePage> {
                           ),
                           Expanded(
                             child: Text(
-                              widget.favoriteSmartphones[index].description,
+                              smartphones[index].description,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: const TextStyle(
@@ -99,7 +110,7 @@ class _FavoritePageState extends State<FavoritePage> {
                             ),
                           ),
                           Text(
-                            '${widget.favoriteSmartphones[index].price.toString()} ₽',
+                            '${smartphones[index].price.toString()} ₽',
                             style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 22,
@@ -119,7 +130,7 @@ class _FavoritePageState extends State<FavoritePage> {
   }
 
   Widget _buildScreen() {
-    if (widget.favoriteSmartphones.isEmpty) {
+    if (smartphones.isEmpty) {
       return const Expanded(
         child: Center(
           child: Text(

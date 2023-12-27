@@ -72,13 +72,6 @@ class _BasketPageState extends State<BasketPage> {
                         ),
                       );
                     });
-                // AlertDialog alert = _getAlertMessage();
-                // showDialog(
-                //   context: context,
-                //   builder: (BuildContext context) {
-                //     return alert;
-                //   },
-                // );
               },
               child: Container(
                   height: 40,
@@ -113,69 +106,85 @@ class _BasketPageState extends State<BasketPage> {
         separatorBuilder: (context, index) => const SizedBox(height: 1),
         itemCount: widget.basketSmartphones.length,
         itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {},
-            child: Container(
-              padding: const EdgeInsets.only(right: 5),
-              height: 100,
-              color: Colors.white,
-              child: Flexible(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: Image.asset(
-                            widget.basketSmartphones[index].imagePath),
+          return Dismissible(
+            key: ValueKey<int>(widget.basketSmartphones[index].id),
+            background: Container(
+              alignment: Alignment.centerRight,
+              color: Colors.red,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 50.0),
+                child: Icon(Icons.delete),
+              ),
+            ),
+            onDismissed: (DismissDirection direction) {
+              setState(() {
+                widget.basketSmartphones[index].copyWith(inBasket: false);
+              });
+            },
+            child: InkWell(
+              onTap: () {},
+              child: Container(
+                padding: const EdgeInsets.only(right: 5),
+                height: 100,
+                color: Colors.white,
+                child: Flexible(
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: Image.asset(
+                              widget.basketSmartphones[index].imagePath),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            widget.basketSmartphones[index].name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: Colors.black,
+                      const SizedBox(width: 10),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.basketSmartphones[index].name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                '${widget.basketSmartphones[index].memory} | ${widget.basketSmartphones[index].processor}',
+                            Row(
+                              children: [
+                                Text(
+                                  '${widget.basketSmartphones[index].memory} | ${widget.basketSmartphones[index].processor}',
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Expanded(
+                              child: Text(
+                                widget.basketSmartphones[index].description,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                                 style: const TextStyle(
                                   color: Colors.grey,
                                 ),
-                              )
-                            ],
-                          ),
-                          Expanded(
-                            child: Text(
-                              widget.basketSmartphones[index].description,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: const TextStyle(
-                                color: Colors.grey,
                               ),
                             ),
-                          ),
-                          Text(
-                            '${formatter.format(widget.basketSmartphones[index].price)} ₽',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 22,
+                            Text(
+                              '${formatter.format(widget.basketSmartphones[index].price)} ₽',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 22,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

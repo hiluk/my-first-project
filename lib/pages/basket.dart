@@ -3,9 +3,13 @@ import 'package:intl/intl.dart' as intl;
 import 'package:technical_dz/models/smartphones_model.dart';
 
 class BasketPage extends StatefulWidget {
-  final List<SmartphoneModel> basketSmartphones;
-  const BasketPage({Key? key, required this.basketSmartphones})
-      : super(key: key);
+  final void Function(List<SmartphoneModel> smartphones) onChanged;
+  final List<SmartphoneModel> smartphones;
+  const BasketPage({
+    Key? key,
+    required this.smartphones,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   State<BasketPage> createState() => _BasketPageState();
@@ -13,6 +17,8 @@ class BasketPage extends StatefulWidget {
 
 class _BasketPageState extends State<BasketPage> {
   final formatter = intl.NumberFormat.decimalPattern();
+  List<SmartphoneModel> get basketSmartphones =>
+      widget.smartphones.where((element) => element.inBasket).toList();
   AppBar appBar() {
     return AppBar(
       title: const Text(
@@ -50,7 +56,7 @@ class _BasketPageState extends State<BasketPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-                'Кол-во смартфонов: ${widget.basketSmartphones.length} | Cумма: ${_getSum()}'),
+                'Кол-во смартфонов: ${basketSmartphones.length} | Cумма: ${_getSum()}'),
             InkWell(
               borderRadius: BorderRadius.circular(24),
               onTap: () {
@@ -104,21 +110,25 @@ class _BasketPageState extends State<BasketPage> {
       child: ListView.separated(
         padding: const EdgeInsets.only(top: 1),
         separatorBuilder: (context, index) => const SizedBox(height: 1),
-        itemCount: widget.basketSmartphones.length,
+        itemCount: basketSmartphones.length,
         itemBuilder: (context, index) {
           return Dismissible(
-            key: ValueKey<int>(widget.basketSmartphones[index].id),
+            key: ValueKey<int>(basketSmartphones[index].id),
             background: Container(
               alignment: Alignment.centerRight,
               color: Colors.red,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 50.0),
+              child: const Padding(
+                padding: EdgeInsets.only(right: 50.0),
                 child: Icon(Icons.delete),
               ),
             ),
             onDismissed: (DismissDirection direction) {
               setState(() {
-                widget.basketSmartphones[index].copyWith(inBasket: false);
+                final correctIndex = widget.smartphones.indexWhere(
+                    (element) => element.id == basketSmartphones[index].id);
+                widget.smartphones[correctIndex].inBasket =
+                    !widget.smartphones[correctIndex].inBasket;
+                widget.onChanged(widget.smartphones);
               });
             },
             child: InkWell(
@@ -127,64 +137,59 @@ class _BasketPageState extends State<BasketPage> {
                 padding: const EdgeInsets.only(right: 5),
                 height: 100,
                 color: Colors.white,
-                child: Flexible(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: 100,
-                          height: 100,
-                          child: Image.asset(
-                              widget.basketSmartphones[index].imagePath),
-                        ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: Image.asset(basketSmartphones[index].imagePath),
                       ),
-                      const SizedBox(width: 10),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              widget.basketSmartphones[index].name,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                                color: Colors.black,
-                              ),
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            basketSmartphones[index].name,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Colors.black,
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  '${widget.basketSmartphones[index].memory} | ${widget.basketSmartphones[index].processor}',
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                )
-                              ],
-                            ),
-                            Expanded(
-                              child: Text(
-                                widget.basketSmartphones[index].description,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '${basketSmartphones[index].memory} | ${basketSmartphones[index].processor}',
                                 style: const TextStyle(
                                   color: Colors.grey,
                                 ),
-                              ),
+                              )
+                            ],
+                          ),
+                          Text(
+                            basketSmartphones[index].description,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              color: Colors.grey,
                             ),
-                            Text(
-                              '${formatter.format(widget.basketSmartphones[index].price)} ₽',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 22,
-                              ),
+                          ),
+                          Text(
+                            '${formatter.format(basketSmartphones[index].price)} ₽',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 22,
                             ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -195,7 +200,7 @@ class _BasketPageState extends State<BasketPage> {
   }
 
   Widget _buildScreen() {
-    if (widget.basketSmartphones.isEmpty) {
+    if (basketSmartphones.isEmpty) {
       return const Expanded(
         child: Center(
           child: Text(
@@ -215,7 +220,7 @@ class _BasketPageState extends State<BasketPage> {
 
   String _getAlertMessage() {
     String text = '';
-    if (widget.basketSmartphones.isEmpty) {
+    if (basketSmartphones.isEmpty) {
       text = 'Добавьте что нибудь в корзину';
     } else {
       text = 'Покупка прошла успешно';
@@ -227,11 +232,11 @@ class _BasketPageState extends State<BasketPage> {
   String _getSum() {
     int sum = 0;
 
-    if (widget.basketSmartphones.isEmpty) {
+    if (basketSmartphones.isEmpty) {
       return formatter.format(sum);
     } else {
-      for (int i = 0; i < widget.basketSmartphones.length; i++) {
-        sum += widget.basketSmartphones[i].price;
+      for (int i = 0; i < basketSmartphones.length; i++) {
+        sum += basketSmartphones[i].price;
       }
     }
 

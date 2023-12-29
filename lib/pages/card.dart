@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
 
 class SmartphonePage extends StatefulWidget {
+  final List<SmartphoneModel> smartphones;
   final SmartphoneModel smartphoneDetail;
-  const SmartphonePage({Key? key, required this.smartphoneDetail})
+  final void Function(List<SmartphoneModel> smartphones) onChanged;
+  const SmartphonePage(
+      {Key? key,
+      required this.smartphoneDetail,
+      required this.smartphones,
+      required this.onChanged})
       : super(key: key);
 
   @override
@@ -42,44 +48,42 @@ class _SmartphonePageState extends State<SmartphonePage> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.smartphoneDetail.description,
-                          style: const TextStyle(
-                            fontSize: 16,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.smartphoneDetail.description,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Цвет: ${widget.smartphoneDetail.color}',
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Цвет: ${widget.smartphoneDetail.color}',
+                          Text(
+                            'Процессор: ${widget.smartphoneDetail.processor}',
+                          ),
+                          Text(
+                            'Кол-во памяти: ${widget.smartphoneDetail.memory}',
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Цена: ${widget.smartphoneDetail.price}',
+                            style: const TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w700,
                             ),
-                            Text(
-                              'Процессор: ${widget.smartphoneDetail.processor}',
-                            ),
-                            Text(
-                              'Кол-во памяти: ${widget.smartphoneDetail.memory}',
-                            ),
-                            const SizedBox(height: 20),
-                            Text(
-                              'Цена: ${widget.smartphoneDetail.price}',
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -87,62 +91,75 @@ class _SmartphonePageState extends State<SmartphonePage> {
           )
         ],
       ),
-      // bottomNavigationBar: BottomAppBar(
-      //   height: 100,
-      //   color: Colors.white,
-      //   child: Row(
-      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //     children: [
-      //       InkWell(
-      //         borderRadius: BorderRadius.circular(24),
-      //         onTap: () {
-      //           widget.smartphoneDetail.isSmartphoneFavorite =
-      //               !widget.smartphoneDetail.isSmartphoneFavorite;
-      //         },
-      //         child: Container(
-      //           height: 70,
-      //           width: 280,
-      //           decoration: BoxDecoration(
-      //             border: Border.all(
-      //               color: Colors.black,
-      //               width: 4,
-      //             ),
-      //             borderRadius: BorderRadius.circular(24),
-      //           ),
-      //           child: const Column(
-      //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //             children: [
-      //               Icon(
-      //                 Icons.shopping_cart_checkout,
-      //                 size: 30,
-      //               ),
-      //               Text(
-      //                 'В корзину',
-      //                 style: TextStyle(
-      //                   fontSize: 16,
-      //                   fontWeight: FontWeight.w700,
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //       IconButton(
-      //           style: const ButtonStyle(
-      //               iconSize: MaterialStatePropertyAll(50),
-      //               iconColor: MaterialStatePropertyAll(Colors.black)),
-      //           onPressed: () {
-      //             setState(() {
-      //               widget.smartphoneDetail.isSmartphoneFavorite =
-      //                   !widget.smartphoneDetail.isSmartphoneFavorite;
-      //             });
-      //           },
-      //           icon: widget.smartphoneDetail.isSmartphoneFavorite
-      //               ? const Icon(Icons.favorite)
-      //               : const Icon(Icons.favorite_outline))
-      //     ],
-      //   ),
-      // ),
+      bottomNavigationBar: BottomAppBar(
+        height: 100,
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              borderRadius: BorderRadius.circular(24),
+              onTap: () {
+                setState(() {
+                  final correctIndex = widget.smartphones.indexWhere(
+                      (element) => element.id == widget.smartphoneDetail.id);
+                  widget.smartphones[correctIndex].inBasket =
+                      !widget.smartphones[correctIndex].inBasket;
+                  widget.onChanged(widget.smartphones);
+                });
+              },
+              child: Container(
+                height: 70,
+                width: 280,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 4,
+                  ),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    widget.smartphoneDetail.inBasket
+                        ? const Icon(
+                            Icons.remove_shopping_cart_outlined,
+                            size: 30,
+                          )
+                        : const Icon(
+                            Icons.shopping_cart_outlined,
+                            size: 30,
+                          ),
+                    const Text(
+                      'В корзину',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            IconButton(
+                style: const ButtonStyle(
+                    iconSize: MaterialStatePropertyAll(50),
+                    iconColor: MaterialStatePropertyAll(Colors.black)),
+                onPressed: () {
+                  setState(() {
+                    final correctIndex = widget.smartphones.indexWhere(
+                        (element) => element.id == widget.smartphoneDetail.id);
+                    widget.smartphones[correctIndex].isSmartphoneFavorite =
+                        !widget.smartphones[correctIndex].isSmartphoneFavorite;
+                    widget.onChanged(widget.smartphones);
+                  });
+                },
+                icon: widget.smartphoneDetail.isSmartphoneFavorite
+                    ? const Icon(Icons.favorite)
+                    : const Icon(Icons.favorite_outline))
+          ],
+        ),
+      ),
     );
   }
 }

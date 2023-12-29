@@ -114,6 +114,7 @@ class _HomePageState extends State<HomePage>
   final formatter = intl.NumberFormat.decimalPattern();
   List<SmartphoneModel> get basketSmartphones =>
       smartphones.where((element) => element.inBasket).toList();
+
   List<SmartphoneModel> get favoriteSmartphones =>
       smartphones.where((element) => element.isSmartphoneFavorite).toList();
   List<SmartphoneModel> get filterSmartphones => searchController.text.isEmpty
@@ -141,7 +142,8 @@ class _HomePageState extends State<HomePage>
               MaterialPageRoute(
                 builder: (BuildContext context) {
                   return BasketPage(
-                    basketSmartphones: basketSmartphones,
+                    smartphones: smartphones,
+                    onChanged: onChanged,
                   );
                 },
               ),
@@ -156,13 +158,7 @@ class _HomePageState extends State<HomePage>
               MaterialPageRoute(
                 builder: (BuildContext context) {
                   return FavoritePage(
-                    favoriteSmartphones: favoriteSmartphones,
-                    onChanged: (result) {
-                      // setState(() {
-                      //   favoriteSmartphones = result;
-                      // });
-                    },
-                  );
+                      smartphones: smartphones, onChanged: onChanged);
                 },
               ),
             );
@@ -195,6 +191,12 @@ class _HomePageState extends State<HomePage>
     super.initState();
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
+  }
+
+  onChanged(result) {
+    setState(() {
+      smartphones = result;
+    });
   }
 
   IconButton viewIconTapped() {
@@ -240,7 +242,10 @@ class _HomePageState extends State<HomePage>
                 MaterialPageRoute(
                   builder: (BuildContext context) {
                     return SmartphonePage(
-                        smartphoneDetail: filterSmartphones[index]);
+                      smartphoneDetail: filterSmartphones[index],
+                      smartphones: smartphones,
+                      onChanged: onChanged,
+                    );
                   },
                 ),
               );
@@ -395,7 +400,10 @@ class _HomePageState extends State<HomePage>
                   MaterialPageRoute(
                     builder: (BuildContext context) {
                       return SmartphonePage(
-                          smartphoneDetail: filterSmartphones[index]);
+                        smartphoneDetail: filterSmartphones[index],
+                        smartphones: smartphones,
+                        onChanged: onChanged,
+                      );
                     },
                   ),
                 );
@@ -535,7 +543,7 @@ class _HomePageState extends State<HomePage>
         child: Text(
           'Количество смартфонов: ${filterSmartphones.length}',
           textAlign: TextAlign.left,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 14,
             fontWeight: FontWeight.w600,

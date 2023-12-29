@@ -282,14 +282,12 @@ class _HomePageState extends State<HomePage>
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Expanded(
-                      child: Text(
-                        filterSmartphones[index].description,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
-                        style: const TextStyle(
-                          color: Colors.grey,
-                        ),
+                    child: Text(
+                      filterSmartphones[index].description,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                      style: const TextStyle(
+                        color: Colors.grey,
                       ),
                     ),
                   ),
@@ -306,13 +304,11 @@ class _HomePageState extends State<HomePage>
                       IconButton(
                         onPressed: () {
                           setState(() {
-                            if (smartphones[index].isSmartphoneFavorite) {
-                              smartphones[index] = smartphones[index]
-                                  .copyWith(isSmartphoneFavorite: false);
-                            } else {
-                              smartphones[index] = smartphones[index]
-                                  .copyWith(isSmartphoneFavorite: true);
-                            }
+                            final correctIndex = smartphones.indexWhere(
+                                (element) =>
+                                    element.id == filterSmartphones[index].id);
+                            smartphones[correctIndex].isSmartphoneFavorite =
+                                !smartphones[correctIndex].isSmartphoneFavorite;
                           });
                         },
                         icon: filterSmartphones[index].isSmartphoneFavorite
@@ -323,13 +319,11 @@ class _HomePageState extends State<HomePage>
                       IconButton(
                         onPressed: () {
                           setState(() {
-                            if (smartphones[index].inBasket) {
-                              smartphones[index] =
-                                  smartphones[index].copyWith(inBasket: false);
-                            } else {
-                              smartphones[index] =
-                                  smartphones[index].copyWith(inBasket: true);
-                            }
+                            final correctIndex = smartphones.indexWhere(
+                                (element) =>
+                                    element.id == filterSmartphones[index].id);
+                            smartphones[correctIndex].inBasket =
+                                !smartphones[correctIndex].inBasket;
                           });
                         },
                         icon: filterSmartphones[index].inBasket
@@ -366,13 +360,10 @@ class _HomePageState extends State<HomePage>
                   autoClose: false,
                   onPressed: (context) {
                     setState(() {
-                      if (smartphones[index].inBasket) {
-                        smartphones[index] =
-                            smartphones[index].copyWith(inBasket: false);
-                      } else {
-                        smartphones[index] =
-                            smartphones[index].copyWith(inBasket: true);
-                      }
+                      final correctIndex = smartphones.indexWhere((element) =>
+                          element.id == filterSmartphones[index].id);
+                      smartphones[correctIndex].inBasket =
+                          !smartphones[correctIndex].inBasket;
                     });
                   },
                   icon: filterSmartphones[index].inBasket
@@ -385,13 +376,10 @@ class _HomePageState extends State<HomePage>
                   autoClose: false,
                   onPressed: (context) {
                     setState(() {
-                      if (smartphones[index].isSmartphoneFavorite) {
-                        smartphones[index] = smartphones[index]
-                            .copyWith(isSmartphoneFavorite: false);
-                      } else {
-                        smartphones[index] = smartphones[index]
-                            .copyWith(isSmartphoneFavorite: true);
-                      }
+                      final correctIndex = smartphones.indexWhere((element) =>
+                          element.id == filterSmartphones[index].id);
+                      smartphones[correctIndex].isSmartphoneFavorite =
+                          !smartphones[correctIndex].isSmartphoneFavorite;
                     });
                   },
                   icon: filterSmartphones[index].isSmartphoneFavorite
@@ -416,64 +404,59 @@ class _HomePageState extends State<HomePage>
                 padding: const EdgeInsets.only(right: 5),
                 height: 100,
                 color: Colors.white,
-                child: Flexible(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: 100,
-                          height: 100,
-                          child:
-                              Image.asset(filterSmartphones[index].imagePath),
-                        ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: Image.asset(filterSmartphones[index].imagePath),
                       ),
-                      const SizedBox(width: 10),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              filterSmartphones[index].name,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                                color: Colors.black,
-                              ),
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            filterSmartphones[index].name,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Colors.black,
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  '${filterSmartphones[index].memory} | ${filterSmartphones[index].processor}',
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                )
-                              ],
-                            ),
-                            Expanded(
-                              child: Text(
-                                filterSmartphones[index].description,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '${filterSmartphones[index].memory} | ${filterSmartphones[index].processor}',
                                 style: const TextStyle(
                                   color: Colors.grey,
                                 ),
-                              ),
+                              )
+                            ],
+                          ),
+                          Text(
+                            filterSmartphones[index].description,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              color: Colors.grey,
                             ),
-                            Text(
-                              '${formatter.format(filterSmartphones[index].price)} ₽',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 22,
-                              ),
+                          ),
+                          Text(
+                            '${formatter.format(filterSmartphones[index].price)} ₽',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 22,
                             ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

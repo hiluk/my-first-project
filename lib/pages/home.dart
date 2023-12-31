@@ -499,6 +499,11 @@ class _HomePageState extends State<HomePage>
         color: Colors.white,
       ),
       child: TextField(
+        onChanged: (value) {
+          setState(() {
+            filterSmartphones;
+          });
+        },
         onEditingComplete: () {
           setState(() {
             _validate = false;

@@ -3,12 +3,10 @@ import 'package:technical_dz/models/smartphones_model.dart';
 import 'package:technical_dz/widgets/item_tile.dart';
 
 class FavoritePage extends StatefulWidget {
-  final void Function(List<SmartphoneModel> smartphones) onChanged;
   final List<SmartphoneModel> smartphones;
   const FavoritePage({
     Key? key,
     required this.smartphones,
-    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -21,6 +19,14 @@ class _FavoritePageState extends State<FavoritePage> {
       .toList();
   AppBar appBar() {
     return AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context, widget.smartphones);
+        },
+        icon: const Icon(
+          Icons.arrow_back,
+        ),
+      ),
       title: const Text(
         'Избранное',
         style: TextStyle(
@@ -91,12 +97,11 @@ class _FavoritePageState extends State<FavoritePage> {
                     (element) => element.id == favoriteSmartphones[index].id);
                 widget.smartphones[correctIndex].isSmartphoneFavorite =
                     !widget.smartphones[correctIndex].isSmartphoneFavorite;
-                widget.onChanged(widget.smartphones);
               });
             },
             child: ItemTile(
-              smartphone: widget.smartphones[index],
-              smartphones: widget.smartphones,
+              smartphone: favoriteSmartphones[index],
+              smartphones: favoriteSmartphones,
             ),
           );
         },

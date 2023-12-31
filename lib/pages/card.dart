@@ -3,11 +3,9 @@ import 'package:technical_dz/models/smartphones_model.dart';
 
 class SmartphonePage extends StatefulWidget {
   final SmartphoneModel smartphoneDetail;
-  final void Function(SmartphoneModel smartphoneDetail) updateSmartphone;
   const SmartphonePage({
     Key? key,
     required this.smartphoneDetail,
-    required this.updateSmartphone,
   }) : super(key: key);
 
   @override
@@ -23,6 +21,14 @@ class _SmartphonePageState extends State<SmartphonePage> {
         physics: const ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context, widget.smartphoneDetail);
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+              ),
+            ),
             pinned: true,
             expandedHeight: 400,
             flexibleSpace: FlexibleSpaceBar(
@@ -97,7 +103,6 @@ class _SmartphonePageState extends State<SmartphonePage> {
                 setState(() {
                   widget.smartphoneDetail.inBasket =
                       !widget.smartphoneDetail.inBasket;
-                  widget.updateSmartphone(widget.smartphoneDetail);
                 });
               },
               child: Container(
@@ -143,7 +148,6 @@ class _SmartphonePageState extends State<SmartphonePage> {
                   setState(() {
                     widget.smartphoneDetail.isSmartphoneFavorite =
                         !widget.smartphoneDetail.isSmartphoneFavorite;
-                    widget.updateSmartphone(widget.smartphoneDetail);
                   });
                 },
                 icon: widget.smartphoneDetail.isSmartphoneFavorite

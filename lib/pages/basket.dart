@@ -4,12 +4,10 @@ import 'package:technical_dz/models/smartphones_model.dart';
 import 'package:technical_dz/widgets/item_tile.dart';
 
 class BasketPage extends StatefulWidget {
-  final void Function(List<SmartphoneModel> smartphones) onChanged;
   final List<SmartphoneModel> smartphones;
   const BasketPage({
     Key? key,
     required this.smartphones,
-    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -22,6 +20,14 @@ class _BasketPageState extends State<BasketPage> {
       widget.smartphones.where((element) => element.inBasket).toList();
   AppBar appBar() {
     return AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context, widget.smartphones);
+        },
+        icon: const Icon(
+          Icons.arrow_back,
+        ),
+      ),
       title: const Text(
         'Корзина',
         style: TextStyle(
@@ -129,11 +135,10 @@ class _BasketPageState extends State<BasketPage> {
                     (element) => element.id == basketSmartphones[index].id);
                 widget.smartphones[correctIndex].inBasket =
                     !widget.smartphones[correctIndex].inBasket;
-                widget.onChanged(widget.smartphones);
               });
             },
             child: ItemTile(
-              smartphone: widget.smartphones[index],
+              smartphone: basketSmartphones[index],
               smartphones: widget.smartphones,
             ),
           );

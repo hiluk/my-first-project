@@ -138,30 +138,14 @@ class _HomePageState extends State<HomePage>
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return BasketPage(
-                    smartphones: smartphones,
-                    onChanged: updateSmartphones,
-                  );
-                },
-              ),
-            );
+            _sendSmartphones(context, BasketPage(smartphones: smartphones));
           },
           icon: const Icon(Icons.shopping_cart),
           color: Colors.black,
         ),
         IconButton(
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return FavoritePage(
-                      smartphones: smartphones, onChanged: updateSmartphones);
-                },
-              ),
-            );
+            _sendSmartphones(context, FavoritePage(smartphones: smartphones));
           },
           icon: const Icon(Icons.favorite),
           color: Colors.black,
@@ -191,20 +175,6 @@ class _HomePageState extends State<HomePage>
     super.initState();
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
-  }
-
-  updateSmartphone(result) {
-    setState(() {
-      final correctIndex =
-          smartphones.indexWhere((element) => element.id == result.id);
-      smartphones[correctIndex] = result;
-    });
-  }
-
-  updateSmartphones(result) {
-    setState(() {
-      smartphones = result;
-    });
   }
 
   IconButton viewIconTapped() {
@@ -247,7 +217,6 @@ class _HomePageState extends State<HomePage>
                   builder: (BuildContext context) {
                     return SmartphonePage(
                       smartphoneDetail: filterSmartphones[index],
-                      updateSmartphone: updateSmartphone,
                     );
                   },
                 ),
@@ -402,9 +371,14 @@ class _HomePageState extends State<HomePage>
                   ),
                 ],
               ),
-              child: ItemTile(
-                smartphone: smartphones[index],
-                smartphones: smartphones,
+              child: InkWell(
+                onTap: () {
+                  _sendSmartphoneDetail(context, index);
+                },
+                child: ItemTile(
+                  smartphone: filterSmartphones[index],
+                  smartphones: filterSmartphones,
+                ),
               ));
         },
       ),
@@ -473,6 +447,38 @@ class _HomePageState extends State<HomePage>
         controller: searchController,
       ),
     );
+  }
+
+  Future<void> _sendSmartphoneDetail(BuildContext context, index) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SmartphonePage(
+          smartphoneDetail: filterSmartphones[index],
+        ),
+      ),
+    );
+
+    if (!mounted) return;
+
+    setState(() {
+      final correctIndex =
+          smartphones.indexWhere((element) => element.id == result.id);
+      smartphones[correctIndex] = result;
+    });
+  }
+
+  Future<void> _sendSmartphones(BuildContext context, page) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+
+    if (!mounted) return;
+
+    setState(() {
+      smartphones = result;
+    });
   }
 
   Container _smartphonesCount() {

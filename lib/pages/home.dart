@@ -5,6 +5,7 @@ import 'package:technical_dz/models/smartphones_model.dart';
 import 'package:technical_dz/pages/basket.dart';
 import 'package:technical_dz/pages/card.dart';
 import 'package:technical_dz/pages/favorites.dart';
+import 'package:technical_dz/widgets/itemTile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -364,121 +365,47 @@ class _HomePageState extends State<HomePage>
         itemCount: filterSmartphones.length,
         itemBuilder: (context, index) {
           return Slidable(
-            endActionPane: ActionPane(
-              motion: const ScrollMotion(),
-              children: [
-                SlidableAction(
-                  foregroundColor: Colors.black,
-                  autoClose: false,
-                  onPressed: (context) {
-                    setState(() {
-                      final correctIndex = smartphones.indexWhere((element) =>
-                          element.id == filterSmartphones[index].id);
-                      smartphones[correctIndex].inBasket =
-                          !smartphones[correctIndex].inBasket;
-                    });
-                  },
-                  icon: filterSmartphones[index].inBasket
-                      ? Icons.remove_shopping_cart_outlined
-                      : Icons.shopping_cart_outlined,
-                  backgroundColor: Colors.deepPurpleAccent.withOpacity(0.7),
-                ),
-                SlidableAction(
-                  foregroundColor: Colors.black,
-                  autoClose: false,
-                  onPressed: (context) {
-                    setState(() {
-                      final correctIndex = smartphones.indexWhere((element) =>
-                          element.id == filterSmartphones[index].id);
-                      smartphones[correctIndex].isSmartphoneFavorite =
-                          !smartphones[correctIndex].isSmartphoneFavorite;
-                    });
-                  },
-                  icon: filterSmartphones[index].isSmartphoneFavorite
-                      ? Icons.favorite
-                      : Icons.favorite_outline,
-                  backgroundColor: Colors.yellow.withOpacity(0.7),
-                ),
-              ],
-            ),
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return SmartphonePage(
-                        smartphoneDetail: filterSmartphones[index],
-                        updateSmartphone: updateSmartphone,
-                      );
+              endActionPane: ActionPane(
+                motion: const ScrollMotion(),
+                children: [
+                  SlidableAction(
+                    foregroundColor: Colors.black,
+                    autoClose: false,
+                    onPressed: (context) {
+                      setState(() {
+                        final correctIndex = smartphones.indexWhere((element) =>
+                            element.id == filterSmartphones[index].id);
+                        smartphones[correctIndex].inBasket =
+                            !smartphones[correctIndex].inBasket;
+                      });
                     },
+                    icon: filterSmartphones[index].inBasket
+                        ? Icons.remove_shopping_cart_outlined
+                        : Icons.shopping_cart_outlined,
+                    backgroundColor: Colors.deepPurpleAccent.withOpacity(0.7),
                   ),
-                );
-              },
-              child: Container(
-                padding: const EdgeInsets.only(right: 5),
-                height: 100,
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: Image.asset(filterSmartphones[index].imagePath),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            filterSmartphones[index].name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  '${filterSmartphones[index].memory} | ${filterSmartphones[index].processor}',
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Text(
-                            filterSmartphones[index].description,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          Text(
-                            '${formatter.format(filterSmartphones[index].price)} ₽',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 22,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                  SlidableAction(
+                    foregroundColor: Colors.black,
+                    autoClose: false,
+                    onPressed: (context) {
+                      setState(() {
+                        final correctIndex = smartphones.indexWhere((element) =>
+                            element.id == filterSmartphones[index].id);
+                        smartphones[correctIndex].isSmartphoneFavorite =
+                            !smartphones[correctIndex].isSmartphoneFavorite;
+                      });
+                    },
+                    icon: filterSmartphones[index].isSmartphoneFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_outline,
+                    backgroundColor: Colors.yellow.withOpacity(0.7),
+                  ),
+                ],
               ),
-            ),
-          );
+              child: ItemTile(
+                smartphone: smartphones[index],
+                smartphones: smartphones,
+              ));
         },
       ),
     );

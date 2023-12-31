@@ -114,7 +114,6 @@ class _HomePageState extends State<HomePage>
   final formatter = intl.NumberFormat.decimalPattern();
   List<SmartphoneModel> get basketSmartphones =>
       smartphones.where((element) => element.inBasket).toList();
-
   List<SmartphoneModel> get favoriteSmartphones =>
       smartphones.where((element) => element.isSmartphoneFavorite).toList();
   List<SmartphoneModel> get filterSmartphones => searchController.text.isEmpty
@@ -143,7 +142,7 @@ class _HomePageState extends State<HomePage>
                 builder: (BuildContext context) {
                   return BasketPage(
                     smartphones: smartphones,
-                    onChanged: onChanged,
+                    onChanged: updateSmartphones,
                   );
                 },
               ),
@@ -158,7 +157,7 @@ class _HomePageState extends State<HomePage>
               MaterialPageRoute(
                 builder: (BuildContext context) {
                   return FavoritePage(
-                      smartphones: smartphones, onChanged: onChanged);
+                      smartphones: smartphones, onChanged: updateSmartphones);
                 },
               ),
             );
@@ -193,7 +192,15 @@ class _HomePageState extends State<HomePage>
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
   }
 
-  onChanged(result) {
+  updateSmartphone(result) {
+    setState(() {
+      final correctIndex =
+          smartphones.indexWhere((element) => element.id == result.id);
+      smartphones[correctIndex] = result;
+    });
+  }
+
+  updateSmartphones(result) {
     setState(() {
       smartphones = result;
     });
@@ -243,8 +250,7 @@ class _HomePageState extends State<HomePage>
                   builder: (BuildContext context) {
                     return SmartphonePage(
                       smartphoneDetail: filterSmartphones[index],
-                      smartphones: smartphones,
-                      onChanged: onChanged,
+                      updateSmartphone: updateSmartphone,
                     );
                   },
                 ),
@@ -401,8 +407,7 @@ class _HomePageState extends State<HomePage>
                     builder: (BuildContext context) {
                       return SmartphonePage(
                         smartphoneDetail: filterSmartphones[index],
-                        smartphones: smartphones,
-                        onChanged: onChanged,
+                        updateSmartphone: updateSmartphone,
                       );
                     },
                   ),

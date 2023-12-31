@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
 
 class SmartphonePage extends StatefulWidget {
-  final List<SmartphoneModel> smartphones;
   final SmartphoneModel smartphoneDetail;
-  final void Function(List<SmartphoneModel> smartphones) onChanged;
-  const SmartphonePage(
-      {Key? key,
-      required this.smartphoneDetail,
-      required this.smartphones,
-      required this.onChanged})
-      : super(key: key);
+  final void Function(SmartphoneModel smartphoneDetail) updateSmartphone;
+  const SmartphonePage({
+    Key? key,
+    required this.smartphoneDetail,
+    required this.updateSmartphone,
+  }) : super(key: key);
 
   @override
   State<SmartphonePage> createState() => _SmartphonePageState();
@@ -63,15 +61,11 @@ class _SmartphonePageState extends State<SmartphonePage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text('Цвет: ${widget.smartphoneDetail.color}'),
                           Text(
-                            'Цвет: ${widget.smartphoneDetail.color}',
-                          ),
+                              'Процессор: ${widget.smartphoneDetail.processor}'),
                           Text(
-                            'Процессор: ${widget.smartphoneDetail.processor}',
-                          ),
-                          Text(
-                            'Кол-во памяти: ${widget.smartphoneDetail.memory}',
-                          ),
+                              'Кол-во памяти: ${widget.smartphoneDetail.memory}'),
                           const SizedBox(height: 20),
                           Text(
                             'Цена: ${widget.smartphoneDetail.price}',
@@ -101,16 +95,12 @@ class _SmartphonePageState extends State<SmartphonePage> {
               borderRadius: BorderRadius.circular(24),
               onTap: () {
                 setState(() {
-                  final correctIndex = widget.smartphones.indexWhere(
-                      (element) => element.id == widget.smartphoneDetail.id);
-                  widget.smartphones[correctIndex].inBasket =
-                      !widget.smartphones[correctIndex].inBasket;
-                  widget.onChanged(widget.smartphones);
+                  widget.smartphoneDetail.inBasket =
+                      !widget.smartphoneDetail.inBasket;
+                  widget.updateSmartphone(widget.smartphoneDetail);
                 });
               },
               child: Container(
-                height: 70,
-                width: 280,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.black,
@@ -147,11 +137,9 @@ class _SmartphonePageState extends State<SmartphonePage> {
                     iconColor: MaterialStatePropertyAll(Colors.black)),
                 onPressed: () {
                   setState(() {
-                    final correctIndex = widget.smartphones.indexWhere(
-                        (element) => element.id == widget.smartphoneDetail.id);
-                    widget.smartphones[correctIndex].isSmartphoneFavorite =
-                        !widget.smartphones[correctIndex].isSmartphoneFavorite;
-                    widget.onChanged(widget.smartphones);
+                    widget.smartphoneDetail.isSmartphoneFavorite =
+                        !widget.smartphoneDetail.isSmartphoneFavorite;
+                    widget.updateSmartphone(widget.smartphoneDetail);
                   });
                 },
                 icon: widget.smartphoneDetail.isSmartphoneFavorite

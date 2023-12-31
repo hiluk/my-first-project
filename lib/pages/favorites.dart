@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
-import 'package:technical_dz/widgets/itemTile.dart';
+import 'package:technical_dz/widgets/item_tile.dart';
 
 class FavoritePage extends StatefulWidget {
   final void Function(List<SmartphoneModel> smartphones) onChanged;

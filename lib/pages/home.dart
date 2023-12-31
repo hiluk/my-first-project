@@ -5,7 +5,7 @@ import 'package:technical_dz/models/smartphones_model.dart';
 import 'package:technical_dz/pages/basket.dart';
 import 'package:technical_dz/pages/card.dart';
 import 'package:technical_dz/pages/favorites.dart';
-import 'package:technical_dz/widgets/itemTile.dart';
+import 'package:technical_dz/widgets/item_tile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

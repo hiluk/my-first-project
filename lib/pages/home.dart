@@ -212,15 +212,7 @@ class _HomePageState extends State<HomePage>
             key: ValueKey(filterSmartphones[index].id),
             borderRadius: BorderRadius.circular(20),
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return SmartphonePage(
-                      smartphoneDetail: filterSmartphones[index],
-                    );
-                  },
-                ),
-              );
+              _sendSmartphoneDetail(context, index);
             },
             child: Container(
               decoration: BoxDecoration(

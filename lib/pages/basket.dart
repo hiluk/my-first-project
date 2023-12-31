@@ -163,10 +163,14 @@ class _BasketPageState extends State<BasketPage> {
                           ),
                           Row(
                             children: [
-                              Text(
-                                '${basketSmartphones[index].memory} | ${basketSmartphones[index].processor}',
-                                style: const TextStyle(
-                                  color: Colors.grey,
+                              Flexible(
+                                child: Text(
+                                  '${basketSmartphones[index].memory} | ${basketSmartphones[index].processor}',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               )
                             ],

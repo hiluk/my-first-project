@@ -231,14 +231,10 @@ class _HomePageState extends State<HomePage>
 
   Widget _buildGridView() {
     return Expanded(
-      child: GridView.builder(
+      child: ListView.separated(
+        separatorBuilder: (context, index) => const SizedBox(height: 20),
         shrinkWrap: true,
         padding: const EdgeInsetsDirectional.all(20),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 20,
-        ),
         itemCount: filterSmartphones.length,
         itemBuilder: (context, index) {
           return InkWell(
@@ -259,16 +255,21 @@ class _HomePageState extends State<HomePage>
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(35),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Image.asset(filterSmartphones[index].imagePath),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      constraints: const BoxConstraints(
+                        minHeight: 80,
+                        maxHeight: 90,
+                      ),
+                      child: Image.asset(filterSmartphones[index].imagePath),
+                    ),
                   ),
                   Text(
                     overflow: TextOverflow.ellipsis,
@@ -443,10 +444,14 @@ class _HomePageState extends State<HomePage>
                           ),
                           Row(
                             children: [
-                              Text(
-                                '${filterSmartphones[index].memory} | ${filterSmartphones[index].processor}',
-                                style: const TextStyle(
-                                  color: Colors.grey,
+                              Flexible(
+                                child: Text(
+                                  '${filterSmartphones[index].memory} | ${filterSmartphones[index].processor}',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               )
                             ],

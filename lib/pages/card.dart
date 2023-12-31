@@ -86,7 +86,7 @@ class _SmartphonePageState extends State<SmartphonePage> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        height: 100,
+        height: 90,
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -101,6 +101,10 @@ class _SmartphonePageState extends State<SmartphonePage> {
                 });
               },
               child: Container(
+                constraints: const BoxConstraints(
+                  minWidth: 220,
+                  maxWidth: 300,
+                ),
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.black,

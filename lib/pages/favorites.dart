@@ -126,10 +126,14 @@ class _FavoritePageState extends State<FavoritePage> {
                           ),
                           Row(
                             children: [
-                              Text(
-                                '${favoriteSmartphones[index].memory} | ${favoriteSmartphones[index].processor}',
-                                style: const TextStyle(
-                                  color: Colors.grey,
+                              Flexible(
+                                child: Text(
+                                  '${favoriteSmartphones[index].memory} | ${favoriteSmartphones[index].processor}',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               )
                             ],

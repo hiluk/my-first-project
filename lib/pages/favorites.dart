@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
+import 'package:technical_dz/pages/card.dart';
 import 'package:technical_dz/widgets/item_tile.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -99,9 +100,14 @@ class _FavoritePageState extends State<FavoritePage> {
                     !widget.smartphones[correctIndex].isSmartphoneFavorite;
               });
             },
-            child: ItemTile(
-              smartphone: favoriteSmartphones[index],
-              smartphones: favoriteSmartphones,
+            child: InkWell(
+              onTap: () {
+                _sendSmartphoneDetail(context, index);
+              },
+              child: ItemTile(
+                smartphone: favoriteSmartphones[index],
+                smartphones: favoriteSmartphones,
+              ),
             ),
           );
         },
@@ -115,6 +121,25 @@ class _FavoritePageState extends State<FavoritePage> {
     } else {
       return _buildListView();
     }
+  }
+
+  Future<void> _sendSmartphoneDetail(BuildContext context, index) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SmartphonePage(
+          smartphoneDetail: widget.smartphones[index],
+        ),
+      ),
+    );
+
+    if (!mounted) return;
+
+    setState(() {
+      final correctIndex =
+          widget.smartphones.indexWhere((element) => element.id == result.id);
+      widget.smartphones[correctIndex] = result;
+    });
   }
 
   Container _smartphonesCount() {

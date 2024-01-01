@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:technical_dz/models/smartphones_model.dart';
+import 'package:technical_dz/pages/card.dart';
 import 'package:technical_dz/widgets/item_tile.dart';
 
 class BasketPage extends StatefulWidget {
@@ -137,9 +138,14 @@ class _BasketPageState extends State<BasketPage> {
                     !widget.smartphones[correctIndex].inBasket;
               });
             },
-            child: ItemTile(
-              smartphone: basketSmartphones[index],
-              smartphones: widget.smartphones,
+            child: InkWell(
+              onTap: () {
+                _sendSmartphoneDetail(context, index);
+              },
+              child: ItemTile(
+                smartphone: basketSmartphones[index],
+                smartphones: widget.smartphones,
+              ),
             ),
           );
         },
@@ -169,7 +175,7 @@ class _BasketPageState extends State<BasketPage> {
   String _getAlertMessage() {
     String text = '';
     if (basketSmartphones.isEmpty) {
-      text = 'Добавьте что нибудь в корзину';
+      text = 'Добавьте что-нибудь в корзину';
     } else {
       text = 'Покупка прошла успешно';
     }
@@ -189,5 +195,24 @@ class _BasketPageState extends State<BasketPage> {
     }
 
     return formatter.format(sum);
+  }
+
+  Future<void> _sendSmartphoneDetail(BuildContext context, index) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SmartphonePage(
+          smartphoneDetail: widget.smartphones[index],
+        ),
+      ),
+    );
+
+    if (!mounted) return;
+
+    setState(() {
+      final correctIndex =
+          widget.smartphones.indexWhere((element) => element.id == result.id);
+      widget.smartphones[correctIndex] = result;
+    });
   }
 }

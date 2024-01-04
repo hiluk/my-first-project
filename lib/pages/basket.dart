@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:technical_dz/main.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
 import 'package:technical_dz/pages/card.dart';
 import 'package:technical_dz/widgets/item_tile.dart';
 
 class BasketPage extends StatefulWidget {
-  final List<SmartphoneModel> smartphones;
   const BasketPage({
     Key? key,
-    required this.smartphones,
   }) : super(key: key);
 
   @override
@@ -18,12 +17,12 @@ class BasketPage extends StatefulWidget {
 class _BasketPageState extends State<BasketPage> {
   final formatter = intl.NumberFormat.decimalPattern();
   List<SmartphoneModel> get basketSmartphones =>
-      widget.smartphones.where((element) => element.inBasket).toList();
+      smartphones.where((element) => element.inBasket).toList();
   AppBar appBar() {
     return AppBar(
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context, widget.smartphones);
+          Navigator.pop(context);
         },
         icon: const Icon(
           Icons.arrow_back,
@@ -132,10 +131,10 @@ class _BasketPageState extends State<BasketPage> {
             ),
             onDismissed: (DismissDirection direction) {
               setState(() {
-                final correctIndex = widget.smartphones.indexWhere(
+                final correctIndex = smartphones.indexWhere(
                     (element) => element.id == basketSmartphones[index].id);
-                widget.smartphones[correctIndex].inBasket =
-                    !widget.smartphones[correctIndex].inBasket;
+                smartphones[correctIndex].inBasket =
+                    !smartphones[correctIndex].inBasket;
               });
             },
             child: InkWell(
@@ -144,7 +143,7 @@ class _BasketPageState extends State<BasketPage> {
               },
               child: ItemTile(
                 smartphone: basketSmartphones[index],
-                smartphones: widget.smartphones,
+                smartphones: smartphones,
               ),
             ),
           );
@@ -202,7 +201,7 @@ class _BasketPageState extends State<BasketPage> {
       context,
       MaterialPageRoute(
         builder: (context) => SmartphonePage(
-          smartphoneDetail: widget.smartphones[index],
+          smartphoneDetail: smartphones[index],
         ),
       ),
     );
@@ -211,8 +210,8 @@ class _BasketPageState extends State<BasketPage> {
 
     setState(() {
       final correctIndex =
-          widget.smartphones.indexWhere((element) => element.id == result.id);
-      widget.smartphones[correctIndex] = result;
+          smartphones.indexWhere((element) => element.id == result.id);
+      smartphones[correctIndex] = result;
     });
   }
 }

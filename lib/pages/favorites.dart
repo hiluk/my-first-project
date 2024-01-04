@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:technical_dz/main.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
 import 'package:technical_dz/pages/card.dart';
 import 'package:technical_dz/widgets/item_tile.dart';
 
 class FavoritePage extends StatefulWidget {
-  final List<SmartphoneModel> smartphones;
   const FavoritePage({
     Key? key,
-    required this.smartphones,
   }) : super(key: key);
 
   @override
@@ -15,14 +14,13 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  List<SmartphoneModel> get favoriteSmartphones => widget.smartphones
-      .where((element) => element.isSmartphoneFavorite)
-      .toList();
+  List<SmartphoneModel> get favoriteSmartphones =>
+      smartphones.where((element) => element.isSmartphoneFavorite).toList();
   AppBar appBar() {
     return AppBar(
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context, widget.smartphones);
+          Navigator.pop(context);
         },
         icon: const Icon(
           Icons.arrow_back,
@@ -94,10 +92,10 @@ class _FavoritePageState extends State<FavoritePage> {
             ),
             onDismissed: (DismissDirection direction) {
               setState(() {
-                final correctIndex = widget.smartphones.indexWhere(
+                final correctIndex = smartphones.indexWhere(
                     (element) => element.id == favoriteSmartphones[index].id);
-                widget.smartphones[correctIndex].isSmartphoneFavorite =
-                    !widget.smartphones[correctIndex].isSmartphoneFavorite;
+                smartphones[correctIndex].isSmartphoneFavorite =
+                    !smartphones[correctIndex].isSmartphoneFavorite;
               });
             },
             child: InkWell(
@@ -128,7 +126,7 @@ class _FavoritePageState extends State<FavoritePage> {
       context,
       MaterialPageRoute(
         builder: (context) => SmartphonePage(
-          smartphoneDetail: widget.smartphones[index],
+          smartphoneDetail: smartphones[index],
         ),
       ),
     );
@@ -137,8 +135,8 @@ class _FavoritePageState extends State<FavoritePage> {
 
     setState(() {
       final correctIndex =
-          widget.smartphones.indexWhere((element) => element.id == result.id);
-      widget.smartphones[correctIndex] = result;
+          smartphones.indexWhere((element) => element.id == result.id);
+      smartphones[correctIndex] = result;
     });
   }
 

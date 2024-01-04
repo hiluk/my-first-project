@@ -1,4 +1,6 @@
-class SmartphoneModel {
+import 'package:flutter/material.dart';
+
+class SmartphoneModel with ChangeNotifier {
   String name;
   String color;
   String memory;

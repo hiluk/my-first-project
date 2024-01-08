@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
-import 'package:technical_dz/pages/home.dart';
+import 'package:technical_dz/pages/movies_view.dart';
 
 void main() {
   runApp(Provider.value(
@@ -116,7 +116,7 @@ class MyApp extends StatelessWidget {
         bottomSheetTheme:
             const BottomSheetThemeData(backgroundColor: Colors.white),
       ),
-      home: const HomePage(),
+      home: const MovieView(),
     );
   }
 }

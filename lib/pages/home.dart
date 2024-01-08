@@ -22,10 +22,6 @@ class _HomePageState extends State<HomePage>
   late AnimationController _animationController;
   bool isGrid = false;
   final formatter = intl.NumberFormat.decimalPattern();
-  List<SmartphoneModel> get basketSmartphones =>
-      smartphones.where((element) => element.inBasket).toList();
-  List<SmartphoneModel> get favoriteSmartphones =>
-      smartphones.where((element) => element.isSmartphoneFavorite).toList();
   List<SmartphoneModel> get filterSmartphones => searchController.text.isEmpty
       ? smartphones
       : smartphones

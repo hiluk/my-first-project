@@ -22,7 +22,7 @@ class _BasketPageState extends State<BasketPage> {
     return AppBar(
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.pop(context, smartphones);
         },
         icon: const Icon(
           Icons.arrow_back,

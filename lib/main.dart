@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
-import 'package:technical_dz/pages/movies_view.dart';
+import 'package:technical_dz/news/views/articles_view.dart';
 
 void main() {
-  runApp(Provider.value(
-    value: (context) => smartphones,
-    child: const MyApp(),
-  ));
+  runApp(
+    ProviderScope(child: const MyApp()),
+  );
 }
 
 List<SmartphoneModel> smartphones = [
@@ -116,7 +115,7 @@ class MyApp extends StatelessWidget {
         bottomSheetTheme:
             const BottomSheetThemeData(backgroundColor: Colors.white),
       ),
-      home: const MovieView(),
+      home: const ArticlesView(),
     );
   }
 }

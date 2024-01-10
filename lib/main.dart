@@ -5,7 +5,7 @@ import 'package:technical_dz/news/views/articles_view.dart';
 
 void main() {
   runApp(
-    ProviderScope(child: const MyApp()),
+    const ProviderScope(child: MyApp()),
   );
 }
 

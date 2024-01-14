@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/news/models/article.dart';
+import 'package:technical_dz/news/widgets/title_widget.dart';
 
 class ArticleWidget extends ConsumerWidget {
   final AsyncValue<List<Article>> articles;
-
+  final String request;
   const ArticleWidget({
     super.key,
     required this.articles,
+    required this.request,
   });
 
   @override
@@ -33,15 +35,9 @@ class ArticleWidget extends ConsumerWidget {
                             fit: BoxFit.fill,
                           ),
                         ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: Text(
-                            article.title,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                        TitleWidget(
+                          text: article.title,
+                          request: request,
                         ),
                         const SizedBox(height: 10),
                         SizedBox(

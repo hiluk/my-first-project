@@ -24,19 +24,26 @@ class ArticlesView extends ConsumerWidget {
         ),
         centerTitle: true,
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () => print(searchText),
+      // ),
       body: Column(
         children: [
           SearchField(
-            text: searchInputProvider,
-            onSearchPressed: () async {
+            onSearchPressed: (inputText) async {
               articlesNotifier.searchByParams(
                 request: ArticlesRequest(
-                    titleContains: ref.read(searchInputProvider)),
+                    titleContains: ref
+                        .read(searchInputProvider.notifier)
+                        .update((state) => inputText)),
               );
             },
           ),
           const HeaderTextWidget(text: 'Articles'),
-          ArticleWidget(articles: articles),
+          ArticleWidget(
+            articles: articles,
+            request: ref.watch(searchInputProvider),
+          ),
         ],
       ),
     );

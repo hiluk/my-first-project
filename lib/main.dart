@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
-import 'package:technical_dz/news/views/articles_view.dart';
+import 'package:technical_dz/news/router/router.dart';
 
 void main() {
   runApp(
-    const ProviderScope(child: MyApp()),
+    ProviderScope(child: MyApp()),
   );
 }
 
@@ -103,11 +103,12 @@ List<SmartphoneModel> smartphones = [
 ];
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final _router = AppRouter();
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Montserrat',
@@ -115,7 +116,7 @@ class MyApp extends StatelessWidget {
         bottomSheetTheme:
             const BottomSheetThemeData(backgroundColor: Colors.white),
       ),
-      home: ArticlesView(),
+      routerConfig: _router.config(),
     );
   }
 }

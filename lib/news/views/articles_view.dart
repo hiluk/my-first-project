@@ -1,13 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/news/models/articles_request.dart';
 import 'package:technical_dz/news/providers/articles_notifier.dart';
 import 'package:technical_dz/news/widgets/articles.dart';
-import 'package:technical_dz/news/widgets/header_text.dart';
 import 'package:technical_dz/news/widgets/search_field.dart';
 
 final searchInputProvider = StateProvider<String>((ref) => '');
 
+@RoutePage()
 class ArticlesView extends ConsumerWidget {
   const ArticlesView({super.key});
 
@@ -40,23 +41,9 @@ class ArticlesView extends ConsumerWidget {
               );
             },
           ),
-          const HeaderTextWidget(text: 'Articles'),
           ArticleWidget(
             articles: articles,
             request: ref.watch(searchInputProvider),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.black,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.article),
-            label: 'Articles',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark),
-            label: 'Favorites',
           ),
         ],
       ),

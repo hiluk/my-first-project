@@ -26,9 +26,6 @@ class ArticlesView extends ConsumerWidget {
         ),
         centerTitle: true,
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () => print(searchText),
-      // ),
       body: Column(
         children: [
           SearchField(

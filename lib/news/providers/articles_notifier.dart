@@ -24,11 +24,12 @@ class ArticlesNotifier extends _$ArticlesNotifier {
     return articles;
   }
 
-  Future<void> fetchNextPage() async {
+  Future<void> fetchNextPage(String searchField) async {
     // if (state.value == null) return;
     final response = await fetchArticles(
       ArticlesRequest(
         offset: state.value!.length + 20,
+        titleContains: searchField,
       ),
     );
     final list = state.value!;

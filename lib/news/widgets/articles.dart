@@ -20,7 +20,7 @@ class ArticleWidget extends ConsumerWidget {
     final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
     void controllerListener() {
       if (_scrollController.position.atEdge) {
-        articlesNotifier.fetchNextPage();
+        articlesNotifier.fetchNextPage(request);
       }
     }
 

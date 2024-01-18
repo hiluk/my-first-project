@@ -115,7 +115,7 @@ class MyApp extends StatelessWidget {
         bottomSheetTheme:
             const BottomSheetThemeData(backgroundColor: Colors.white),
       ),
-      home: const ArticlesView(),
+      home: ArticlesView(),
     );
   }
 }

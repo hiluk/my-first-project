@@ -25,11 +25,9 @@ class ArticlesNotifier extends _$ArticlesNotifier {
   }
 
   Future<void> fetchNextPage() async {
-    if (state.value == null) return;
-    // final int page = state.value!.length ~/ 20;
+    // if (state.value == null) return;
     final response = await fetchArticles(
       ArticlesRequest(
-        titleContains: '',
         offset: state.value!.length + 20,
       ),
     );
@@ -41,5 +39,18 @@ class ArticlesNotifier extends _$ArticlesNotifier {
   Future<void> searchByParams({ArticlesRequest? request}) async {
     state = const AsyncValue.loading();
     state = AsyncData(await fetchArticles(request));
+  }
+
+  Future<void> setFeature(int id) async {
+    var newState = state.value!.map(
+      (e) {
+        if (e.id == id) {
+          return e.copyWith(featured: !e.featured);
+        } else {
+          return e;
+        }
+      },
+    ).toList();
+    state = AsyncData(newState);
   }
 }

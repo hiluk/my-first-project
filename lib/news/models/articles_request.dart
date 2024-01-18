@@ -8,7 +8,7 @@ part 'articles_request.g.dart';
 @freezed
 class ArticlesRequest with _$ArticlesRequest {
   factory ArticlesRequest({
-    @JsonKey(name: 'title_contains') required String titleContains,
+    @JsonKey(name: 'title_contains') @Default('') String titleContains,
     @Default(20) int limit,
     @Default(0) int offset,
   }) = _ArticlesRequest;

@@ -9,7 +9,7 @@ part of 'articles_request.dart';
 _$ArticlesRequestImpl _$$ArticlesRequestImplFromJson(
         Map<String, dynamic> json) =>
     _$ArticlesRequestImpl(
-      titleContains: json['title_contains'] as String,
+      titleContains: json['title_contains'] as String? ?? '',
       limit: json['limit'] as int? ?? 20,
       offset: json['offset'] as int? ?? 0,
     );

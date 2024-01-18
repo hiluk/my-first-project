@@ -127,7 +127,7 @@ class __$$ArticlesRequestImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ArticlesRequestImpl implements _ArticlesRequest {
   _$ArticlesRequestImpl(
-      {@JsonKey(name: 'title_contains') required this.titleContains,
+      {@JsonKey(name: 'title_contains') this.titleContains = '',
       this.limit = 20,
       this.offset = 0});
 
@@ -181,7 +181,7 @@ class _$ArticlesRequestImpl implements _ArticlesRequest {
 
 abstract class _ArticlesRequest implements ArticlesRequest {
   factory _ArticlesRequest(
-      {@JsonKey(name: 'title_contains') required final String titleContains,
+      {@JsonKey(name: 'title_contains') final String titleContains,
       final int limit,
       final int offset}) = _$ArticlesRequestImpl;
 

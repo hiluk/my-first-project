@@ -1,25 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/news/models/article.dart';
+import 'package:technical_dz/news/providers/articles_notifier.dart';
 import 'package:technical_dz/news/widgets/title_widget.dart';
 
 class ArticleWidget extends ConsumerWidget {
   final AsyncValue<List<Article>> articles;
   final String request;
-  const ArticleWidget({
+  final _scrollController = ScrollController();
+
+  ArticleWidget({
     super.key,
+    this.request = '',
     required this.articles,
-    required this.request,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
+    void controllerListener() {
+      if (_scrollController.position.atEdge) {
+        articlesNotifier.fetchNextPage();
+      }
+    }
+
+    _scrollController.addListener(controllerListener);
     return Flexible(
       child: switch (articles) {
         AsyncData(:final value) => ListView(
+            controller: _scrollController,
             scrollDirection: Axis.vertical,
             children: [
-              for (final article in value)
+              for (var article in value)
                 InkWell(
                   onTap: () {
                     // launchUrl(Uri.parse(article.url));
@@ -29,7 +41,19 @@ class ArticleWidget extends ConsumerWidget {
                     child: Column(
                       children: [
                         Container(
-                          constraints: BoxConstraints(
+                          width: double.infinity,
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            onPressed: () {
+                              articlesNotifier.setFeature(article.id);
+                            },
+                            icon: article.featured
+                                ? const Icon(Icons.bookmark_added)
+                                : const Icon(Icons.bookmark_add),
+                          ),
+                        ),
+                        Container(
+                          constraints: const BoxConstraints(
                             maxHeight: 400,
                           ),
                           padding: const EdgeInsets.all(8.0),

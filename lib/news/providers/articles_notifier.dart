@@ -24,6 +24,20 @@ class ArticlesNotifier extends _$ArticlesNotifier {
     return articles;
   }
 
+  Future<void> fetchNextPage() async {
+    if (state.value == null) return;
+    // final int page = state.value!.length ~/ 20;
+    final response = await fetchArticles(
+      ArticlesRequest(
+        titleContains: '',
+        offset: state.value!.length + 20,
+      ),
+    );
+    final list = state.value!;
+    list.addAll(response);
+    state = AsyncData(list);
+  }
+
   Future<void> searchByParams({ArticlesRequest? request}) async {
     state = const AsyncValue.loading();
     state = AsyncData(await fetchArticles(request));

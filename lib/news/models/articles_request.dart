@@ -9,6 +9,8 @@ part 'articles_request.g.dart';
 class ArticlesRequest with _$ArticlesRequest {
   factory ArticlesRequest({
     @JsonKey(name: 'title_contains') required String titleContains,
+    @Default(20) int limit,
+    @Default(0) int offset,
   }) = _ArticlesRequest;
 
   factory ArticlesRequest.fromJson(Map<String, dynamic> json) =>

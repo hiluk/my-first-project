@@ -22,6 +22,8 @@ ArticlesRequest _$ArticlesRequestFromJson(Map<String, dynamic> json) {
 mixin _$ArticlesRequest {
   @JsonKey(name: 'title_contains')
   String get titleContains => throw _privateConstructorUsedError;
+  int get limit => throw _privateConstructorUsedError;
+  int get offset => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,10 @@ abstract class $ArticlesRequestCopyWith<$Res> {
           ArticlesRequest value, $Res Function(ArticlesRequest) then) =
       _$ArticlesRequestCopyWithImpl<$Res, ArticlesRequest>;
   @useResult
-  $Res call({@JsonKey(name: 'title_contains') String titleContains});
+  $Res call(
+      {@JsonKey(name: 'title_contains') String titleContains,
+      int limit,
+      int offset});
 }
 
 /// @nodoc
@@ -52,12 +57,22 @@ class _$ArticlesRequestCopyWithImpl<$Res, $Val extends ArticlesRequest>
   @override
   $Res call({
     Object? titleContains = null,
+    Object? limit = null,
+    Object? offset = null,
   }) {
     return _then(_value.copyWith(
       titleContains: null == titleContains
           ? _value.titleContains
           : titleContains // ignore: cast_nullable_to_non_nullable
               as String,
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as int,
+      offset: null == offset
+          ? _value.offset
+          : offset // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -70,7 +85,10 @@ abstract class _$$ArticlesRequestImplCopyWith<$Res>
       __$$ArticlesRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'title_contains') String titleContains});
+  $Res call(
+      {@JsonKey(name: 'title_contains') String titleContains,
+      int limit,
+      int offset});
 }
 
 /// @nodoc
@@ -85,12 +103,22 @@ class __$$ArticlesRequestImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? titleContains = null,
+    Object? limit = null,
+    Object? offset = null,
   }) {
     return _then(_$ArticlesRequestImpl(
       titleContains: null == titleContains
           ? _value.titleContains
           : titleContains // ignore: cast_nullable_to_non_nullable
               as String,
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as int,
+      offset: null == offset
+          ? _value.offset
+          : offset // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -99,7 +127,9 @@ class __$$ArticlesRequestImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ArticlesRequestImpl implements _ArticlesRequest {
   _$ArticlesRequestImpl(
-      {@JsonKey(name: 'title_contains') required this.titleContains});
+      {@JsonKey(name: 'title_contains') required this.titleContains,
+      this.limit = 20,
+      this.offset = 0});
 
   factory _$ArticlesRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$ArticlesRequestImplFromJson(json);
@@ -107,10 +137,16 @@ class _$ArticlesRequestImpl implements _ArticlesRequest {
   @override
   @JsonKey(name: 'title_contains')
   final String titleContains;
+  @override
+  @JsonKey()
+  final int limit;
+  @override
+  @JsonKey()
+  final int offset;
 
   @override
   String toString() {
-    return 'ArticlesRequest(titleContains: $titleContains)';
+    return 'ArticlesRequest(titleContains: $titleContains, limit: $limit, offset: $offset)';
   }
 
   @override
@@ -119,12 +155,14 @@ class _$ArticlesRequestImpl implements _ArticlesRequest {
         (other.runtimeType == runtimeType &&
             other is _$ArticlesRequestImpl &&
             (identical(other.titleContains, titleContains) ||
-                other.titleContains == titleContains));
+                other.titleContains == titleContains) &&
+            (identical(other.limit, limit) || other.limit == limit) &&
+            (identical(other.offset, offset) || other.offset == offset));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, titleContains);
+  int get hashCode => Object.hash(runtimeType, titleContains, limit, offset);
 
   @JsonKey(ignore: true)
   @override
@@ -143,8 +181,9 @@ class _$ArticlesRequestImpl implements _ArticlesRequest {
 
 abstract class _ArticlesRequest implements ArticlesRequest {
   factory _ArticlesRequest(
-      {@JsonKey(name: 'title_contains')
-      required final String titleContains}) = _$ArticlesRequestImpl;
+      {@JsonKey(name: 'title_contains') required final String titleContains,
+      final int limit,
+      final int offset}) = _$ArticlesRequestImpl;
 
   factory _ArticlesRequest.fromJson(Map<String, dynamic> json) =
       _$ArticlesRequestImpl.fromJson;
@@ -152,6 +191,10 @@ abstract class _ArticlesRequest implements ArticlesRequest {
   @override
   @JsonKey(name: 'title_contains')
   String get titleContains;
+  @override
+  int get limit;
+  @override
+  int get offset;
   @override
   @JsonKey(ignore: true)
   _$$ArticlesRequestImplCopyWith<_$ArticlesRequestImpl> get copyWith =>

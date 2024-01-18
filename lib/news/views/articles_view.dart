@@ -6,6 +6,8 @@ import 'package:technical_dz/news/widgets/articles.dart';
 import 'package:technical_dz/news/widgets/header_text.dart';
 import 'package:technical_dz/news/widgets/search_field.dart';
 
+final searchInputProvider = StateProvider<String>((ref) => '');
+
 class ArticlesView extends ConsumerWidget {
   const ArticlesView({super.key});
 
@@ -13,7 +15,6 @@ class ArticlesView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
     final articles = ref.watch(articlesNotifierProvider);
-    final searchInputProvider = StateProvider<String>((ref) => '');
     return Scaffold(
       appBar: AppBar(
         title: const Text(

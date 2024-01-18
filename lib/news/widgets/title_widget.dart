@@ -34,8 +34,7 @@ class TitleWidget extends ConsumerWidget {
       {required String text, required String request}) {
     final allText = text.replaceAll("\n", "...");
     final RegExp regEx = RegExp(request, caseSensitive: false, multiLine: true);
-    final Iterable<Match> textMatches = regEx.allMatches(allText);
-    print(request);
+    final textMatches = regEx.allMatches(allText).toList();
     final List<TextSpan> titleText = [];
     if (textMatches.isEmpty) {
       titleText.add(
@@ -44,7 +43,7 @@ class TitleWidget extends ConsumerWidget {
 
     int startIndex = 0;
     for (int i = 0; i < textMatches.length; i++) {
-      final Match match = textMatches.elementAt(i);
+      final match = textMatches[i];
       titleText.add(
         TitleWidget.highlightedTextSpan(
             text: text.substring(

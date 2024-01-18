@@ -29,6 +29,9 @@ class ArticleWidget extends ConsumerWidget {
                     child: Column(
                       children: [
                         Container(
+                          constraints: BoxConstraints(
+                            maxHeight: 400,
+                          ),
                           padding: const EdgeInsets.all(8.0),
                           child: Image.network(
                             article.imageUrl,

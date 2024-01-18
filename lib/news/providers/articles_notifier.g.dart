@@ -2,6 +2,12 @@
 
 part of 'articles_notifier.dart';
 
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+String _$articlesNotifierHash() => r'369ca9d0703446fa79e8019482c236ca8954194a';
+
 /// See also [ArticlesNotifier].
 @ProviderFor(ArticlesNotifier)
 final articlesNotifierProvider =
@@ -14,12 +20,6 @@ final articlesNotifierProvider =
   dependencies: null,
   allTransitiveDependencies: null,
 );
-
-// **************************************************************************
-// RiverpodGenerator
-// **************************************************************************
-
-String _$articlesNotifierHash() => r'afcd9275cd7e098f07a74842a7f8d3d856eb92ee';
 
 typedef _$ArticlesNotifier = AutoDisposeAsyncNotifier<List<Article>>;
 // ignore_for_file: type=lint

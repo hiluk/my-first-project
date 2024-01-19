@@ -17,15 +17,21 @@ class ArticlesView extends ConsumerWidget {
     final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
     final articles = ref.watch(articlesNotifierProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Spaceflight News',
-          style: TextStyle(
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     onPressed: () {},
+      //     icon: const Icon(
+      //       Icons.ac_unit_sharp,
+      //     ),
+      //   ),
+      //   title: const Text(
+      //     'Spaceflight News',
+      //     style: TextStyle(
+      //       fontSize: 18,
+      //     ),
+      //   ),
+      //   centerTitle: true,
+      // ),
       body: Column(
         children: [
           SearchField(

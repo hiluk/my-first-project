@@ -21,6 +21,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ArticlesView(),
       );
     },
+    AuthScreenRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AuthScreen(),
+      );
+    },
     FeatureArticlesViewRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -46,6 +52,20 @@ class ArticlesViewRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ArticlesViewRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AuthScreen]
+class AuthScreenRoute extends PageRouteInfo<void> {
+  const AuthScreenRoute({List<PageRouteInfo>? children})
+      : super(
+          AuthScreenRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AuthScreenRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

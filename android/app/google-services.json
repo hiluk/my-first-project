@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "587072840255",
+    "firebase_url": "https://spacenews-app-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "spacenews-app",
+    "storage_bucket": "spacenews-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587072840255:android:c65f660403becf2d5b8e8a",
+        "android_client_info": {
+          "package_name": "com.example.technical_dz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCINhdR56L2k9crlGforzNtOpe4xPBzlto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

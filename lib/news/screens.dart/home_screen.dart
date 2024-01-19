@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:technical_dz/news/router/router.dart';
+import 'package:technical_dz/news/routers/router.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerWidget {
@@ -17,6 +17,16 @@ class HomeScreen extends ConsumerWidget {
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
+          appBar: AppBar(
+            leading: Container(),
+            title: const Text(
+              'Spaceflight News',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            centerTitle: true,
+          ),
           body: child,
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: tabsRouter.activeIndex,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/news/models/article.dart';
 import 'package:technical_dz/news/providers/articles_notifier.dart';
-import 'package:technical_dz/news/widgets/title_widget.dart';
+import 'package:technical_dz/news/widgets/highlight_widget.dart';
 
 class ArticleWidget extends ConsumerWidget {
   final AsyncValue<List<Article>> articles;
@@ -33,9 +33,7 @@ class ArticleWidget extends ConsumerWidget {
             children: [
               for (var article in value)
                 InkWell(
-                  onTap: () {
-                    // launchUrl(Uri.parse(article.url));
-                  },
+                  onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -62,7 +60,7 @@ class ArticleWidget extends ConsumerWidget {
                             fit: BoxFit.fill,
                           ),
                         ),
-                        TitleWidget(
+                        HighlightWidget(
                           text: article.title,
                           request: request,
                         ),

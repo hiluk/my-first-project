@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
-import 'package:technical_dz/news/router/router.dart';
+import 'package:technical_dz/news/routers/router.dart';
 
-void main() {
+Future<void> main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // if (kIsWeb) {
+  //   await Firebase.initializeApp(
+  //     options: FirebaseOptions(
+  //       apiKey: "AIzaSyDI5IhTr0GcM_0mj8ncCOLDOL4POo_Vf1w",
+  //       appId: "spacenews-app.firebaseapp.com",
+  //       messagingSenderId:
+  //           "https://spacenews-app-default-rtdb.europe-west1.firebasedatabase.app",
+  //       projectId: "spacenews-app",
+  //     ),
+  //   );
+  // }
+  // await Firebase.initializeApp();
   runApp(
     ProviderScope(child: MyApp()),
   );

@@ -14,22 +14,28 @@ class FeatureArticlesView extends ConsumerWidget {
     final featuredArticles =
         articles.value!.where((article) => article.featured).toList();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Spaceflight News',
-          style: TextStyle(
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          ArticleWidget(
-            articles: AsyncData(featuredArticles),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: const Text(
+      //     'Spaceflight News',
+      //     style: TextStyle(
+      //       fontSize: 18,
+      //     ),
+      //   ),
+      //   centerTitle: true,
+      // ),
+      body: featuredArticles.isEmpty
+          ? const Center(
+              child: Text(
+                'Favorites is empty',
+              ),
+            )
+          : Column(
+              children: [
+                ArticleWidget(
+                  articles: AsyncData(featuredArticles),
+                ),
+              ],
+            ),
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TitleWidget extends ConsumerWidget {
+class HighlightWidget extends ConsumerWidget {
   final String text;
   final String request;
-  const TitleWidget({
+  const HighlightWidget({
     super.key,
     required this.text,
     required this.request,
@@ -24,7 +24,8 @@ class TitleWidget extends ConsumerWidget {
             fontWeight: FontWeight.w700,
             color: Colors.black,
           ),
-          children: TitleWidget.highlightedText(text: text, request: request),
+          children:
+              HighlightWidget.highlightedText(text: text, request: request),
         ),
       ),
     );
@@ -37,15 +38,15 @@ class TitleWidget extends ConsumerWidget {
     final textMatches = regEx.allMatches(allText).toList();
     final List<TextSpan> titleText = [];
     if (textMatches.isEmpty) {
-      titleText.add(
-          TitleWidget.highlightedTextSpan(text: text, needHighlight: false));
+      titleText.add(HighlightWidget.highlightedTextSpan(
+          text: text, needHighlight: false));
     }
 
     int startIndex = 0;
     for (int i = 0; i < textMatches.length; i++) {
       final match = textMatches[i];
       titleText.add(
-        TitleWidget.highlightedTextSpan(
+        HighlightWidget.highlightedTextSpan(
             text: text.substring(
               startIndex,
               match.start,
@@ -54,7 +55,7 @@ class TitleWidget extends ConsumerWidget {
       );
 
       titleText.add(
-        TitleWidget.highlightedTextSpan(
+        HighlightWidget.highlightedTextSpan(
             text: text.substring(
               match.start,
               match.end,
@@ -64,7 +65,7 @@ class TitleWidget extends ConsumerWidget {
 
       if (i == textMatches.length - 1 && match.end != text.length) {
         titleText.add(
-          TitleWidget.highlightedTextSpan(
+          HighlightWidget.highlightedTextSpan(
             text: text.substring(match.end),
             needHighlight: false,
           ),

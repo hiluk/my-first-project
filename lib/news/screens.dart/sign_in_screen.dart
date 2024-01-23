@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/news/routers/router.dart';
 
-final _formKey = GlobalKey<FormState>();
+GlobalKey<FormState> _signInFormKey = GlobalKey<FormState>();
 
 @RoutePage()
-class AuthScreen extends ConsumerWidget {
-  const AuthScreen({super.key});
+class SingInScreen extends ConsumerWidget {
+  const SingInScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,7 +35,7 @@ class AuthScreen extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(
-                key: _formKey,
+                key: _signInFormKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -79,9 +79,9 @@ class AuthScreen extends ConsumerWidget {
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
+                        if (_signInFormKey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('You autorized')));
+                              const SnackBar(content: Text('You authorized')));
                           AutoRouter.of(context).push(const HomeScreenRoute());
                         }
                       },
@@ -90,7 +90,7 @@ class AuthScreen extends ConsumerWidget {
                         width: 120,
                         child: Center(
                           child: Text(
-                            'Validate',
+                            'Sign In',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -99,7 +99,14 @@ class AuthScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        AutoRouter.of(context).push(const SingUpScreenRoute());
+                      },
+                      child: Text('Sign Up'),
+                    ),
                   ],
                 ),
               ),

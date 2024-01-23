@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "spacenews-app",
+    "n": "spacenews-app",
+    "spacenews": "spacenews-app"
+  },
+  "targets": {},
+  "etags": {}
+}

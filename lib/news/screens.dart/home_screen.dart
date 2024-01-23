@@ -18,7 +18,7 @@ class HomeScreen extends ConsumerWidget {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
           appBar: AppBar(
-            leading: Container(),
+            leading: const SizedBox.shrink(),
             title: const Text(
               'Spaceflight News',
               style: TextStyle(

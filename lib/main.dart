@@ -1,22 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:technical_dz/firebase_options.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
 import 'package:technical_dz/news/routers/router.dart';
 
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // if (kIsWeb) {
-  //   await Firebase.initializeApp(
-  //     options: FirebaseOptions(
-  //       apiKey: "AIzaSyDI5IhTr0GcM_0mj8ncCOLDOL4POo_Vf1w",
-  //       appId: "spacenews-app.firebaseapp.com",
-  //       messagingSenderId:
-  //           "https://spacenews-app-default-rtdb.europe-west1.firebasedatabase.app",
-  //       projectId: "spacenews-app",
-  //     ),
-  //   );
-  // }
-  // await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+
   runApp(
     ProviderScope(child: MyApp()),
   );

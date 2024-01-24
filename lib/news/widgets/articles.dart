@@ -18,9 +18,8 @@ class ArticleWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favoritesIdNotifier =
-        ref.read(favoritesArticleNotifierProvider.notifier);
-    final favoritesId = ref.watch(favoritesArticleNotifierProvider);
+    final favoritesIdNotifier = ref.read(favoritesNotifierProvider.notifier);
+    final favoritesId = ref.watch(favoritesNotifierProvider);
     final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
     void controllerListener() {
       if (_scrollController.position.atEdge) {

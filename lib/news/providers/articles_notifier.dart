@@ -26,7 +26,7 @@ class ArticlesNotifier extends _$ArticlesNotifier {
   }
 
   Future<void> fetchNextPage(String searchField) async {
-    // if (state.value == null) return;
+    if (state.value == null) return;
     final response = await fetchArticles(
       ArticlesRequest(
         offset: state.value!.length + 20,

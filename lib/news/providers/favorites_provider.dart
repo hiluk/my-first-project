@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'favorites_provider.g.dart';
 
 @riverpod
-class FavoritesArticleNotifier extends _$FavoritesArticleNotifier {
+class FavoritesNotifier extends _$FavoritesNotifier {
   @override
   List<int> build() {
     return [];

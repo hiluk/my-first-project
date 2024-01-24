@@ -1,8 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:technical_dz/news/providers/articles_notifier.dart';
-import 'package:technical_dz/news/widgets/articles.dart';
+import 'package:technical_dz/news/providers/favorites_provider.dart';
 
 @RoutePage()
 class FeatureArticlesView extends ConsumerWidget {
@@ -10,9 +9,9 @@ class FeatureArticlesView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final articles = ref.watch(articlesNotifierProvider);
-    final featuredArticles =
-        articles.value!.where((article) => article.featured).toList();
+    final favoritesIdNotifier =
+        ref.read(favoritesArticleNotifierProvider.notifier);
+    final favoritesId = ref.watch(favoritesArticleNotifierProvider);
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text(
@@ -23,19 +22,17 @@ class FeatureArticlesView extends ConsumerWidget {
       //   ),
       //   centerTitle: true,
       // ),
-      body: featuredArticles.isEmpty
-          ? const Center(
-              child: Text(
-                'Favorites is empty',
-              ),
-            )
-          : Column(
-              children: [
-                ArticleWidget(
-                  articles: AsyncData(featuredArticles),
-                ),
-              ],
-            ),
+      body: Center(
+        child: ListView(
+            children: favoritesId.map((e) => Text(e.toString())).toList()),
+      ),
+      // body: Column(
+      //   children: [
+      //     ArticleWidget(
+      //       articles: articles,
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

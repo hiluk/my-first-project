@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -42,17 +48,6 @@ class DefaultFirebaseOptions {
         );
     }
   }
-
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDI5IhTr0GcM_0mj8ncCOLDOL4POo_Vf1w',
-    appId: '1:587072840255:web:85315a1c2605eb435b8e8a',
-    messagingSenderId: '587072840255',
-    projectId: 'spacenews-app',
-    authDomain: 'spacenews-app.firebaseapp.com',
-    databaseURL: 'https://spacenews-app-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'spacenews-app.appspot.com',
-    measurementId: 'G-P6PSV2GB3E',
-  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCINhdR56L2k9crlGforzNtOpe4xPBzlto',
@@ -71,15 +66,5 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://spacenews-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'spacenews-app.appspot.com',
     iosBundleId: 'com.example.technicalDz',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyApdzCnerRrgVcY4KcTct86v-uqavxv2VY',
-    appId: '1:587072840255:ios:23fc0579b53289c35b8e8a',
-    messagingSenderId: '587072840255',
-    projectId: 'spacenews-app',
-    databaseURL: 'https://spacenews-app-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'spacenews-app.appspot.com',
-    iosBundleId: 'com.example.technicalDz.RunnerTests',
   );
 }

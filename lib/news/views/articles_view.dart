@@ -6,6 +6,7 @@ import 'package:technical_dz/news/providers/articles_notifier.dart';
 import 'package:technical_dz/news/widgets/articles.dart';
 import 'package:technical_dz/news/widgets/search_field.dart';
 
+final favoritesIdProvider = StateProvider<List<int>>((ref) => []);
 final searchInputProvider = StateProvider<String>((ref) => '');
 
 @RoutePage()

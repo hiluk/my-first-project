@@ -9,6 +9,7 @@ part 'articles_notifier.g.dart';
 @riverpod
 class ArticlesNotifier extends _$ArticlesNotifier {
   Dio get httpClient => ref.read(httpClientProvider);
+
   @override
   FutureOr<List<Article>> build() async {
     return fetchArticles();
@@ -40,18 +41,5 @@ class ArticlesNotifier extends _$ArticlesNotifier {
   Future<void> searchByParams({ArticlesRequest? request}) async {
     state = const AsyncValue.loading();
     state = AsyncData(await fetchArticles(request));
-  }
-
-  Future<void> setFeature(int id) async {
-    var newState = state.value!.map(
-      (e) {
-        if (e.id == id) {
-          return e.copyWith(featured: !e.featured);
-        } else {
-          return e;
-        }
-      },
-    ).toList();
-    state = AsyncData(newState);
   }
 }

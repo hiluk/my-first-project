@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/news/models/article.dart';
 import 'package:technical_dz/news/providers/articles_notifier.dart';
+import 'package:technical_dz/news/providers/favorites_provider.dart';
 import 'package:technical_dz/news/widgets/highlight_widget.dart';
 
 class ArticleWidget extends ConsumerWidget {
@@ -17,6 +18,9 @@ class ArticleWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favoritesIdNotifier =
+        ref.read(favoritesArticleNotifierProvider.notifier);
+    final favoritesId = ref.watch(favoritesArticleNotifierProvider);
     final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
     void controllerListener() {
       if (_scrollController.position.atEdge) {
@@ -43,9 +47,9 @@ class ArticleWidget extends ConsumerWidget {
                           alignment: Alignment.topRight,
                           child: IconButton(
                             onPressed: () {
-                              articlesNotifier.setFeature(article.id);
+                              favoritesIdNotifier.setFavorite(article.id);
                             },
-                            icon: article.featured
+                            icon: favoritesId.contains(article.id)
                                 ? const Icon(Icons.bookmark_added)
                                 : const Icon(Icons.bookmark_add),
                           ),

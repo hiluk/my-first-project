@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:technical_dz/core/providers/http_client_provider.dart';
 import 'package:technical_dz/news/models/article.dart';
-import 'package:technical_dz/news/views/articles_view.dart';
+import 'package:technical_dz/news/providers/favorites_provider.dart';
 
 part 'favorites_articles_notifier.g.dart';
 
@@ -12,21 +12,29 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
 
   @override
   FutureOr<List<Article>> build() async {
-    return [];
+    return fetchFavoriteArticles();
   }
 
-  Future<Article> fetchFavoriteArticle(int id) async {
-    final response = await httpClient.get('articles/$id');
-    final data = response.data as Map<String, dynamic>;
-    final article = Article.fromJson(data);
-    return article;
+  Future<dynamic> fetchDataById(int id) async {
+    try {
+      final response = await httpClient.get('articles/$id/');
+      final data = response.data as Map<String, dynamic>;
+      return data;
+    } catch (e) {
+      throw Exception('Failed to fetch data: $e');
+    }
   }
 
-  void fetchFavoriteArticles() {
-    final favoritesId = ref.watch(favoritesIdProvider);
-    final favoritesArticles =
-        favoritesId.map((id) => fetchFavoriteArticle(id)).toList();
-
-    ref.notifyListeners();
+  Future<List<Article>> fetchFavoriteArticles() async {
+    final ids = ref.watch(favoritesNotifierProvider);
+    final datas = await Future.wait(
+      ids.map(
+        (id) => fetchDataById(id),
+      ),
+    );
+    final favoriteArticles = datas.map((data) {
+      return Article.fromJson(data);
+    }).toList();
+    return favoriteArticles;
   }
 }

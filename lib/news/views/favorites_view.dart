@@ -10,12 +10,12 @@ class FeatureArticlesView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favoritesArticles = ref.watch(favoritesArticlesNotifierProvider);
+    final favoriteArticles = ref.watch(favoritesArticlesNotifierProvider);
     return Scaffold(
       body: Column(
         children: [
           ArticleWidget(
-            articles: favoritesArticles,
+            articles: favoriteArticles,
           ),
         ],
       ),

@@ -21,10 +21,10 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ArticlesView(),
       );
     },
-    FeatureArticlesViewRoute.name: (routeData) {
+    FavoriteArticlesViewRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const FeatureArticlesView(),
+        child: const FavoriteArticlesView(),
       );
     },
     HomeScreenRoute.name: (routeData) {
@@ -63,15 +63,15 @@ class ArticlesViewRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [FeatureArticlesView]
-class FeatureArticlesViewRoute extends PageRouteInfo<void> {
-  const FeatureArticlesViewRoute({List<PageRouteInfo>? children})
+/// [FavoriteArticlesView]
+class FavoriteArticlesViewRoute extends PageRouteInfo<void> {
+  const FavoriteArticlesViewRoute({List<PageRouteInfo>? children})
       : super(
-          FeatureArticlesViewRoute.name,
+          FavoriteArticlesViewRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'FeatureArticlesViewRoute';
+  static const String name = 'FavoriteArticlesViewRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

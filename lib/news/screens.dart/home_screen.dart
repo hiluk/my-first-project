@@ -12,7 +12,7 @@ class HomeScreen extends ConsumerWidget {
     return AutoTabsRouter(
       routes: const [
         ArticlesViewRoute(),
-        FeatureArticlesViewRoute(),
+        FavoriteArticlesViewRoute(),
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);

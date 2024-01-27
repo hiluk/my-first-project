@@ -5,8 +5,8 @@ import 'package:technical_dz/news/providers/favorites_articles_notifier.dart';
 import 'package:technical_dz/news/widgets/articles.dart';
 
 @RoutePage()
-class FeatureArticlesView extends ConsumerWidget {
-  const FeatureArticlesView({super.key});
+class FavoriteArticlesView extends ConsumerWidget {
+  const FavoriteArticlesView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -31,7 +31,7 @@ class AppRouter extends _$AppRouter {
               page: ArticlesViewRoute.page,
             ),
             AutoRoute(
-              page: FeatureArticlesViewRoute.page,
+              page: FavoriteArticlesViewRoute.page,
             ),
           ],
         ),

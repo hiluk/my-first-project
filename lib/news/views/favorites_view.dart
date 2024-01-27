@@ -12,13 +12,15 @@ class FeatureArticlesView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final favoriteArticles = ref.watch(favoritesArticlesNotifierProvider);
     return Scaffold(
-      body: Column(
-        children: [
-          ArticleWidget(
-            articles: favoriteArticles,
-          ),
-        ],
-      ),
+      body: favoriteArticles.value!.isEmpty
+          ? const Center(child: Text('Favorites is empty'))
+          : Column(
+              children: [
+                ArticleWidget(
+                  articles: favoriteArticles,
+                ),
+              ],
+            ),
     );
   }
 }

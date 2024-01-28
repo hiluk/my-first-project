@@ -46,6 +46,7 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
                 child: Column(
                   children: [
                     TextFormField(
+                      keyboardType: TextInputType.emailAddress,
                       controller: emailController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
@@ -57,8 +58,8 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
                         ),
                         hintText: 'Email',
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
+                      validator: (email) {
+                        if (email == null || email.isEmpty) {
                           return 'Enter Email';
                         }
                         return null;
@@ -66,6 +67,8 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
+                      autocorrect: false,
+                      obscureText: true,
                       controller: passwordController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(

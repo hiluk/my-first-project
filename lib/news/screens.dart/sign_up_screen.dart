@@ -89,6 +89,7 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
+                      obscureText: true,
                       controller: passwordController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(

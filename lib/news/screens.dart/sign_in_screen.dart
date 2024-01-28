@@ -6,11 +6,16 @@ import 'package:technical_dz/news/routers/router.dart';
 GlobalKey<FormState> _signInFormKey = GlobalKey<FormState>();
 
 @RoutePage()
-class SingInScreen extends ConsumerWidget {
-  const SingInScreen({super.key});
+class SignInScreen extends ConsumerStatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  SignInScreenState createState() => SignInScreenState();
+}
+
+class SignInScreenState extends ConsumerState<SignInScreen> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       body: Center(
@@ -103,7 +108,7 @@ class SingInScreen extends ConsumerWidget {
                     SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
-                        AutoRouter.of(context).push(const SingUpScreenRoute());
+                        AutoRouter.of(context).push(const SignUpScreenRoute());
                       },
                       child: Text('Sign Up'),
                     ),

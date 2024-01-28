@@ -6,14 +6,19 @@ import 'package:technical_dz/news/routers/router.dart';
 import 'package:technical_dz/news/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 
 @RoutePage()
-class SingUpScreen extends ConsumerWidget {
-  const SingUpScreen({super.key});
+class SignUpScreen extends ConsumerStatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final TextEditingController _userNameController = TextEditingController();
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
+  SignUpScreenState createState() => SignUpScreenState();
+}
+
+class SignUpScreenState extends ConsumerState<SignUpScreen> {
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       body: Center(
@@ -131,6 +136,11 @@ class SingUpScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   void _signUp(

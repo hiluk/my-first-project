@@ -33,16 +33,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const HomeScreen(),
       );
     },
-    SingInScreenRoute.name: (routeData) {
+    SignInScreenRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SingInScreen(),
+        child: const SignInScreen(),
       );
     },
-    SingUpScreenRoute.name: (routeData) {
+    SignUpScreenRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SingUpScreen(),
+        child: const SignUpScreen(),
       );
     },
   };
@@ -91,29 +91,29 @@ class HomeScreenRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SingInScreen]
-class SingInScreenRoute extends PageRouteInfo<void> {
-  const SingInScreenRoute({List<PageRouteInfo>? children})
+/// [SignInScreen]
+class SignInScreenRoute extends PageRouteInfo<void> {
+  const SignInScreenRoute({List<PageRouteInfo>? children})
       : super(
-          SingInScreenRoute.name,
+          SignInScreenRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SingInScreenRoute';
+  static const String name = 'SignInScreenRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
-/// [SingUpScreen]
-class SingUpScreenRoute extends PageRouteInfo<void> {
-  const SingUpScreenRoute({List<PageRouteInfo>? children})
+/// [SignUpScreen]
+class SignUpScreenRoute extends PageRouteInfo<void> {
+  const SignUpScreenRoute({List<PageRouteInfo>? children})
       : super(
-          SingUpScreenRoute.name,
+          SignUpScreenRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SingUpScreenRoute';
+  static const String name = 'SignUpScreenRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

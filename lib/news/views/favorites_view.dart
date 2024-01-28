@@ -12,7 +12,7 @@ class FavoriteArticlesView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final favoriteArticles = ref.watch(favoritesArticlesNotifierProvider);
     return Scaffold(
-      body: favoriteArticles.value!.isEmpty
+      body: (favoriteArticles.value == null || favoriteArticles.value!.isEmpty)
           ? const Center(child: Text('Favorites is empty'))
           : Column(
               children: [

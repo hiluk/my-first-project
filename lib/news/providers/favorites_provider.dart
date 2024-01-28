@@ -7,11 +7,11 @@ part 'favorites_provider.g.dart';
 class FavoritesNotifier extends _$FavoritesNotifier {
   @override
   List<int> build() {
-    getIds();
+    getCacheIds();
     return [];
   }
 
-  Future<void> getIds() async {
+  Future<void> getCacheIds() async {
     var prefs = await SharedPreferences.getInstance();
     final List<String>? favoriteIdsString = prefs.getStringList('favoriteIds');
     if (favoriteIdsString != null) {
@@ -23,6 +23,13 @@ class FavoritesNotifier extends _$FavoritesNotifier {
     }
   }
 
+  Future<void> setCacheIds(List<int> ids) async {
+    var prefs = await SharedPreferences.getInstance();
+    final List<String> favoriteIdsString =
+        ids.map((id) => id.toString()).toList();
+    prefs.setStringList('favoriteIds', favoriteIdsString);
+  }
+
   void setFavorite(int id) {
     final favorites = state;
     if (favorites.contains(id)) {
@@ -31,14 +38,7 @@ class FavoritesNotifier extends _$FavoritesNotifier {
       favorites.add(id);
     }
     state = favorites;
-    setIds(favorites);
+    setCacheIds(favorites);
     ref.notifyListeners();
-  }
-
-  Future<void> setIds(List<int> ids) async {
-    var prefs = await SharedPreferences.getInstance();
-    final List<String> favoriteIdsString =
-        ids.map((id) => id.toString()).toList();
-    prefs.setStringList('favoriteIds', favoriteIdsString);
   }
 }

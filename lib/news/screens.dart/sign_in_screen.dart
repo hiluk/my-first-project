@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/news/routers/router.dart';
 
-GlobalKey<FormState> _signInFormKey = GlobalKey<FormState>();
-
 @RoutePage()
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -14,6 +12,10 @@ class SignInScreen extends ConsumerStatefulWidget {
 }
 
 class SignInScreenState extends ConsumerState<SignInScreen> {
+  GlobalKey<FormState> signInFormKey = GlobalKey<FormState>();
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,10 +42,11 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(
-                key: _signInFormKey,
+                key: signInFormKey,
                 child: Column(
                   children: [
                     TextFormField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 4,
@@ -63,6 +66,7 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
+                      controller: passwordController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 4,
@@ -84,7 +88,7 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        if (_signInFormKey.currentState!.validate()) {
+                        if (signInFormKey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('You authorized')));
                           AutoRouter.of(context).push(const HomeScreenRoute());
@@ -105,12 +109,12 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
                         AutoRouter.of(context).push(const SignUpScreenRoute());
                       },
-                      child: Text('Sign Up'),
+                      child: const Text('Sign Up'),
                     ),
                   ],
                 ),
@@ -120,5 +124,13 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    userNameController.dispose();
+    super.dispose();
   }
 }

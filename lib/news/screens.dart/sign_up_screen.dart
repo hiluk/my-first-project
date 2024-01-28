@@ -14,9 +14,10 @@ class SignUpScreen extends ConsumerStatefulWidget {
 }
 
 class SignUpScreenState extends ConsumerState<SignUpScreen> {
-  final TextEditingController _userNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,10 +44,11 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(
+                key: signUpFormKey,
                 child: Column(
                   children: [
                     TextFormField(
-                      controller: _userNameController,
+                      controller: userNameController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 4,
@@ -67,7 +69,7 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
-                      controller: _emailController,
+                      controller: emailController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 4,
@@ -87,7 +89,7 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
-                      controller: _passwordController,
+                      controller: passwordController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 4,
@@ -110,8 +112,8 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ElevatedButton(
                       onPressed: () => _signUp(
                         context,
-                        _emailController.text,
-                        _passwordController.text,
+                        emailController.text,
+                        passwordController.text,
                       ),
                       child: const SizedBox(
                         height: 50,
@@ -139,8 +141,11 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    userNameController.dispose();
+    super.dispose();
   }
 
   void _signUp(
@@ -154,6 +159,6 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
     if (user != null) {
       print('User is successfully created');
     }
-    AutoRouter.of(context).push(const SingInScreenRoute());
+    AutoRouter.of(context).push(const SignInScreenRoute());
   }
 }

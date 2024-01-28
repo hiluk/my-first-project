@@ -17,12 +17,12 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-          page: SingInScreenRoute.page,
+          page: SignInScreenRoute.page,
           initial: true,
           keepHistory: false,
         ),
         AutoRoute(
-          page: SingUpScreenRoute.page,
+          page: SignUpScreenRoute.page,
         ),
         AutoRoute(
           page: HomeScreenRoute.page,

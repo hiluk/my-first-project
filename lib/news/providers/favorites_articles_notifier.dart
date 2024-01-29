@@ -26,7 +26,8 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
   }
 
   Future<List<Article>> fetchFavoriteArticles() async {
-    final ids = ref.watch(favoritesNotifierProvider);
+    final ids = ref.watch(favoritesNotifierProvider).valueOrNull;
+    if (ids == null) return [];
     final datas = await Future.wait(
       ids.map(
         (id) => fetchDataById(id),

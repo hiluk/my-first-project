@@ -6,20 +6,19 @@ part 'favorites_provider.g.dart';
 @riverpod
 class FavoritesNotifier extends _$FavoritesNotifier {
   @override
-  List<int> build() {
-    getCacheIds();
-    return [];
+  Future<List<int>> build() async {
+    return await getCacheIds();
   }
 
-  Future<void> getCacheIds() async {
+  Future<List<int>> getCacheIds() async {
     var prefs = await SharedPreferences.getInstance();
     final List<String>? favoriteIdsString = prefs.getStringList('favoriteIds');
     if (favoriteIdsString != null) {
       final List<int> favoriteIds =
           favoriteIdsString.map((id) => int.parse(id)).toList();
-      state = favoriteIds;
+      return favoriteIds;
     } else {
-      state = [];
+      return [];
     }
   }
 
@@ -31,13 +30,14 @@ class FavoritesNotifier extends _$FavoritesNotifier {
   }
 
   void setFavorite(int id) {
-    final favorites = state;
+    if (state.value == null) return;
+    final favorites = state.value!;
     if (favorites.contains(id)) {
       favorites.remove(id);
     } else {
       favorites.add(id);
     }
-    state = favorites;
+    state = AsyncData(favorites);
     setCacheIds(favorites);
     ref.notifyListeners();
   }

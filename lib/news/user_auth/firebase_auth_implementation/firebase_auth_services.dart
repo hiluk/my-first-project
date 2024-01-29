@@ -20,7 +20,9 @@ class FirebaseAuthService {
       String email, String password) async {
     try {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       return credential.user;
     } on FirebaseAuthException catch (e) {
       print(e.code);

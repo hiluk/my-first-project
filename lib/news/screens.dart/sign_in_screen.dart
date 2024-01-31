@@ -1,23 +1,35 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:technical_dz/news/routers/router.dart';
+import 'package:technical_dz/news/user_auth/firebase_implementation/firebase_auth_services.dart';
 
 @RoutePage()
-class SignInScreen extends ConsumerStatefulWidget {
+class SignInScreen extends HookConsumerWidget {
   const SignInScreen({super.key});
-
   @override
-  SignInScreenState createState() => SignInScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    String? validateEmail(String? value) {
+      const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+          r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+          r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+          r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+          r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+          r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+          r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+      final regex = RegExp(pattern);
 
-class SignInScreenState extends ConsumerState<SignInScreen> {
-  GlobalKey<FormState> signInFormKey = GlobalKey<FormState>();
-  TextEditingController userNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
+      return value!.isEmpty || !regex.hasMatch(value)
+          ? 'Enter a valid email address'
+          : null;
+    }
+
+    final signInFormKey = useMemoized(GlobalKey<FormState>.new);
+    TextEditingController emailController = useTextEditingController(text: '');
+    TextEditingController passwordController =
+        useTextEditingController(text: '');
     return Scaffold(
       extendBody: true,
       body: Center(
@@ -58,15 +70,11 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
                         ),
                         hintText: 'Email',
                       ),
-                      validator: (email) {
-                        if (email == null || email.isEmpty) {
-                          return 'Enter Email';
-                        }
-                        return null;
-                      },
+                      validator: validateEmail,
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
+                      onEditingComplete: () {},
                       autocorrect: false,
                       obscureText: true,
                       controller: passwordController,
@@ -81,20 +89,25 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
                         hintText: 'Password',
                         focusColor: Colors.black,
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Enter Password';
+                      validator: (password) {
+                        if (password == null || password == '') {
+                          return 'Enter password';
+                        } else if (password.length < 6) {
+                          return 'Password must include 6 symbols';
+                        } else {
+                          return null;
                         }
-                        return null;
                       },
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
                         if (signInFormKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('You authorized')));
-                          AutoRouter.of(context).push(const HomeScreenRoute());
+                          signIn(
+                            context: context,
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
                         }
                       },
                       child: const SizedBox(
@@ -114,9 +127,8 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () {
-                        AutoRouter.of(context).push(const SignUpScreenRoute());
-                      },
+                      onPressed: () => AutoRouter.of(context)
+                          .push(const SignUpScreenRoute()),
                       child: const Text('Sign Up'),
                     ),
                   ],
@@ -129,11 +141,23 @@ class SignInScreenState extends ConsumerState<SignInScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    userNameController.dispose();
-    super.dispose();
+  void signIn({
+    required context,
+    required String email,
+    required String password,
+  }) async {
+    final FirebaseAuthService auth = FirebaseAuthService();
+    UserCredential? user = await auth.signInWithEmailAmdPassword(
+      email: email,
+      password: password,
+    );
+    if (user != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('You authorized'),
+        ),
+      );
+      AutoRouter.of(context).push(const HomeScreenRoute());
+    }
   }
 }

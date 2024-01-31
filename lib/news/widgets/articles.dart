@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:technical_dz/news/models/article.dart';
 import 'package:technical_dz/news/providers/articles_notifier.dart';
 import 'package:technical_dz/news/providers/favorites_provider.dart';

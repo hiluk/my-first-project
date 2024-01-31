@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:technical_dz/news/screens.dart/home_screen.dart';
 import 'package:technical_dz/news/screens.dart/sign_in_screen.dart';
 import 'package:technical_dz/news/screens.dart/sign_up_screen.dart';
+import 'package:technical_dz/news/screens.dart/user_profile_screen.dart';
 import 'package:technical_dz/news/views/articles_view.dart';
 import 'package:technical_dz/news/views/favorites_view.dart';
 
@@ -23,6 +24,9 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(
           page: SignUpScreenRoute.page,
+        ),
+        AutoRoute(
+          page: UserProfileScreenRoute.page,
         ),
         AutoRoute(
           page: HomeScreenRoute.page,

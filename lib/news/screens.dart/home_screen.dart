@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:technical_dz/news/routers/router.dart';
 
 @RoutePage()
@@ -9,6 +10,13 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
     return AutoTabsRouter(
       routes: const [
         ArticlesViewRoute(),
@@ -18,8 +26,18 @@ class HomeScreen extends ConsumerWidget {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
           appBar: AppBar(
-            leading:
-                IconButton(onPressed: () {}, icon: Icon(Icons.filter_list)),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  AutoRouter.of(context).push(const UserProfileScreenRoute());
+                },
+                icon: Icon(Icons.account_circle),
+              ),
+            ],
+            leading: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.filter_list),
+            ),
             title: const Text(
               'Spaceflight News',
               style: TextStyle(

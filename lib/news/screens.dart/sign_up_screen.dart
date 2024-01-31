@@ -1,25 +1,37 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:technical_dz/news/providers/auth_provider.dart';
 import 'package:technical_dz/news/routers/router.dart';
-import 'package:technical_dz/news/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 
 @RoutePage()
-class SignUpScreen extends ConsumerStatefulWidget {
+class SignUpScreen extends HookConsumerWidget {
   const SignUpScreen({super.key});
-
   @override
-  SignUpScreenState createState() => SignUpScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authNotifier = ref.watch(authProvider);
+    String? validateEmail(String? value) {
+      const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+          r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+          r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+          r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+          r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+          r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+          r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+      final regex = RegExp(pattern);
 
-class SignUpScreenState extends ConsumerState<SignUpScreen> {
-  GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
-  TextEditingController userNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
+      return value!.isEmpty || !regex.hasMatch(value)
+          ? 'Enter a valid email address'
+          : null;
+    }
+
+    final signUpFormKey = useMemoized(GlobalKey<FormState>.new);
+    TextEditingController emailController = useTextEditingController(text: '');
+    TextEditingController passwordController =
+        useTextEditingController(text: '');
+    TextEditingController userNameController =
+        useTextEditingController(text: '');
     return Scaffold(
       extendBody: true,
       body: Center(
@@ -80,12 +92,7 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
                         ),
                         hintText: 'Email',
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Enter Email';
-                        }
-                        return null;
-                      },
+                      validator: validateEmail,
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
@@ -102,20 +109,26 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
                         hintText: 'Password',
                         focusColor: Colors.black,
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
+                      validator: (password) {
+                        if (password == null || password == '') {
                           return 'Enter password';
+                        } else if (password.length < 6) {
+                          return 'Password must include 6 symbols';
+                        } else {
+                          return null;
                         }
-                        return null;
                       },
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () => _signUp(
-                        context,
-                        emailController.text,
-                        passwordController.text,
-                      ),
+                      onPressed: () {
+                        authNotifier.signUpUserWithFirebase(
+                          email: emailController.text,
+                          password: passwordController.text,
+                          name: userNameController.text,
+                        );
+                        AutoRouter.of(context).push(const SignInScreenRoute());
+                      },
                       child: const SizedBox(
                         height: 50,
                         width: 120,
@@ -139,27 +152,5 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    userNameController.dispose();
-    super.dispose();
-  }
-
-  void _signUp(
-    context,
-    String email,
-    String password,
-  ) async {
-    final FirebaseAuthService auth = FirebaseAuthService();
-    User? user = await auth.signUpWithEmailAndPassword(email, password);
-
-    if (user != null) {
-      print('User is successfully created');
-    }
-    AutoRouter.of(context).push(const SignInScreenRoute());
   }
 }

@@ -9,10 +9,91 @@
 
 part of 'router.dart';
 
-abstract class _$AppRouter extends RootStackRouter {
-  // ignore: unused_element
-  _$AppRouter({super.navigatorKey});
+/// generated route for
+/// [ArticlesView]
+class ArticlesViewRoute extends PageRouteInfo<void> {
+  static const String name = 'ArticlesViewRoute';
 
+  static const PageInfo<void> page = PageInfo<void>(name);
+
+  const ArticlesViewRoute({List<PageRouteInfo>? children})
+      : super(
+          ArticlesViewRoute.name,
+          initialChildren: children,
+        );
+}
+
+/// generated route for
+/// [FavoriteArticlesView]
+class FavoriteArticlesViewRoute extends PageRouteInfo<void> {
+  static const String name = 'FavoriteArticlesViewRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+
+  const FavoriteArticlesViewRoute({List<PageRouteInfo>? children})
+      : super(
+          FavoriteArticlesViewRoute.name,
+          initialChildren: children,
+        );
+}
+
+/// generated route for
+/// [HomeScreen]
+class HomeScreenRoute extends PageRouteInfo<void> {
+  static const String name = 'HomeScreenRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+
+  const HomeScreenRoute({List<PageRouteInfo>? children})
+      : super(
+          HomeScreenRoute.name,
+          initialChildren: children,
+        );
+}
+
+/// generated route for
+/// [SignInScreen]
+class SignInScreenRoute extends PageRouteInfo<void> {
+  static const String name = 'SignInScreenRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+
+  const SignInScreenRoute({List<PageRouteInfo>? children})
+      : super(
+          SignInScreenRoute.name,
+          initialChildren: children,
+        );
+}
+
+/// generated route for
+/// [SignUpScreen]
+class SignUpScreenRoute extends PageRouteInfo<void> {
+  static const String name = 'SignUpScreenRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+
+  const SignUpScreenRoute({List<PageRouteInfo>? children})
+      : super(
+          SignUpScreenRoute.name,
+          initialChildren: children,
+        );
+}
+
+/// generated route for
+/// [UserProfileScreen]
+class UserProfileScreenRoute extends PageRouteInfo<void> {
+  static const String name = 'UserProfileScreenRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+
+  const UserProfileScreenRoute({List<PageRouteInfo>? children})
+      : super(
+          UserProfileScreenRoute.name,
+          initialChildren: children,
+        );
+}
+
+abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     ArticlesViewRoute.name: (routeData) {
@@ -45,75 +126,14 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SignUpScreen(),
       );
     },
+    UserProfileScreenRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const UserProfileScreen(),
+      );
+    },
   };
-}
 
-/// generated route for
-/// [ArticlesView]
-class ArticlesViewRoute extends PageRouteInfo<void> {
-  const ArticlesViewRoute({List<PageRouteInfo>? children})
-      : super(
-          ArticlesViewRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ArticlesViewRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [FavoriteArticlesView]
-class FavoriteArticlesViewRoute extends PageRouteInfo<void> {
-  const FavoriteArticlesViewRoute({List<PageRouteInfo>? children})
-      : super(
-          FavoriteArticlesViewRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'FavoriteArticlesViewRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [HomeScreen]
-class HomeScreenRoute extends PageRouteInfo<void> {
-  const HomeScreenRoute({List<PageRouteInfo>? children})
-      : super(
-          HomeScreenRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'HomeScreenRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [SignInScreen]
-class SignInScreenRoute extends PageRouteInfo<void> {
-  const SignInScreenRoute({List<PageRouteInfo>? children})
-      : super(
-          SignInScreenRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'SignInScreenRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [SignUpScreen]
-class SignUpScreenRoute extends PageRouteInfo<void> {
-  const SignUpScreenRoute({List<PageRouteInfo>? children})
-      : super(
-          SignUpScreenRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'SignUpScreenRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
+  // ignore: unused_element
+  _$AppRouter({super.navigatorKey});
 }

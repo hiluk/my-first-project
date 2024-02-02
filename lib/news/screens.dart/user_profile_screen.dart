@@ -52,46 +52,52 @@ class UserProfileScreen extends HookConsumerWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ProfileHeadWidget(
               imageSrc: imageSrc,
               userData: userData,
             ),
-            Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  ProfileString(
-                    labelText: userData['name'],
-                    label: 'Username',
-                    isActive: isUpdateActive.value,
-                    controller: userNameController,
-                  ),
-                  ProfileString(
-                    labelText: userData['email'],
-                    label: 'Email',
-                    isActive: isUpdateActive.value,
-                    controller: emailController,
-                    validator: Validator().validateEmail,
-                  ),
-                  ProfileString(
-                    labelText: userData['password'],
-                    label: 'Password',
-                    isActive: isUpdateActive.value,
-                    controller: passwordController,
-                    validator: Validator().validatePassword,
-                  ),
-                  ProfileString(
-                    labelText: userData['phoneNumber'],
-                    label: 'Phone number',
-                    isActive: isUpdateActive.value,
-                    controller: phoneNumberController,
-                    validator: Validator().validatePhoneNumber,
-                  ),
-                ],
+            Container(
+              constraints: BoxConstraints(
+                maxHeight: 410,
+              ),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ProfileString(
+                      labelText: userData['name'],
+                      label: 'Username',
+                      isActive: isUpdateActive.value,
+                      controller: userNameController,
+                    ),
+                    ProfileString(
+                      labelText: userData['email'],
+                      label: 'Email',
+                      isActive: isUpdateActive.value,
+                      controller: emailController,
+                      validator: Validator().validateEmail,
+                    ),
+                    ProfileString(
+                      labelText: userData['password'],
+                      label: 'Password',
+                      isActive: isUpdateActive.value,
+                      controller: passwordController,
+                      validator: Validator().validatePassword,
+                    ),
+                    ProfileString(
+                      labelText: userData['phoneNumber'],
+                      label: 'Phone number',
+                      isActive: isUpdateActive.value,
+                      controller: phoneNumberController,
+                      validator: Validator().validatePhoneNumber,
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 20),
             OutlinedButton(
                 onPressed: () {
                   if (isUpdateActive.value) {
@@ -105,11 +111,6 @@ class UserProfileScreen extends HookConsumerWidget {
                       userDataNotifier.updateDataToFirestore(
                           data, 'users', userId);
                       userDataNotifier.updateUserDataFromFirestore();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('User update completed'),
-                        ),
-                      );
                       isUpdateActive.value = false;
                     }
                   } else {

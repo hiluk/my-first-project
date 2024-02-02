@@ -27,19 +27,19 @@ class FirebaseFirestoreServices {
     }
   }
 
-  Future<void> updateDataFromFirestore(
-      Map<String, dynamic> data, String collectionName, String docName) async {
-    try {
-      await firestoreInstance
-          .collection(collectionName)
-          .doc(docName)
-          .update(data)
-          .then((value) => print('User updated'))
-          .catchError((error) => print('Failed to update user: $error'));
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
+  // Future<void> updateDataFromFirestore(
+  //     Map<String, dynamic> data, String collectionName, String docName) async {
+  //   try {
+  //     await firestoreInstance
+  //         .collection(collectionName)
+  //         .doc(docName)
+  //         .update(data)
+  //         .then((value) => print('User updated'))
+  //         .catchError((error) => print('Failed to update user: $error'));
+  //   } catch (e) {
+  //     throw Exception(e.toString());
+  //   }
+  // }
 
   Future<void> updateDataToFirestore(
       Map<String, dynamic> data, String collectionName, String docName) async {

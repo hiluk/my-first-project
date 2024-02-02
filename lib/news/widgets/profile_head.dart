@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProfileHeadWidget extends StatelessWidget {
   final String imageSrc;
-  final Map<String, dynamic> userData;
+  final Map<String, dynamic>? userData;
   const ProfileHeadWidget({
     super.key,
     required this.imageSrc,
@@ -12,7 +12,7 @@ class ProfileHeadWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minHeight: 200,
         maxHeight: 300,
       ),
@@ -36,8 +36,8 @@ class ProfileHeadWidget extends StatelessWidget {
             ),
           ),
           Text(
-            userData['name'],
-            style: TextStyle(
+            userData!['name'],
+            style: const TextStyle(
               fontSize: 50,
               fontWeight: FontWeight.w400,
             ),

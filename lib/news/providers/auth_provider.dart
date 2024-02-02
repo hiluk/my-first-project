@@ -32,21 +32,6 @@ class AuthProvider extends ChangeNotifier {
     return value;
   }
 
-  Map<String, dynamic>? getUserData({
-    required String collectionName,
-    required String docName,
-  }) {
-    fstore
-        .getUserDataFromFirestore(
-            collectionName: collectionName, docName: docName)
-        .then(
-      (value) {
-        _userData = value;
-      },
-    );
-    return _userData;
-  }
-
   Future<UserCredential?> loginUserWithFirebase({
     required String email,
     required String password,

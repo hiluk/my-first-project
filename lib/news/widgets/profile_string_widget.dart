@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ProfileString extends StatelessWidget {
+class ProfileString extends HookConsumerWidget {
+  final String? Function(String?)? validator;
   final String labelText;
   final bool isActive;
   final String label;
@@ -11,12 +13,16 @@ class ProfileString extends StatelessWidget {
     required this.label,
     required this.isActive,
     required this.controller,
+    this.validator,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 90,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      constraints: const BoxConstraints(
+        minHeight: 90,
+        maxHeight: 101,
+      ),
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -32,6 +38,7 @@ class ProfileString extends StatelessWidget {
               ),
             ),
             TextFormField(
+              validator: validator,
               controller: controller,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(

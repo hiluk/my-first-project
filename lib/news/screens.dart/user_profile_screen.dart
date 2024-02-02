@@ -98,6 +98,7 @@ class UserProfileScreen extends HookConsumerWidget {
                 ),
               ),
             ),
+            SizedBox(height: 10),
             OutlinedButton(
                 onPressed: () {
                   if (isUpdateActive.value) {

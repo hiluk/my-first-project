@@ -28,7 +28,7 @@ class UserData extends _$UserData {
     );
   }
 
-  Future<void> updateDataToFirestore(
+  Future<void> updateDataToFirebase(
       Map<String, dynamic> data, String collectionName, String docName) async {
     try {
       await firestoreInstance
@@ -38,6 +38,28 @@ class UserData extends _$UserData {
       ref.notifyListeners();
     } catch (e) {
       throw Exception(e.toString());
+    }
+  }
+
+  Future<void> updateFirebaseAuthData(Map<String, dynamic> data) async {
+    if (data['email'] != state.value!['email']) {
+      try {
+        await auth.currentUser!.updateEmail(data['email']);
+      } catch (e) {
+        Exception(e.toString());
+      }
+    } else if (data['password'] != state.value!['password']) {
+      try {
+        await auth.currentUser!.updatePassword(data['password']);
+      } catch (e) {
+        Exception(e.toString());
+      }
+    } else if (data['name'] != state.value!['name']) {
+      try {
+        await auth.currentUser!.updateDisplayName(data['name']);
+      } catch (e) {
+        Exception(e.toString());
+      }
     }
   }
 

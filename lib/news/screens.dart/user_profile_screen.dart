@@ -98,7 +98,7 @@ class UserProfileScreen extends HookConsumerWidget {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             OutlinedButton(
                 onPressed: () {
                   if (isUpdateActive.value) {
@@ -109,8 +109,9 @@ class UserProfileScreen extends HookConsumerWidget {
                         'name': userNameController.text,
                         'phoneNumber': phoneNumberController.text,
                       };
-                      userDataNotifier.updateDataToFirestore(
+                      userDataNotifier.updateDataToFirebase(
                           data, 'users', userId);
+                      userDataNotifier.updateFirebaseAuthData(data);
                       userDataNotifier.updateUserDataFromFirestore();
                       isUpdateActive.value = false;
                     }

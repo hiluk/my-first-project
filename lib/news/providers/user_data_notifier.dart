@@ -12,15 +12,12 @@ class UserData extends _$UserData {
   final firestoreInstance = FirebaseFirestore.instance;
   Map<String, dynamic>? userData = {};
 
+  @override
   Future<Map<String, dynamic>?> build() async {
-    return getDataFromFirestore();
-  }
-
-  Future<Map<String, dynamic>?> getDataFromFirestore() async {
-    final user = auth.currentUser!;
+    User? user = auth.currentUser!;
     final userId = user.uid;
     return await fstore
-        .getUserDataFromFirestore(collectionName: 'users', docName: userId)
+        .updateDataFromFirestore(collectionName: 'users', docName: userId)
         .then(
       (value) {
         return value;
@@ -42,23 +39,41 @@ class UserData extends _$UserData {
   }
 
   Future<void> updateFirebaseAuthData(Map<String, dynamic> data) async {
-    if (data['email'] != state.value!['email']) {
-      try {
-        await auth.currentUser!.updateEmail(data['email']);
-      } catch (e) {
-        Exception(e.toString());
-      }
-    } else if (data['password'] != state.value!['password']) {
-      try {
-        await auth.currentUser!.updatePassword(data['password']);
-      } catch (e) {
-        Exception(e.toString());
-      }
-    } else if (data['name'] != state.value!['name']) {
-      try {
-        await auth.currentUser!.updateDisplayName(data['name']);
-      } catch (e) {
-        Exception(e.toString());
+    User? user = auth.currentUser;
+    if (user != null) {
+      for (final providerProfile in user.providerData) {
+        final name = providerProfile.displayName;
+        final emailAddress = providerProfile.email;
+        final phoneNumber = providerProfile.phoneNumber;
+        if (data['email'] != emailAddress) {
+          try {
+            await user.updateEmail(data['email']);
+            print('Email updated');
+          } on FirebaseAuthException catch (e) {
+            print(e.code);
+          }
+        } else if (data['password'] != state.value!['password']) {
+          try {
+            await user.updatePassword(data['password']);
+            print('Password updated');
+          } on FirebaseAuthException catch (e) {
+            print(e.code);
+          }
+        } else if (data['name'] != name) {
+          try {
+            await user.updateDisplayName(data['name']);
+            print('Display name updated');
+          } on FirebaseAuthException catch (e) {
+            print(e.code);
+          }
+        } else if (data['phoneNumber'] != phoneNumber) {
+          try {
+            await user.updatePhoneNumber(data['phoneNumber']);
+            print('Phone number updated');
+          } on FirebaseAuthException catch (e) {
+            print(e.code);
+          }
+        }
       }
     }
   }
@@ -68,7 +83,7 @@ class UserData extends _$UserData {
     final userId = user.uid;
     userData = state.value;
     userData = await fstore
-        .getUserDataFromFirestore(collectionName: 'users', docName: userId)
+        .updateDataFromFirestore(collectionName: 'users', docName: userId)
         .then(
       (value) {
         return value;

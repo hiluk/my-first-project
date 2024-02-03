@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:technical_dz/core/providers/http_client_provider.dart';
 import 'package:technical_dz/news/models/article.dart';
-import 'package:technical_dz/news/providers/favorites_provider.dart';
+import 'package:technical_dz/news/providers/user_data_notifier.dart';
 
 part 'favorites_articles_notifier.g.dart';
 
@@ -26,8 +27,8 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
   }
 
   Future<List<Article>> fetchFavoriteArticles() async {
-    final ids = ref.watch(favoritesNotifierProvider).valueOrNull;
-    if (ids == null) return [];
+    final userData = ref.watch(userDataProvider).valueOrNull;
+    List<dynamic> ids = userData!['favoriteIds'];
     final datas = await Future.wait(
       ids.map(
         (id) => fetchDataById(id),
@@ -37,5 +38,20 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
       return Article.fromJson(data);
     }).toList();
     return favoriteArticles;
+  }
+
+  void setFavorite(int id) async {
+    final auth = FirebaseAuth.instance;
+    final user = auth.currentUser!;
+    final userDataNotifier = ref.read(userDataProvider.notifier);
+    final userData = ref.watch(userDataProvider).valueOrNull;
+    List<dynamic> favoriteIds = userData!['favoriteIds'];
+    if (favoriteIds.contains(id)) {
+      favoriteIds.remove(id);
+    } else {
+      favoriteIds.add(id);
+    }
+    final newIds = {'favoriteIds': favoriteIds};
+    userDataNotifier.updateDataToFirebase(newIds, 'users', user.uid);
   }
 }

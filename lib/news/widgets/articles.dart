@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:technical_dz/news/models/article.dart';
 import 'package:technical_dz/news/providers/articles_notifier.dart';
-import 'package:technical_dz/news/providers/favorites_provider.dart';
+import 'package:technical_dz/news/providers/favorites_articles_notifier.dart';
+import 'package:technical_dz/news/providers/user_data_notifier.dart';
 import 'package:technical_dz/news/widgets/highlight_widget.dart';
 
 class ArticleWidget extends ConsumerWidget {
@@ -18,10 +19,9 @@ class ArticleWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    late final favoritesIdNotifier =
-        ref.read(favoritesNotifierProvider.notifier);
-    late final favoritesId =
-        ref.watch(favoritesNotifierProvider).valueOrNull ?? [];
+    final favoriteArticlesNotifier =
+        ref.watch(favoritesArticlesNotifierProvider.notifier);
+    final userData = ref.watch(userDataProvider).valueOrNull;
     final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
     void controllerListener() {
       if (_scrollController.position.atEdge) {
@@ -48,9 +48,9 @@ class ArticleWidget extends ConsumerWidget {
                           alignment: Alignment.topRight,
                           child: IconButton(
                             onPressed: () {
-                              favoritesIdNotifier.setFavorite(article.id);
+                              favoriteArticlesNotifier.setFavorite(article.id);
                             },
-                            icon: favoritesId.contains(article.id)
+                            icon: userData!['favoriteIds'].contains(article.id)
                                 ? const Icon(Icons.bookmark_added)
                                 : const Icon(Icons.bookmark_add),
                           ),

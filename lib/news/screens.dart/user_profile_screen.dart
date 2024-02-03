@@ -1,12 +1,13 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:technical_dz/news/providers/user_data_notifier.dart';
+import 'package:technical_dz/news/routers/router.dart';
 import 'package:technical_dz/news/validators/validators.dart';
+import 'package:technical_dz/news/widgets/profile_field_widget.dart';
 import 'package:technical_dz/news/widgets/profile_head.dart';
-import 'package:technical_dz/news/widgets/profile_string_widget.dart';
 
 @RoutePage()
 class UserProfileScreen extends HookConsumerWidget {
@@ -14,15 +15,6 @@ class UserProfileScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    FirebaseAuth.instance.authStateChanges().listen(
-      (User? user) {
-        if (user == null) {
-          print('User is currently signed out!');
-        } else {
-          print('Load Data');
-        }
-      },
-    );
     final isUpdateActive = useState(false);
     String imageSrc =
         'https://play-lh.googleusercontent.com/ZCY6FSY545GwyveH1qC3YOT15ud9xhqPbp5TdEbTa1F0lCxTS9KukvGrDersh4KGvQ=w240-h480-rw';
@@ -59,7 +51,7 @@ class UserProfileScreen extends HookConsumerWidget {
               userData: userData,
             ),
             Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxHeight: 410,
               ),
               child: Form(
@@ -67,27 +59,27 @@ class UserProfileScreen extends HookConsumerWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ProfileString(
+                    ProfileField(
                       labelText: userData['name'],
                       label: 'Username',
                       isActive: isUpdateActive.value,
                       controller: userNameController,
                     ),
-                    ProfileString(
+                    ProfileField(
                       labelText: userData['email'],
                       label: 'Email',
-                      isActive: isUpdateActive.value,
+                      isActive: false,
                       controller: emailController,
                       validator: Validator().validateEmail,
                     ),
-                    ProfileString(
+                    ProfileField(
                       labelText: userData['password'],
                       label: 'Password',
-                      isActive: isUpdateActive.value,
+                      isActive: false,
                       controller: passwordController,
                       validator: Validator().validatePassword,
                     ),
-                    ProfileString(
+                    ProfileField(
                       labelText: userData['phoneNumber'],
                       label: 'Phone number',
                       isActive: isUpdateActive.value,
@@ -98,41 +90,54 @@ class UserProfileScreen extends HookConsumerWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            // const SizedBox(height: 5),
             OutlinedButton(
-                onPressed: () {
-                  if (isUpdateActive.value) {
-                    if (formKey.currentState!.validate()) {
-                      final data = {
-                        'email': emailController.text,
-                        'password': passwordController.text,
-                        'name': userNameController.text,
-                        'phoneNumber': phoneNumberController.text,
-                      };
-                      userDataNotifier.updateDataToFirebase(
-                          data, 'users', userId);
-                      userDataNotifier.updateFirebaseAuthData(data);
-                      userDataNotifier.updateUserDataFromFirestore();
-                      isUpdateActive.value = false;
-                    }
-                  } else {
-                    isUpdateActive.value = true;
+              onPressed: () {
+                if (isUpdateActive.value) {
+                  if (formKey.currentState!.validate()) {
+                    final data = {
+                      'email': emailController.text,
+                      'password': passwordController.text,
+                      'name': userNameController.text,
+                      'phoneNumber': phoneNumberController.text,
+                    };
+                    userDataNotifier.updateDataToFirebase(
+                        data, 'users', userId);
+                    // userDataNotifier.updateFirebaseAuthData(data);
+                    userDataNotifier.updateUserDataFromFirestore();
+                    isUpdateActive.value = false;
                   }
-                  isUpdateActive.value = isUpdateActive.value;
-                },
-                child: isUpdateActive.value
-                    ? const Text(
-                        'Save information',
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      )
-                    : const Text(
-                        'Update information',
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ))
+                } else {
+                  isUpdateActive.value = true;
+                }
+                isUpdateActive.value = isUpdateActive.value;
+              },
+              child: isUpdateActive.value
+                  ? const Text(
+                      'Save information',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    )
+                  : const Text(
+                      'Update information',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                auth.signOut();
+                AutoRouter.of(context).push(const SignInScreenRoute());
+              },
+              child: const Text(
+                'Sign out',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            )
           ],
         ),
       ),

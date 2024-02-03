@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ProfileString extends HookConsumerWidget {
+class ProfileField extends HookConsumerWidget {
   final String? Function(String?)? validator;
   final String labelText;
   final bool isActive;
   final String label;
   final TextEditingController controller;
-  const ProfileString({
+  const ProfileField({
     super.key,
     required this.labelText,
     required this.label,

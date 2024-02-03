@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:side_sheet/side_sheet.dart';
+import 'package:technical_dz/news/providers/news_sites_provider.dart';
 import 'package:technical_dz/news/providers/user_data_notifier.dart';
 import 'package:technical_dz/news/routers/router.dart';
 
@@ -11,6 +13,7 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final newsSites = ref.watch(newsSitesProvider).valueOrNull;
     ref.watch(userDataProvider).valueOrNull;
     FirebaseAuth.instance.authStateChanges().listen(
       (User? user) {
@@ -35,11 +38,14 @@ class HomeScreen extends ConsumerWidget {
                 onPressed: () {
                   AutoRouter.of(context).push(const UserProfileScreenRoute());
                 },
-                icon: Icon(Icons.account_circle),
+                icon: const Icon(Icons.account_circle),
               ),
             ],
             leading: IconButton(
-              onPressed: () {},
+              onPressed: () => SideSheet.left(
+                body: Text('filter'),
+                context: context,
+              ),
               icon: const Icon(Icons.filter_list),
             ),
             title: const Text(

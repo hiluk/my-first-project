@@ -16,8 +16,8 @@ class UserProfileScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isUpdateActive = useState(false);
-    String imageSrc =
-        'https://play-lh.googleusercontent.com/ZCY6FSY545GwyveH1qC3YOT15ud9xhqPbp5TdEbTa1F0lCxTS9KukvGrDersh4KGvQ=w240-h480-rw';
+    String emptyProfirePic =
+        'https://cdn.vectorstock.com/i/preview-1x/66/14/default-avatar-photo-placeholder-profile-picture-vector-21806614.jpg';
     FirebaseAuth auth = FirebaseAuth.instance;
     final user = auth.currentUser!;
     final userId = user.uid;
@@ -47,7 +47,7 @@ class UserProfileScreen extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ProfileHeadWidget(
-              imageSrc: imageSrc,
+              imageSrc: emptyProfirePic,
               userData: userData,
             ),
             Container(
@@ -78,6 +78,7 @@ class UserProfileScreen extends HookConsumerWidget {
                       isActive: false,
                       controller: passwordController,
                       validator: Validator().validatePassword,
+                      obscure: true,
                     ),
                     ProfileField(
                       labelText: userData['phoneNumber'],
@@ -90,7 +91,6 @@ class UserProfileScreen extends HookConsumerWidget {
                 ),
               ),
             ),
-            // const SizedBox(height: 5),
             OutlinedButton(
               onPressed: () {
                 if (isUpdateActive.value) {

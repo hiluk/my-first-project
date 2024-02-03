@@ -6,6 +6,7 @@ class ProfileField extends HookConsumerWidget {
   final String labelText;
   final bool isActive;
   final String label;
+  final bool obscure;
   final TextEditingController controller;
   const ProfileField({
     super.key,
@@ -14,6 +15,7 @@ class ProfileField extends HookConsumerWidget {
     required this.isActive,
     required this.controller,
     this.validator,
+    this.obscure = false,
   });
 
   @override
@@ -38,6 +40,7 @@ class ProfileField extends HookConsumerWidget {
               ),
             ),
             TextFormField(
+              obscureText: obscure,
               validator: validator,
               controller: controller,
               keyboardType: TextInputType.emailAddress,

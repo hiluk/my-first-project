@@ -5,6 +5,7 @@ import 'package:technical_dz/news/providers/articles_notifier.dart';
 import 'package:technical_dz/news/providers/favorites_articles_notifier.dart';
 import 'package:technical_dz/news/providers/user_data_notifier.dart';
 import 'package:technical_dz/news/widgets/highlight_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ArticleWidget extends ConsumerWidget {
   final AsyncValue<List<Article>> articles;
@@ -38,7 +39,11 @@ class ArticleWidget extends ConsumerWidget {
             children: [
               for (var article in value)
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    launchUrl(
+                      Uri.parse(article.url),
+                    );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(

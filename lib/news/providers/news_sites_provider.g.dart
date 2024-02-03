@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_data_notifier.dart';
+part of 'news_sites_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userDataHash() => r'3a5e81b73eb4f4e413a41e781e390b9570cd3d93';
+String _$newsSitesHash() => r'16b9f16bc359dd301eb81f5e67f65d66a83e5ae0';
 
-/// See also [UserData].
-@ProviderFor(UserData)
-final userDataProvider =
-    AutoDisposeAsyncNotifierProvider<UserData, Map<String, dynamic>?>.internal(
-  UserData.new,
-  name: r'userDataProvider',
+/// See also [NewsSites].
+@ProviderFor(NewsSites)
+final newsSitesProvider =
+    AutoDisposeAsyncNotifierProvider<NewsSites, List<String>>.internal(
+  NewsSites.new,
+  name: r'newsSitesProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$userDataHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$newsSitesHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$UserData = AutoDisposeAsyncNotifier<Map<String, dynamic>?>;
+typedef _$NewsSites = AutoDisposeAsyncNotifier<List<String>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

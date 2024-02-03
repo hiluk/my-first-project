@@ -1,19 +1,24 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:side_sheet/side_sheet.dart';
+import 'package:technical_dz/news/models/articles_request.dart';
+import 'package:technical_dz/news/providers/articles_notifier.dart';
 import 'package:technical_dz/news/providers/news_sites_provider.dart';
 import 'package:technical_dz/news/providers/user_data_notifier.dart';
 import 'package:technical_dz/news/routers/router.dart';
 
 @RoutePage()
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final newsSites = ref.watch(newsSitesProvider).valueOrNull;
+    final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
+    final newsSites = ref.watch(newsSitesProvider).valueOrNull ?? [];
+    String? siteValue = useMemoized(() => newsSites[0]);
     ref.watch(userDataProvider).valueOrNull;
     FirebaseAuth.instance.authStateChanges().listen(
       (User? user) {
@@ -43,8 +48,35 @@ class HomeScreen extends ConsumerWidget {
             ],
             leading: IconButton(
               onPressed: () => SideSheet.left(
-                body: Text('filter'),
+                body: Padding(
+                  padding: const EdgeInsets.only(left: 10.0, bottom: 100),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Text('Search by site'),
+                      DropdownMenu(
+                        onSelected: (String? site) =>
+                            articlesNotifier.searchByParams(
+                          request: ArticlesRequest(
+                            newsSite: site!,
+                          ),
+                        ),
+                        hintText: 'Click on the site',
+                        dropdownMenuEntries: newsSites
+                            .map(
+                              (site) => DropdownMenuEntry(
+                                value: site,
+                                label: site,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
                 context: context,
+                width: 300,
               ),
               icon: const Icon(Icons.filter_list),
             ),

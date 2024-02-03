@@ -20,6 +20,8 @@ ArticlesRequest _$ArticlesRequestFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ArticlesRequest {
+  @JsonKey(name: 'news_site')
+  String get newsSite => throw _privateConstructorUsedError;
   @JsonKey(name: 'title_contains')
   String get titleContains => throw _privateConstructorUsedError;
   int get limit => throw _privateConstructorUsedError;
@@ -38,7 +40,8 @@ abstract class $ArticlesRequestCopyWith<$Res> {
       _$ArticlesRequestCopyWithImpl<$Res, ArticlesRequest>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'title_contains') String titleContains,
+      {@JsonKey(name: 'news_site') String newsSite,
+      @JsonKey(name: 'title_contains') String titleContains,
       int limit,
       int offset});
 }
@@ -56,11 +59,16 @@ class _$ArticlesRequestCopyWithImpl<$Res, $Val extends ArticlesRequest>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? newsSite = null,
     Object? titleContains = null,
     Object? limit = null,
     Object? offset = null,
   }) {
     return _then(_value.copyWith(
+      newsSite: null == newsSite
+          ? _value.newsSite
+          : newsSite // ignore: cast_nullable_to_non_nullable
+              as String,
       titleContains: null == titleContains
           ? _value.titleContains
           : titleContains // ignore: cast_nullable_to_non_nullable
@@ -86,7 +94,8 @@ abstract class _$$ArticlesRequestImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'title_contains') String titleContains,
+      {@JsonKey(name: 'news_site') String newsSite,
+      @JsonKey(name: 'title_contains') String titleContains,
       int limit,
       int offset});
 }
@@ -102,11 +111,16 @@ class __$$ArticlesRequestImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? newsSite = null,
     Object? titleContains = null,
     Object? limit = null,
     Object? offset = null,
   }) {
     return _then(_$ArticlesRequestImpl(
+      newsSite: null == newsSite
+          ? _value.newsSite
+          : newsSite // ignore: cast_nullable_to_non_nullable
+              as String,
       titleContains: null == titleContains
           ? _value.titleContains
           : titleContains // ignore: cast_nullable_to_non_nullable
@@ -127,13 +141,17 @@ class __$$ArticlesRequestImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ArticlesRequestImpl implements _ArticlesRequest {
   _$ArticlesRequestImpl(
-      {@JsonKey(name: 'title_contains') this.titleContains = '',
+      {@JsonKey(name: 'news_site') this.newsSite = '',
+      @JsonKey(name: 'title_contains') this.titleContains = '',
       this.limit = 20,
       this.offset = 0});
 
   factory _$ArticlesRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$ArticlesRequestImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'news_site')
+  final String newsSite;
   @override
   @JsonKey(name: 'title_contains')
   final String titleContains;
@@ -146,7 +164,7 @@ class _$ArticlesRequestImpl implements _ArticlesRequest {
 
   @override
   String toString() {
-    return 'ArticlesRequest(titleContains: $titleContains, limit: $limit, offset: $offset)';
+    return 'ArticlesRequest(newsSite: $newsSite, titleContains: $titleContains, limit: $limit, offset: $offset)';
   }
 
   @override
@@ -154,6 +172,8 @@ class _$ArticlesRequestImpl implements _ArticlesRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ArticlesRequestImpl &&
+            (identical(other.newsSite, newsSite) ||
+                other.newsSite == newsSite) &&
             (identical(other.titleContains, titleContains) ||
                 other.titleContains == titleContains) &&
             (identical(other.limit, limit) || other.limit == limit) &&
@@ -162,7 +182,8 @@ class _$ArticlesRequestImpl implements _ArticlesRequest {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, titleContains, limit, offset);
+  int get hashCode =>
+      Object.hash(runtimeType, newsSite, titleContains, limit, offset);
 
   @JsonKey(ignore: true)
   @override
@@ -181,13 +202,17 @@ class _$ArticlesRequestImpl implements _ArticlesRequest {
 
 abstract class _ArticlesRequest implements ArticlesRequest {
   factory _ArticlesRequest(
-      {@JsonKey(name: 'title_contains') final String titleContains,
+      {@JsonKey(name: 'news_site') final String newsSite,
+      @JsonKey(name: 'title_contains') final String titleContains,
       final int limit,
       final int offset}) = _$ArticlesRequestImpl;
 
   factory _ArticlesRequest.fromJson(Map<String, dynamic> json) =
       _$ArticlesRequestImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'news_site')
+  String get newsSite;
   @override
   @JsonKey(name: 'title_contains')
   String get titleContains;

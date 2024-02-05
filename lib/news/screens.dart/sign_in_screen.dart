@@ -12,6 +12,7 @@ class SignInScreen extends HookConsumerWidget {
   const SignInScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final validator = Validator();
     final signInFormKey = useMemoized(GlobalKey<FormState>.new);
     TextEditingController emailController = useTextEditingController(text: '');
     TextEditingController passwordController =
@@ -56,7 +57,7 @@ class SignInScreen extends HookConsumerWidget {
                         ),
                         hintText: 'Email',
                       ),
-                      validator: Validator().validateEmail,
+                      validator: validator.validateEmail,
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
@@ -75,7 +76,7 @@ class SignInScreen extends HookConsumerWidget {
                         hintText: 'Password',
                         focusColor: Colors.black,
                       ),
-                      validator: Validator().validatePassword,
+                      validator: validator.validatePassword,
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
@@ -106,7 +107,7 @@ class SignInScreen extends HookConsumerWidget {
                     const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () => AutoRouter.of(context)
-                          .push(const SignUpScreenRoute()),
+                          .replace(const SignUpScreenRoute()),
                       child: const Text('Sign Up'),
                     ),
                   ],

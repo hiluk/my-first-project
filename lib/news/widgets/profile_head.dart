@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:technical_dz/news/models/my_user.dart';
 
 class ProfileHeadWidget extends StatelessWidget {
   final String imageSrc;
-  final Map<String, dynamic>? userData;
+  final MyUser? userData;
   const ProfileHeadWidget({
     super.key,
     required this.imageSrc,
@@ -36,7 +37,7 @@ class ProfileHeadWidget extends StatelessWidget {
             ),
           ),
           Text(
-            userData!['name'],
+            userData!.name,
             style: const TextStyle(
               fontSize: 50,
               fontWeight: FontWeight.w400,

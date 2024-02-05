@@ -16,9 +16,10 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final globalKey = useMemoized(() => GlobalKey());
     final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
-    final newsSites = ref.watch(newsSitesProvider).valueOrNull ?? [];
-    String? siteValue = useMemoized(() => newsSites[0]);
+    List<String>? newsSites = ref.watch(newsSitesProvider).valueOrNull ?? [];
+    final siteController = useTextEditingController();
     ref.watch(userDataProvider).valueOrNull;
     FirebaseAuth.instance.authStateChanges().listen(
       (User? user) {
@@ -49,17 +50,35 @@ class HomeScreen extends HookConsumerWidget {
             leading: IconButton(
               onPressed: () => SideSheet.left(
                 body: Padding(
-                  padding: const EdgeInsets.only(left: 10.0, bottom: 100),
+                  padding: const EdgeInsets.only(left: 10.0, top: 80),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      const Text(
+                        'Filter',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 30),
                       const Text('Search by site'),
                       DropdownMenu(
+                        key: globalKey,
+                        trailingIcon: (siteController.text.isNotEmpty)
+                            ? IconButton(
+                                onPressed: () {
+                                  siteController.text = '';
+                                },
+                                icon: Icon(Icons.close),
+                              )
+                            : null,
+                        controller: siteController,
                         onSelected: (String? site) =>
                             articlesNotifier.searchByParams(
                           request: ArticlesRequest(
-                            newsSite: site!,
+                            newsSite: siteController.text,
                           ),
                         ),
                         hintText: 'Click on the site',
@@ -76,7 +95,6 @@ class HomeScreen extends HookConsumerWidget {
                   ),
                 ),
                 context: context,
-                width: 300,
               ),
               icon: const Icon(Icons.filter_list),
             ),

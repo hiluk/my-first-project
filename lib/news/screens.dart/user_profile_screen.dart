@@ -19,18 +19,19 @@ class UserProfileScreen extends HookConsumerWidget {
     String emptyProfirePic =
         'https://cdn.vectorstock.com/i/preview-1x/66/14/default-avatar-photo-placeholder-profile-picture-vector-21806614.jpg';
     FirebaseAuth auth = FirebaseAuth.instance;
+    final validator = Validator();
     final user = auth.currentUser!;
     final userId = user.uid;
     final userDataNotifier = ref.read(userDataProvider.notifier);
     final userData = ref.watch(userDataProvider).valueOrNull;
     final TextEditingController emailController =
-        useTextEditingController(text: userData!['email']);
+        useTextEditingController(text: userData!.email);
     TextEditingController passwordController =
-        useTextEditingController(text: userData['password']);
+        useTextEditingController(text: userData.password);
     TextEditingController userNameController =
-        useTextEditingController(text: userData['name']);
+        useTextEditingController(text: userData.name);
     TextEditingController phoneNumberController =
-        useTextEditingController(text: userData['phoneNumber']);
+        useTextEditingController(text: userData.phoneNumber);
     final formKey = useMemoized(GlobalKey<FormState>.new);
     return Scaffold(
       appBar: AppBar(
@@ -60,76 +61,73 @@ class UserProfileScreen extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ProfileField(
-                      labelText: userData['name'],
+                      labelText: userData.name,
                       label: 'Username',
                       isActive: isUpdateActive.value,
                       controller: userNameController,
                     ),
                     ProfileField(
-                      labelText: userData['email'],
+                      labelText: userData.email,
                       label: 'Email',
                       isActive: false,
                       controller: emailController,
-                      validator: Validator().validateEmail,
+                      validator: validator.validateEmail,
                     ),
                     ProfileField(
-                      labelText: userData['password'],
+                      labelText: userData.password,
                       label: 'Password',
                       isActive: false,
                       controller: passwordController,
-                      validator: Validator().validatePassword,
+                      validator: validator.validatePassword,
                       obscure: true,
                     ),
                     ProfileField(
-                      labelText: userData['phoneNumber'],
+                      labelText: userData.phoneNumber,
                       label: 'Phone number',
                       isActive: isUpdateActive.value,
                       controller: phoneNumberController,
-                      validator: Validator().validatePhoneNumber,
+                      validator: validator.validatePhoneNumber,
                     ),
                   ],
                 ),
               ),
             ),
             OutlinedButton(
-              onPressed: () {
-                if (isUpdateActive.value) {
-                  if (formKey.currentState!.validate()) {
-                    final data = {
-                      'email': emailController.text,
-                      'password': passwordController.text,
-                      'name': userNameController.text,
-                      'phoneNumber': phoneNumberController.text,
-                    };
-                    userDataNotifier.updateDataToFirebase(
-                        data, 'users', userId);
-                    // userDataNotifier.updateFirebaseAuthData(data);
-                    userDataNotifier.updateUserDataFromFirestore();
-                    isUpdateActive.value = false;
+                onPressed: () {
+                  if (isUpdateActive.value) {
+                    if (formKey.currentState!.validate()) {
+                      final data = {
+                        'email': emailController.text,
+                        'password': passwordController.text,
+                        'name': userNameController.text,
+                        'phoneNumber': phoneNumberController.text,
+                      };
+                      userDataNotifier.updateDataToFirebase(
+                          data, 'users', userId);
+                      // userDataNotifier.updateFirebaseAuthData(data);
+                      userDataNotifier.updateUserDataFromFirestore();
+                      isUpdateActive.value = false;
+                    }
+                  } else {
+                    isUpdateActive.value = true;
                   }
-                } else {
-                  isUpdateActive.value = true;
-                }
-                isUpdateActive.value = isUpdateActive.value;
-              },
-              child: isUpdateActive.value
-                  ? const Text(
-                      'Save information',
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    )
-                  : const Text(
-                      'Update information',
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-            ),
+                  isUpdateActive.value = isUpdateActive.value;
+                },
+                child: Text(
+                  isUpdateActive.value
+                      ? 'Save information'
+                      : 'Update information',
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                )),
             OutlinedButton(
               onPressed: () {
                 auth.signOut();
-                AutoRouter.of(context).push(const SignInScreenRoute());
+                AutoRouter.of(context).pushAndPopUntil(
+                  const SignInScreenRoute(),
+                  predicate: (_) => false,
+                );
               },
               child: const Text(
                 'Sign out',

@@ -6,12 +6,12 @@ part of 'user_data_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userDataHash() => r'3a5e81b73eb4f4e413a41e781e390b9570cd3d93';
+String _$userDataHash() => r'b461538f301dcbd845d0e97df69f02dfc0ee6b6b';
 
 /// See also [UserData].
 @ProviderFor(UserData)
 final userDataProvider =
-    AutoDisposeAsyncNotifierProvider<UserData, Map<String, dynamic>?>.internal(
+    AutoDisposeAsyncNotifierProvider<UserData, MyUser?>.internal(
   UserData.new,
   name: r'userDataProvider',
   debugGetCreateSourceHash:
@@ -20,6 +20,6 @@ final userDataProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$UserData = AutoDisposeAsyncNotifier<Map<String, dynamic>?>;
+typedef _$UserData = AutoDisposeAsyncNotifier<MyUser?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

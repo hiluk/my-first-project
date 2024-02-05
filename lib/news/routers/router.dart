@@ -31,7 +31,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: SignInScreenRoute.page,
           initial: (user == null) ? true : false,
-          keepHistory: false,
         ),
         AutoRoute(
           page: SignUpScreenRoute.page,

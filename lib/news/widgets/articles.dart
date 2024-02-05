@@ -56,7 +56,7 @@ class ArticleWidget extends ConsumerWidget {
                             onPressed: () {
                               favoriteArticlesNotifier.setFavorite(article.id);
                             },
-                            icon: userData!['favoriteIds'].contains(article.id)
+                            icon: userData!.favoriteIds.contains(article.id)
                                 ? const Icon(Icons.bookmark_added)
                                 : const Icon(Icons.bookmark_add),
                           ),

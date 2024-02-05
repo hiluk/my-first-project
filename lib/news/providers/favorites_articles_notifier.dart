@@ -28,7 +28,7 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
 
   Future<List<Article>> fetchFavoriteArticles() async {
     final userData = ref.watch(userDataProvider).valueOrNull;
-    List<dynamic> ids = userData!['favoriteIds'];
+    List<dynamic> ids = userData!.favoriteIds;
     final datas = await Future.wait(
       ids.map(
         (id) => fetchDataById(id),
@@ -45,7 +45,7 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
     final user = auth.currentUser!;
     final userDataNotifier = ref.read(userDataProvider.notifier);
     final userData = ref.watch(userDataProvider).valueOrNull;
-    List<dynamic> favoriteIds = userData!['favoriteIds'];
+    List<dynamic> favoriteIds = userData!.favoriteIds;
     if (favoriteIds.contains(id)) {
       favoriteIds.remove(id);
     } else {

@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:technical_dz/news/models/my_user.dart';
 import 'package:technical_dz/news/providers/user_data_notifier.dart';
 import 'package:technical_dz/news/routers/router.dart';
 import 'package:technical_dz/news/validators/validators.dart';
@@ -97,20 +96,14 @@ class UserProfileScreen extends HookConsumerWidget {
                 onPressed: () {
                   if (isUpdateActive.value) {
                     if (formKey.currentState!.validate()) {
-                      final data = MyUser(
+                      final data = userData.copyWith(
                         name: userNameController.text,
                         email: emailController.text,
                         password: passwordController.text,
-                        uid: userId,
-                        bio: userData.bio,
-                        favoriteIds: [123, 1222, 4124],
                         phoneNumber: phoneNumberController.text,
-                        createdAt: userData.createdAt,
                       );
                       userDataNotifier.updateDataToFirebase(
                           data.toJson(), 'users', userId);
-                      print(data.toJson());
-                      // userDataNotifier.updateFirebaseAuthData(data);
                       userDataNotifier.updateUserDataFromFirestore();
                       isUpdateActive.value = false;
                     }

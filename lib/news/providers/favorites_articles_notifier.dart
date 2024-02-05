@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:technical_dz/core/providers/http_client_provider.dart';
 import 'package:technical_dz/news/models/article.dart';
-import 'package:technical_dz/news/models/my_user.dart';
 import 'package:technical_dz/news/providers/user_data_notifier.dart';
 
 part 'favorites_articles_notifier.g.dart';
@@ -52,16 +51,7 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
     } else {
       favoriteIds.add(id);
     }
-    final data = MyUser(
-      email: userData.email,
-      password: userData.password,
-      uid: userData.uid,
-      bio: userData.bio,
-      createdAt: userData.createdAt,
-      favoriteIds: favoriteIds,
-      name: userData.name,
-      phoneNumber: userData.phoneNumber,
-    );
+    final data = userData.copyWith(favoriteIds: favoriteIds);
     userDataNotifier.updateDataToFirebase(data.toJson(), 'users', user.uid);
   }
 }

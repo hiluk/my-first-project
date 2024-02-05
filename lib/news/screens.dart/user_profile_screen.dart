@@ -96,14 +96,16 @@ class UserProfileScreen extends HookConsumerWidget {
                 onPressed: () {
                   if (isUpdateActive.value) {
                     if (formKey.currentState!.validate()) {
-                      final data = userData.copyWith(
-                        name: userNameController.text,
-                        email: emailController.text,
-                        password: passwordController.text,
-                        phoneNumber: phoneNumberController.text,
-                      );
+                      final data = userData
+                          .copyWith(
+                            name: userNameController.text,
+                            email: emailController.text,
+                            password: passwordController.text,
+                            phoneNumber: phoneNumberController.text,
+                          )
+                          .toJson();
                       userDataNotifier.updateDataToFirebase(
-                          data.toJson(), 'users', userId);
+                          data, 'users', userId);
                       userDataNotifier.updateUserDataFromFirestore();
                       isUpdateActive.value = false;
                     }

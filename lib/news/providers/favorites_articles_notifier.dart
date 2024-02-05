@@ -51,7 +51,7 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
     } else {
       favoriteIds.add(id);
     }
-    final data = userData.copyWith(favoriteIds: favoriteIds);
-    userDataNotifier.updateDataToFirebase(data.toJson(), 'users', user.uid);
+    final data = userData.copyWith(favoriteIds: favoriteIds).toJson();
+    userDataNotifier.updateDataToFirebase(data, 'users', user.uid);
   }
 }

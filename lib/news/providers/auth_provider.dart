@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_print
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -19,7 +19,7 @@ class AuthProvider extends ChangeNotifier {
 
   Future<bool> addUserToDatabase(
       Map<String, dynamic>? data, String collectionName, String docName) async {
-    var value = false;
+    bool value = false;
     try {
       await fstore
           .addDataToFirestore(data!, collectionName, docName)

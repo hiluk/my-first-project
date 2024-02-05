@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:technical_dz/news/models/articles_request.dart';
 import 'package:technical_dz/news/providers/articles_notifier.dart';
 import 'package:technical_dz/news/widgets/articles.dart';

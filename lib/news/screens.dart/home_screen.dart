@@ -16,7 +16,7 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final globalKey = useMemoized(() => GlobalKey());
+    final dropdownKey = useMemoized(GlobalKey.new);
     final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
     List<String>? newsSites = ref.watch(newsSitesProvider).valueOrNull ?? [];
     final siteController = useTextEditingController();
@@ -49,6 +49,7 @@ class HomeScreen extends HookConsumerWidget {
             ],
             leading: IconButton(
               onPressed: () => SideSheet.left(
+                width: 320,
                 body: Padding(
                   padding: const EdgeInsets.only(left: 10.0, top: 80),
                   child: Column(
@@ -65,15 +66,14 @@ class HomeScreen extends HookConsumerWidget {
                       const SizedBox(height: 30),
                       const Text('Search by site'),
                       DropdownMenu(
-                        key: globalKey,
-                        trailingIcon: (siteController.text.isNotEmpty)
-                            ? IconButton(
-                                onPressed: () {
-                                  siteController.text = '';
-                                },
-                                icon: Icon(Icons.close),
-                              )
-                            : null,
+                        menuHeight: 500,
+                        key: dropdownKey,
+                        trailingIcon: IconButton(
+                          onPressed: () {
+                            siteController.text = '';
+                          },
+                          icon: const Icon(Icons.close),
+                        ),
                         controller: siteController,
                         onSelected: (String? site) =>
                             articlesNotifier.searchByParams(

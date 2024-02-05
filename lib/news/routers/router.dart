@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:technical_dz/news/screens.dart/home_screen.dart';
 import 'package:technical_dz/news/screens.dart/sign_in_screen.dart';
 import 'package:technical_dz/news/screens.dart/sign_up_screen.dart';

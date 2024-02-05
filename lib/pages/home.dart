@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:technical_dz/main.dart';
 import 'package:technical_dz/models/smartphones_model.dart';
 import 'package:technical_dz/pages/basket.dart';
 import 'package:technical_dz/pages/card.dart';
 import 'package:technical_dz/pages/favorites.dart';
+import 'package:technical_dz/providers/smartphones_notifier.dart';
+import 'package:technical_dz/widgets/grid_view.dart';
 import 'package:technical_dz/widgets/item_tile.dart';
+import 'package:technical_dz/widgets/list_view.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends ConsumerState<HomePage>
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   final searchController = TextEditingController();
   bool _validate = false;
   late AnimationController _animationController;
   bool isGrid = false;
   final formatter = intl.NumberFormat.decimalPattern();
+  List<SmartphoneModel> smartphones = <SmartphoneModel>[];
   List<SmartphoneModel> get filterSmartphones => searchController.text.isEmpty
       ? smartphones
       : smartphones
@@ -61,15 +65,27 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    final smartphonesState = ref.watch(smartphonesNotifierProvider);
+    final smartphones = smartphonesState.value ?? [];
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: appBar(),
-      body: Column(
+      body: Stack(
         children: [
-          _searchField(),
-          _buildScreen(),
-          const SizedBox(height: 1),
-          _smartphonesCount(),
+          if (smartphonesState.isLoading)
+            const Positioned.fill(
+              child: Center(child: CircularProgressIndicator()),
+            ),
+          Column(
+            children: [
+              _searchField(),
+              isGrid
+                  ? GridViewScreen.buildGridView(smartphones)
+                  : ListViewScreen.buildListView(smartphones),
+              const SizedBox(height: 1),
+              _smartphonesCount(),
+            ],
+          ),
         ],
       ),
     );
@@ -80,6 +96,7 @@ class _HomePageState extends State<HomePage>
     super.initState();
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    WidgetsBinding.instance.addObserver(this);
   }
 
   IconButton viewIconTapped() {

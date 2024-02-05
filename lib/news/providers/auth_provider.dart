@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:technical_dz/news/models/my_user.dart';
 import 'package:technical_dz/news/user_auth/firebase_implementation/firebase_auth_services.dart';
 import 'package:technical_dz/news/user_auth/firebase_implementation/firebase_firestore_services.dart';
 
@@ -11,7 +12,7 @@ final authProvider =
 class AuthProvider extends ChangeNotifier {
   bool _isLoading = false;
   UserCredential? _userCredential;
-  Map<String, dynamic>? _userData = {};
+  MyUser? _userData;
   FirebaseAuthService fauth = FirebaseAuthService();
   FirebaseFirestoreServices fstore = FirebaseFirestoreServices();
   bool get isLoading => _isLoading;
@@ -62,19 +63,15 @@ class AuthProvider extends ChangeNotifier {
     setLoader(true);
     _userCredential = await fauth.signUpWithEmailAndPassword(
         email: email, password: password);
-    _userData = {
-      'email': email,
-      'password': password,
-      'uid': _userCredential!.user!.uid,
-      'createdAt': DateTime.now().microsecondsSinceEpoch.toString(),
-      'name': name,
-      'bio': '',
-      'phoneNumber': '',
-      'favoriteIds': <int>[],
-    };
+    _userData = MyUser(
+      email: email,
+      password: password,
+      uid: _userCredential!.user!.uid,
+      createdAt: DateTime.now().microsecondsSinceEpoch.toString(),
+    );
     String uid = _userCredential!.user!.uid;
 
-    isSuccess = await addUserToDatabase(_userData, 'users', uid);
+    isSuccess = await addUserToDatabase(_userData!.toJson(), 'users', uid);
     if (_userCredential != null || isSuccess) {
       return _userCredential;
     } else {

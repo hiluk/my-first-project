@@ -37,7 +37,7 @@ class ProfileHeadWidget extends StatelessWidget {
             ),
           ),
           Text(
-            userData!.name,
+            userData!.name ?? '',
             style: const TextStyle(
               fontSize: 50,
               fontWeight: FontWeight.w400,

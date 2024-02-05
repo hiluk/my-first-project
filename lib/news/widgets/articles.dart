@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:technical_dz/news/models/article.dart';
 import 'package:technical_dz/news/providers/articles_notifier.dart';
 import 'package:technical_dz/news/providers/favorites_articles_notifier.dart';
-import 'package:technical_dz/news/providers/user_data_notifier.dart';
 import 'package:technical_dz/news/widgets/highlight_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,8 +21,11 @@ class ArticleWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final favoriteArticlesNotifier =
         ref.watch(favoritesArticlesNotifierProvider.notifier);
-    final userData = ref.watch(userDataProvider).valueOrNull;
+    final favoriteArticles =
+        ref.watch(favoritesArticlesNotifierProvider).valueOrNull;
+    // final MyUser? userData = ref.watch(userDataProvider).valueOrNull;
     final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
+    // List<dynamic>? favoriteIds = userData!.favoriteIds ?? [];
     void controllerListener() {
       if (_scrollController.position.atEdge) {
         articlesNotifier.fetchNextPage(request);
@@ -56,7 +58,7 @@ class ArticleWidget extends ConsumerWidget {
                             onPressed: () {
                               favoriteArticlesNotifier.setFavorite(article.id);
                             },
-                            icon: userData!.favoriteIds.contains(article.id)
+                            icon: favoriteArticles!.contains(article)
                                 ? const Icon(Icons.bookmark_added)
                                 : const Icon(Icons.bookmark_add),
                           ),

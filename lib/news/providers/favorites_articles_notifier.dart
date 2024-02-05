@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:technical_dz/core/providers/http_client_provider.dart';
 import 'package:technical_dz/news/models/article.dart';
+import 'package:technical_dz/news/models/my_user.dart';
 import 'package:technical_dz/news/providers/user_data_notifier.dart';
 
 part 'favorites_articles_notifier.g.dart';
@@ -28,7 +29,7 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
 
   Future<List<Article>> fetchFavoriteArticles() async {
     final userData = ref.watch(userDataProvider).valueOrNull;
-    List<dynamic> ids = userData!.favoriteIds;
+    List<int>? ids = userData!.favoriteIds ?? [];
     final datas = await Future.wait(
       ids.map(
         (id) => fetchDataById(id),
@@ -45,13 +46,22 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
     final user = auth.currentUser!;
     final userDataNotifier = ref.read(userDataProvider.notifier);
     final userData = ref.watch(userDataProvider).valueOrNull;
-    List<dynamic> favoriteIds = userData!.favoriteIds;
+    final List<int> favoriteIds = [...userData!.favoriteIds!];
     if (favoriteIds.contains(id)) {
       favoriteIds.remove(id);
     } else {
       favoriteIds.add(id);
     }
-    final newIds = {'favoriteIds': favoriteIds};
-    userDataNotifier.updateDataToFirebase(newIds, 'users', user.uid);
+    final data = MyUser(
+      email: userData.email,
+      password: userData.password,
+      uid: userData.uid,
+      bio: userData.bio,
+      createdAt: userData.createdAt,
+      favoriteIds: favoriteIds,
+      name: userData.name,
+      phoneNumber: userData.phoneNumber,
+    );
+    userDataNotifier.updateDataToFirebase(data.toJson(), 'users', user.uid);
   }
 }

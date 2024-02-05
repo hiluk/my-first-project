@@ -23,11 +23,11 @@ mixin _$MyUser {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
-  String get createdAt => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get bio => throw _privateConstructorUsedError;
-  String get phoneNumber => throw _privateConstructorUsedError;
-  List<int> get favoriteIds => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get bio => throw _privateConstructorUsedError;
+  String? get phoneNumber => throw _privateConstructorUsedError;
+  List<int>? get favoriteIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,11 +43,11 @@ abstract class $MyUserCopyWith<$Res> {
       {String email,
       String password,
       String uid,
-      String createdAt,
-      String name,
-      String bio,
-      String phoneNumber,
-      List<int> favoriteIds});
+      String? createdAt,
+      String? name,
+      String? bio,
+      String? phoneNumber,
+      List<int>? favoriteIds});
 }
 
 /// @nodoc
@@ -66,11 +66,11 @@ class _$MyUserCopyWithImpl<$Res, $Val extends MyUser>
     Object? email = null,
     Object? password = null,
     Object? uid = null,
-    Object? createdAt = null,
-    Object? name = null,
-    Object? bio = null,
-    Object? phoneNumber = null,
-    Object? favoriteIds = null,
+    Object? createdAt = freezed,
+    Object? name = freezed,
+    Object? bio = freezed,
+    Object? phoneNumber = freezed,
+    Object? favoriteIds = freezed,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -85,26 +85,26 @@ class _$MyUserCopyWithImpl<$Res, $Val extends MyUser>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      bio: null == bio
+              as String?,
+      bio: freezed == bio
           ? _value.bio
           : bio // ignore: cast_nullable_to_non_nullable
-              as String,
-      phoneNumber: null == phoneNumber
+              as String?,
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      favoriteIds: null == favoriteIds
+              as String?,
+      favoriteIds: freezed == favoriteIds
           ? _value.favoriteIds
           : favoriteIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<int>?,
     ) as $Val);
   }
 }
@@ -120,11 +120,11 @@ abstract class _$$MyUserImplCopyWith<$Res> implements $MyUserCopyWith<$Res> {
       {String email,
       String password,
       String uid,
-      String createdAt,
-      String name,
-      String bio,
-      String phoneNumber,
-      List<int> favoriteIds});
+      String? createdAt,
+      String? name,
+      String? bio,
+      String? phoneNumber,
+      List<int>? favoriteIds});
 }
 
 /// @nodoc
@@ -141,11 +141,11 @@ class __$$MyUserImplCopyWithImpl<$Res>
     Object? email = null,
     Object? password = null,
     Object? uid = null,
-    Object? createdAt = null,
-    Object? name = null,
-    Object? bio = null,
-    Object? phoneNumber = null,
-    Object? favoriteIds = null,
+    Object? createdAt = freezed,
+    Object? name = freezed,
+    Object? bio = freezed,
+    Object? phoneNumber = freezed,
+    Object? favoriteIds = freezed,
   }) {
     return _then(_$MyUserImpl(
       email: null == email
@@ -160,26 +160,26 @@ class __$$MyUserImplCopyWithImpl<$Res>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      bio: null == bio
+              as String?,
+      bio: freezed == bio
           ? _value.bio
           : bio // ignore: cast_nullable_to_non_nullable
-              as String,
-      phoneNumber: null == phoneNumber
+              as String?,
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      favoriteIds: null == favoriteIds
+              as String?,
+      favoriteIds: freezed == favoriteIds
           ? _value._favoriteIds
           : favoriteIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<int>?,
     ));
   }
 }
@@ -187,15 +187,15 @@ class __$$MyUserImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MyUserImpl implements _MyUser {
-  _$MyUserImpl(
+  const _$MyUserImpl(
       {required this.email,
       required this.password,
       required this.uid,
-      required this.createdAt,
-      this.name = '',
-      this.bio = '',
-      this.phoneNumber = '',
-      final List<int> favoriteIds = const <int>[]})
+      this.createdAt,
+      this.name,
+      this.bio,
+      this.phoneNumber,
+      final List<int>? favoriteIds})
       : _favoriteIds = favoriteIds;
 
   factory _$MyUserImpl.fromJson(Map<String, dynamic> json) =>
@@ -208,23 +208,21 @@ class _$MyUserImpl implements _MyUser {
   @override
   final String uid;
   @override
-  final String createdAt;
+  final String? createdAt;
   @override
-  @JsonKey()
-  final String name;
+  final String? name;
   @override
-  @JsonKey()
-  final String bio;
+  final String? bio;
   @override
-  @JsonKey()
-  final String phoneNumber;
-  final List<int> _favoriteIds;
+  final String? phoneNumber;
+  final List<int>? _favoriteIds;
   @override
-  @JsonKey()
-  List<int> get favoriteIds {
+  List<int>? get favoriteIds {
+    final value = _favoriteIds;
+    if (value == null) return null;
     if (_favoriteIds is EqualUnmodifiableListView) return _favoriteIds;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_favoriteIds);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -279,15 +277,15 @@ class _$MyUserImpl implements _MyUser {
 }
 
 abstract class _MyUser implements MyUser {
-  factory _MyUser(
+  const factory _MyUser(
       {required final String email,
       required final String password,
       required final String uid,
-      required final String createdAt,
-      final String name,
-      final String bio,
-      final String phoneNumber,
-      final List<int> favoriteIds}) = _$MyUserImpl;
+      final String? createdAt,
+      final String? name,
+      final String? bio,
+      final String? phoneNumber,
+      final List<int>? favoriteIds}) = _$MyUserImpl;
 
   factory _MyUser.fromJson(Map<String, dynamic> json) = _$MyUserImpl.fromJson;
 
@@ -298,15 +296,15 @@ abstract class _MyUser implements MyUser {
   @override
   String get uid;
   @override
-  String get createdAt;
+  String? get createdAt;
   @override
-  String get name;
+  String? get name;
   @override
-  String get bio;
+  String? get bio;
   @override
-  String get phoneNumber;
+  String? get phoneNumber;
   @override
-  List<int> get favoriteIds;
+  List<int>? get favoriteIds;
   @override
   @JsonKey(ignore: true)
   _$$MyUserImplCopyWith<_$MyUserImpl> get copyWith =>

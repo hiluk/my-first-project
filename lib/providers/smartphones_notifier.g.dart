@@ -7,7 +7,7 @@ part of 'smartphones_notifier.dart';
 // **************************************************************************
 
 String _$smartphonesNotifierHash() =>
-    r'549b64c9af9ebeae9c5efecf99bee4f8884ee377';
+    r'b5f92c44f5d9b9bcb7341bbae77ba2ca894b5716';
 
 /// See also [SmartphonesNotifier].
 @ProviderFor(SmartphonesNotifier)

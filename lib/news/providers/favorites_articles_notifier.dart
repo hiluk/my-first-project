@@ -46,8 +46,8 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
     final user = auth.currentUser!;
     final userDataNotifier = ref.read(userDataProvider.notifier);
     final userData = ref.watch(userDataProvider).valueOrNull;
-    final List<int> favoriteIds = [...userData!.favoriteIds!];
-    if (favoriteIds.contains(id)) {
+    List<int>? favoriteIds = userData!.favoriteIds;
+    if (favoriteIds!.contains(id)) {
       favoriteIds.remove(id);
     } else {
       favoriteIds.add(id);

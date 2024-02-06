@@ -61,20 +61,17 @@ class UserProfileScreen extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ProfileField(
-                      labelText: userData.name ?? '',
                       label: 'Username',
                       isActive: isUpdateActive.value,
                       controller: userNameController,
                     ),
                     ProfileField(
-                      labelText: userData.email,
                       label: 'Email',
                       isActive: false,
                       controller: emailController,
                       validator: validator.validateEmail,
                     ),
                     ProfileField(
-                      labelText: userData.password,
                       label: 'Password',
                       isActive: false,
                       controller: passwordController,
@@ -82,7 +79,6 @@ class UserProfileScreen extends HookConsumerWidget {
                       obscure: true,
                     ),
                     ProfileField(
-                      labelText: userData.phoneNumber ?? '',
                       label: 'Phone number',
                       isActive: isUpdateActive.value,
                       controller: phoneNumberController,

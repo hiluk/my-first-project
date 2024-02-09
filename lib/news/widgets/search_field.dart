@@ -3,15 +3,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SearchField extends ConsumerWidget {
   final Future<void> Function(String callText) onSearchPressed;
-
+  final TextEditingController textController;
   const SearchField({
     super.key,
+    required this.textController,
     required this.onSearchPressed,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textController = TextEditingController();
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(

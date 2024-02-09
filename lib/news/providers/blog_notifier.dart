@@ -1,36 +1,35 @@
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:technical_dz/core/providers/http_client_provider.dart';
-import 'package:technical_dz/news/models/article.dart';
 import 'package:technical_dz/news/models/articles_request.dart';
+import 'package:technical_dz/news/models/blog.dart';
 
-part 'articles_notifier.g.dart';
+part 'blog_notifier.g.dart';
 
 @riverpod
-class ArticlesNotifier extends _$ArticlesNotifier {
+class BlogsNotifier extends _$BlogsNotifier {
   Dio get httpClient => ref.read(httpClientProvider);
 
   @override
-  FutureOr<List<Article>> build() async {
-    return fetchArticles();
+  FutureOr<List<Blog>> build() async {
+    return fetchBlogs();
   }
 
-  Future<List<Article>> fetchArticles([ArticlesRequest? request]) async {
+  Future<List<Blog>> fetchBlogs([ArticlesRequest? request]) async {
     final response = await httpClient.get(
-      'articles',
+      'blogs',
       queryParameters: request?.toJson(),
     );
     final data = response.data['results'] as List<dynamic>;
-    final articles = data.map((e) => Article.fromJson(e)).toList();
-    return articles;
+    final blogs = data.map((e) => Blog.fromJson(e)).toList();
+    return blogs;
   }
 
-  Future<void> fetchNextPage({String? searchFieldText}) async {
+  Future<void> fetchNextPage() async {
     if (state.value == null) return;
-    final response = await fetchArticles(
+    final response = await fetchBlogs(
       ArticlesRequest(
         offset: state.value!.length + 20,
-        titleContains: searchFieldText ?? '',
       ),
     );
     final list = state.value!;
@@ -40,13 +39,6 @@ class ArticlesNotifier extends _$ArticlesNotifier {
 
   Future<void> searchByParams({ArticlesRequest? request}) async {
     state = const AsyncValue.loading();
-    state = AsyncData(await fetchArticles(request));
+    state = AsyncData(await fetchBlogs(request));
   }
-
-  // void test() async {
-  //   final data1 = fetchArticles();
-  //   final data2 = fetchNextPage('123124');
-  //   final result1 = data1;
-  //   final result2 = data2;
-  // }
 }

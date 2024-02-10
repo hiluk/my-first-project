@@ -1,21 +1,15 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:json_annotation/json_annotation.dart';
-
-part 'blog.g.dart';
-
-@JsonSerializable()
 class Blog {
   final int id;
   final String title;
   final String url;
-  @JsonKey(name: 'image_url')
+
   final String imageUrl;
-  @JsonKey(name: 'news_site')
+
   final String newsSite;
   final String summary;
-  @JsonKey(name: 'published_at')
+
   final String publishedAt;
-  @JsonKey(name: 'updated_at')
+
   final String updatedAt;
   bool featured;
   Blog({
@@ -30,7 +24,14 @@ class Blog {
     required this.featured,
   });
 
-  factory Blog.fromJson(Map<String, dynamic> json) => _$BlogFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BlogToJson(this);
+  Blog.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int,
+        title = json['title'] as String,
+        url = json['url'] as String,
+        imageUrl = json['image_url'] as String,
+        newsSite = json['news_site'] as String,
+        summary = json['summary'] as String,
+        publishedAt = json['published_at'] as String,
+        updatedAt = json['updated_at'] as String,
+        featured = json['featured'] as bool;
 }

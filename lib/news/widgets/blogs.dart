@@ -23,41 +23,34 @@ class BlogsWidget extends HookConsumerWidget {
     }
 
     _scrollController.addListener(controllerListener);
-    return SizedBox(
-      height: 300,
-      // color: Colors.red,
-      child: ListView.separated(
-        controller: _scrollController,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 300,
-                    width: 300,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(30),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: CachedNetworkImageProvider(
-                          blogs[index].imageUrl,
-                          maxHeight: 500,
-                        ),
-                      ),
+    return SliverToBoxAdapter(
+      child: Container(
+        height: 300,
+        child: ListView.separated(
+          controller: _scrollController,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(30),
+                  image: DecorationImage(
+                    image: CachedNetworkImageProvider(
+                      blogs[index].imageUrl,
                     ),
+                    fit: BoxFit.cover,
                   ),
                 ),
-              )
-            ],
-          );
-        },
-        separatorBuilder: (context, index) => SizedBox(width: 10),
-        itemCount: blogs.length,
+                height: 10,
+                width: 300,
+              ),
+            );
+          },
+          separatorBuilder: (context, index) => SizedBox(width: 10),
+          itemCount: blogs.length,
+        ),
       ),
     );
   }

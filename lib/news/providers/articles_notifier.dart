@@ -29,7 +29,7 @@ class ArticlesNotifier extends _$ArticlesNotifier {
     if (state.value == null) return;
     final response = await fetchArticles(
       ArticlesRequest(
-        offset: state.value!.length + 20,
+        offset: state.value!.length,
         titleContains: searchFieldText ?? '',
       ),
     );

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SearchField extends ConsumerWidget {
-  final Future<void> Function(String callText) onSearchPressed;
+  // final Future<void> Function(String callText) onSearchPressed;
   final TextEditingController textController;
   const SearchField({
     super.key,
     required this.textController,
-    required this.onSearchPressed,
+    // required this.onSearchPressed,
   });
 
   @override
@@ -28,10 +28,10 @@ class SearchField extends ConsumerWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24),
           ),
-          suffixIcon: IconButton(
-            onPressed: () => onSearchPressed(textController.text),
-            icon: const Icon(Icons.search),
-          ),
+          // suffixIcon: IconButton(
+          //   // onPressed: () => onSearchPressed(textController.text),
+          //   icon: const Icon(Icons.search),
+          // ),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
           border: OutlineInputBorder(

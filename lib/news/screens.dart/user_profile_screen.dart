@@ -19,13 +19,20 @@ class UserProfileScreen extends HookConsumerWidget {
     String emptyProfirePic =
         'https://cdn.vectorstock.com/i/preview-1x/66/14/default-avatar-photo-placeholder-profile-picture-vector-21806614.jpg';
     FirebaseAuth auth = FirebaseAuth.instance;
-    final validator = Validator();
-    final user = auth.currentUser!;
-    final userId = user.uid;
-    final userDataNotifier = ref.read(userDataProvider.notifier);
     final userData = ref.watch(userDataProvider).valueOrNull;
+    if (userData == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text(''),
+        ),
+        body: const Center(
+          child: Text('User not found'),
+        ),
+      );
+    }
+    final validator = Validator();
     final TextEditingController emailController =
-        useTextEditingController(text: userData!.email);
+        useTextEditingController(text: userData.email);
     TextEditingController passwordController =
         useTextEditingController(text: userData.password);
     TextEditingController userNameController =
@@ -100,10 +107,6 @@ class UserProfileScreen extends HookConsumerWidget {
                             phoneNumber: phoneNumberController.text,
                           )
                           .toJson();
-                      userDataNotifier.updateDataToFirebase(
-                          data, 'users', userId);
-                      userDataNotifier.updateUserDataFromFirestore();
-                      isUpdateActive.value = false;
                     }
                   } else {
                     isUpdateActive.value = true;

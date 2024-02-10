@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:technical_dz/core/providers/http_client_provider.dart';
 import 'package:technical_dz/news/models/article.dart';
@@ -28,7 +27,7 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
 
   Future<List<Article>> fetchFavoriteArticles() async {
     final userData = ref.watch(userDataProvider).valueOrNull;
-    List<int>? ids = userData!.favoriteIds ?? [];
+    List<dynamic>? ids = userData!.favoriteIds ?? [];
     final datas = await Future.wait(
       ids.map(
         (id) => fetchDataById(id),
@@ -41,17 +40,13 @@ class FavoritesArticlesNotifier extends _$FavoritesArticlesNotifier {
   }
 
   void setFavorite(int id) async {
-    final auth = FirebaseAuth.instance;
-    final user = auth.currentUser!;
-    final userDataNotifier = ref.read(userDataProvider.notifier);
     final userData = ref.watch(userDataProvider).valueOrNull;
-    List<int>? favoriteIds = userData!.favoriteIds;
+    List<dynamic>? favoriteIds = userData!.favoriteIds;
     if (favoriteIds!.contains(id)) {
       favoriteIds.remove(id);
     } else {
       favoriteIds.add(id);
     }
     final data = userData.copyWith(favoriteIds: favoriteIds).toJson();
-    userDataNotifier.updateDataToFirebase(data, 'users', user.uid);
   }
 }

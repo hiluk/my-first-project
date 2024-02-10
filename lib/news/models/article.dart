@@ -1,24 +1,34 @@
-// ignore_for_file: invalid_annotation_target
+class Article {
+  final int id;
+  final String title;
+  final String url;
+  final String imageUrl;
+  final String newsSite;
+  final String summary;
+  final String publishedAt;
+  final String updatedAt;
+  bool featured;
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+  Article({
+    required this.id,
+    required this.title,
+    required this.url,
+    required this.imageUrl,
+    required this.newsSite,
+    required this.summary,
+    required this.publishedAt,
+    required this.updatedAt,
+    required this.featured,
+  });
 
-part 'article.freezed.dart';
-part 'article.g.dart';
-
-@freezed
-class Article with _$Article {
-  factory Article({
-    required int id,
-    required String title,
-    required String url,
-    @JsonKey(name: 'image_url') required String imageUrl,
-    @JsonKey(name: 'news_site') required String newsSite,
-    required String summary,
-    @JsonKey(name: 'published_at') required String publishedAt,
-    @JsonKey(name: 'updated_at') required String updatedAt,
-    required bool featured,
-  }) = _Article;
-
-  factory Article.fromJson(Map<String, dynamic> json) =>
-      _$ArticleFromJson(json);
+  Article.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int,
+        title = json['title'] as String,
+        url = json['url'] as String,
+        imageUrl = json['image_url'] as String,
+        newsSite = json['news_site'] as String,
+        summary = json['summary'] as String,
+        publishedAt = json['published_at'] as String,
+        updatedAt = json['updated_at'] as String,
+        featured = json['featured'] as bool;
 }

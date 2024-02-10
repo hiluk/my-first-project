@@ -1,19 +1,19 @@
-// ignore_for_file: invalid_annotation_target
+class ArticlesRequest {
+  final String newsSite;
+  final String titleContains;
+  final int limit;
+  final int offset;
+  ArticlesRequest({
+    this.newsSite = '',
+    this.titleContains = '',
+    this.limit = 20,
+    this.offset = 0,
+  });
 
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'articles_request.freezed.dart';
-part 'articles_request.g.dart';
-
-@freezed
-class ArticlesRequest with _$ArticlesRequest {
-  factory ArticlesRequest({
-    @JsonKey(name: 'news_site') @Default('') String newsSite,
-    @JsonKey(name: 'title_contains') @Default('') String titleContains,
-    @Default(20) int limit,
-    @Default(0) int offset,
-  }) = _ArticlesRequest;
-
-  factory ArticlesRequest.fromJson(Map<String, dynamic> json) =>
-      _$ArticlesRequestFromJson(json);
+  Map<String, dynamic> toJson() => {
+        'news_site': newsSite,
+        'title_contains': titleContains,
+        'limit': limit,
+        'offset': offset,
+      };
 }

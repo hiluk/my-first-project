@@ -40,18 +40,26 @@ class ArticleWidget extends ConsumerWidget {
                 onPressed: () {
                   favoriteArticlesNotifier.setFavorite(article.id);
                 },
-                icon: Icon(favoriteArticles!.contains(article)
+                icon: Icon(favoriteArticles != null &&
+                        favoriteArticles.contains(article)
                     ? Icons.bookmark_added
                     : Icons.bookmark_add),
               ),
             ),
             Container(
               constraints: const BoxConstraints(
+                minHeight: 300,
                 maxHeight: 300,
                 minWidth: double.infinity,
               ),
               padding: const EdgeInsets.all(8.0),
               child: CachedNetworkImage(
+                placeholder: (context, url) => const Padding(
+                  padding: EdgeInsets.all(200.0),
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) =>
+                    Image.asset('asset/placeholder.svg'),
                 memCacheHeight: 700,
                 memCacheWidth: 900,
                 key: UniqueKey(),

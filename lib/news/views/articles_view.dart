@@ -2,10 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:technical_dz/news/models/articles_request.dart';
+import 'package:technical_dz/news/models/article.dart';
 import 'package:technical_dz/news/models/blog.dart';
 import 'package:technical_dz/news/providers/articles_notifier.dart';
 import 'package:technical_dz/news/providers/blog_notifier.dart';
+import 'package:technical_dz/news/routers/router.dart';
 import 'package:technical_dz/news/widgets/article.dart';
 import 'package:technical_dz/news/widgets/blogs.dart';
 import 'package:technical_dz/news/widgets/search_field.dart';
@@ -21,7 +22,8 @@ class ArticlesView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final articlesNotifier = ref.read(articlesNotifierProvider.notifier);
-    final articles = ref.watch(articlesNotifierProvider).valueOrNull ?? [];
+    final List<Article> articles =
+        ref.watch(articlesNotifierProvider).valueOrNull ?? [];
     final List<Blog> blogs = ref.watch(blogsNotifierProvider).valueOrNull ?? [];
     final textController = useTextEditingController();
     void controllerListener() {
@@ -32,55 +34,37 @@ class ArticlesView extends HookConsumerWidget {
 
     _scrollController.addListener(controllerListener);
     return Scaffold(
-      body: SingleChildScrollView(
+      body: CustomScrollView(
         controller: _scrollController,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SearchField(
-              textController: textController,
-              onSearchPressed: (inputText) async {
-                articlesNotifier.searchByParams(
-                  request: ArticlesRequest(
-                      titleContains: ref
-                          .read(searchInputProvider.notifier)
-                          .update((state) => inputText)),
-                );
-              },
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Text(
-                'Blogs',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
+        slivers: [
+          SliverAppBar(
+            title: Text('SpaceFlight News'),
+            centerTitle: true,
+            pinned: true,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  AutoRouter.of(context).push(
+                    const UserProfileScreenRoute(),
+                  );
+                },
+                icon: const Icon(Icons.person),
+              ),
+            ],
+          ),
+          SliverToBoxAdapter(
+            child: SearchField(textController: textController),
+          ),
+          BlogsWidget(blogs: blogs),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              childCount: articles.length,
+              (context, index) => ArticleWidget(
+                article: articles[index],
               ),
             ),
-            BlogsWidget(blogs: blogs),
-            const Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Text(
-                'Articles',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            Column(
-              children: articles
-                  .map(
-                    (article) => ArticleWidget(
-                      article: article,
-                      request: textController.text,
-                    ),
-                  )
-                  .toList(),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

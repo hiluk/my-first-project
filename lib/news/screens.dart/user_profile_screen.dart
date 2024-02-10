@@ -19,14 +19,26 @@ class UserProfileScreen extends HookConsumerWidget {
     String emptyProfirePic =
         'https://cdn.vectorstock.com/i/preview-1x/66/14/default-avatar-photo-placeholder-profile-picture-vector-21806614.jpg';
     FirebaseAuth auth = FirebaseAuth.instance;
+    final userDataNotifier = ref.read(userDataProvider.notifier);
     final userData = ref.watch(userDataProvider).valueOrNull;
     if (userData == null) {
       return Scaffold(
         appBar: AppBar(
           title: const Text(''),
         ),
-        body: const Center(
-          child: Text('User not found'),
+        body: Column(
+          children: [
+            const Text('User not found'),
+            GestureDetector(
+              onTap: () {
+                auth.signOut();
+                AutoRouter.of(context).pushAndPopUntil(
+                  const SignInScreenRoute(),
+                  predicate: (_) => false,
+                );
+              },
+            ),
+          ],
         ),
       );
     }
@@ -99,14 +111,15 @@ class UserProfileScreen extends HookConsumerWidget {
                 onPressed: () {
                   if (isUpdateActive.value) {
                     if (formKey.currentState!.validate()) {
-                      final data = userData
-                          .copyWith(
-                            name: userNameController.text,
-                            email: emailController.text,
-                            password: passwordController.text,
-                            phoneNumber: phoneNumberController.text,
-                          )
-                          .toJson();
+                      userDataNotifier.setData(
+                        userData.copyWith(
+                          email: emailController.text,
+                          password: passwordController.text,
+                          name: userNameController.text,
+                          phoneNumber: phoneNumberController.text,
+                        ),
+                      );
+                      isUpdateActive.value = false;
                     }
                   } else {
                     isUpdateActive.value = true;

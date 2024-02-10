@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:technical_dz/news/models/article.dart';
 import 'package:technical_dz/news/providers/favorites_articles_notifier.dart';
+import 'package:technical_dz/news/providers/user_data_notifier.dart';
 import 'package:technical_dz/news/widgets/highlight_widget.dart';
 
 class ArticleWidget extends ConsumerWidget {
@@ -17,6 +18,8 @@ class ArticleWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteIds =
+        ref.watch(userDataProvider).valueOrNull!.favoriteIds ?? [];
     final favoriteArticlesNotifier =
         ref.read(favoritesArticlesNotifierProvider.notifier);
     final favoriteArticles =
@@ -40,10 +43,11 @@ class ArticleWidget extends ConsumerWidget {
                 onPressed: () {
                   favoriteArticlesNotifier.setFavorite(article.id);
                 },
-                icon: Icon(favoriteArticles != null &&
-                        favoriteArticles.contains(article)
-                    ? Icons.bookmark_added
-                    : Icons.bookmark_add),
+                icon: Icon(
+                  favoriteIds.contains(article.id)
+                      ? Icons.bookmark_added
+                      : Icons.bookmark_add,
+                ),
               ),
             ),
             Container(

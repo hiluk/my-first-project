@@ -24,4 +24,14 @@ class UserData extends _$UserData {
       print('No such document');
     }
   }
+
+  void setData(MyUser myUser) async {
+    final ref = db.collection('users').doc(auth.currentUser!.uid).withConverter(
+          fromFirestore: MyUser.fromFireStore,
+          toFirestore: (MyUser myUser, _) => myUser.toFirestore(),
+        );
+    ref.set(myUser);
+    final newUser = await ref.get();
+    state = AsyncData(newUser.data());
+  }
 }
